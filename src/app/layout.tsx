@@ -7,8 +7,11 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Admin Panel',
-  description: 'Content Management Admin Panel',
+  title: 'Codebaiz Admin',
+  description: 'Codebaiz Admin Panel',
+  icons: {
+    icon: '/logo.png'
+  }
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
