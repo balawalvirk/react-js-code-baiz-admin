@@ -1,0 +1,23 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Only authenticated users (admins) can read/write blogs and jobs
+    match /blogs/{blogId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+
+    match /jobs/{jobId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+
+    // Applicants: public can create (submit applications from your website),
+    // only authenticated admin can read/update/delete
+    match /applicants/{applicantId} {
+      allow create: if true;  // Public form submissions from your website
+      allow read, update, delete: if request.auth != null;
+    }
+  }
+}
