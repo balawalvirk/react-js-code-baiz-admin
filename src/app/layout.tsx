@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Codebaiz Admin',
-  description: 'Codebaiz Admin Panel',
+  description: 'Codebaiz Admin',
   icons: {
     icon: '/logo.png'
   }
