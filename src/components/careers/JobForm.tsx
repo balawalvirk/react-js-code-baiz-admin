@@ -92,7 +92,7 @@ export default function JobForm({ initialData }: JobFormProps) {
         </div>
 
         {/* Department + Location */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Department *</label>
             <input
@@ -116,7 +116,7 @@ export default function JobForm({ initialData }: JobFormProps) {
         </div>
 
         {/* Type + Status */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Job Type</label>
             <select

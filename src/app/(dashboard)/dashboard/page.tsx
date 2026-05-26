@@ -60,7 +60,7 @@ export default function DashboardPage() {
           <h2 className="text-sm font-medium text-gray-500 uppercase tracking-wide">Blogs</h2>
           <Link href="/blogs" className="text-sm text-primary-600 hover:underline">View all →</Link>
         </div>
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           <StatCard label="Total Blogs" value={stats?.totalBlogs ?? 0} icon={<BookOpen size={18} className="text-primary-500" />} />
           <StatCard label="Active" value={stats?.activeBlogs ?? 0} icon={<Eye size={18} className="text-green-500" />} />
           <StatCard label="Inactive" value={stats?.inactiveBlogs ?? 0} icon={<EyeOff size={18} className="text-gray-400" />} />
@@ -73,7 +73,7 @@ export default function DashboardPage() {
           <h2 className="text-sm font-medium text-gray-500 uppercase tracking-wide">Careers</h2>
           <Link href="/careers" className="text-sm text-primary-600 hover:underline">View all →</Link>
         </div>
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           <StatCard label="Total Positions" value={stats?.totalJobs ?? 0} icon={<Briefcase size={18} className="text-primary-500" />} />
           <StatCard label="Open" value={stats?.openJobs ?? 0} icon={<CheckCircle size={18} className="text-green-500" />} />
           <StatCard label="Closed" value={stats?.closedJobs ?? 0} icon={<XCircle size={18} className="text-red-400" />} />
@@ -83,7 +83,7 @@ export default function DashboardPage() {
       {/* Quick Links */}
       <div className="mt-8 border-t border-gray-200 pt-6">
         <h2 className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-3">Quick Actions</h2>
-        <div className="flex gap-3">
+        <div className="flex flex-wrap gap-3">
           <Link
             href="/blogs/new"
             className="inline-flex items-center gap-2 bg-primary-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-primary-700 transition-colors"

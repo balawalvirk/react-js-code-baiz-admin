@@ -146,7 +146,7 @@ export default function BlogForm({ initialData }: BlogFormProps) {
             type="text"
             value={form.title}
             onChange={(e) => handleChange('title', e.target.value)}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#FC5B15]"
+            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
             placeholder="Blog post title"
           />
         </div>
@@ -158,7 +158,7 @@ export default function BlogForm({ initialData }: BlogFormProps) {
             type="text"
             value={form.slug}
             onChange={(e) => handleChange('slug', e.target.value)}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#FC5B15]"
+            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
             placeholder="blog-post-slug"
           />
           <p className="text-xs text-gray-400 mt-1">Used in the URL on your website</p>
@@ -171,7 +171,7 @@ export default function BlogForm({ initialData }: BlogFormProps) {
             value={form.excerpt}
             onChange={(e) => handleChange('excerpt', e.target.value)}
             rows={2}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#FC5B15] resize-none"
+            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
             placeholder="Short description shown in blog listing..."
           />
         </div>
@@ -218,18 +218,18 @@ export default function BlogForm({ initialData }: BlogFormProps) {
               onClick={() => fileInputRef.current?.click()}
               className={`relative flex flex-col items-center justify-center gap-2 w-full rounded-md border-2 border-dashed cursor-pointer transition-colors ${
                 dragOver
-                  ? 'border-[#FC5B15] bg-[#fff3ee]'
-                  : 'border-gray-300 bg-gray-50 hover:border-[#FC5B15] hover:bg-[#fff3ee]'
+                  ? 'border-primary-500 bg-primary-50'
+                  : 'border-gray-300 bg-gray-50 hover:border-primary-500 hover:bg-primary-50'
               }`}
               style={{ height: 160 }}
             >
               {uploadProgress !== null ? (
                 <>
-                  <Loader2 size={24} className="text-[#FC5B15] animate-spin" />
+                  <Loader2 size={24} className="text-primary-500 animate-spin" />
                   <p className="text-sm text-gray-600">Uploading… {uploadProgress}%</p>
                   <div className="w-40 h-1.5 bg-gray-200 rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-[#FC5B15] transition-all duration-200"
+                      className="h-full bg-primary-500 transition-all duration-200"
                       style={{ width: `${uploadProgress}%` }}
                     />
                   </div>
@@ -238,7 +238,7 @@ export default function BlogForm({ initialData }: BlogFormProps) {
                 <>
                   <UploadCloud size={28} className="text-gray-400" />
                   <p className="text-sm text-gray-600">
-                    <span className="font-medium text-[#FC5B15]">Click to upload</span> or drag & drop
+                    <span className="font-medium text-primary-500">Click to upload</span> or drag & drop
                   </p>
                   <p className="text-xs text-gray-400">JPG, PNG, WebP, GIF — max 5MB</p>
                 </>
@@ -268,14 +268,14 @@ export default function BlogForm({ initialData }: BlogFormProps) {
         </div>
 
         {/* Author + Status */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Author *</label>
             <input
               type="text"
               value={form.author}
               onChange={(e) => handleChange('author', e.target.value)}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#FC5B15]"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
               placeholder="Author name"
             />
           </div>
@@ -284,7 +284,7 @@ export default function BlogForm({ initialData }: BlogFormProps) {
             <select
               value={form.status}
               onChange={(e) => setForm((prev) => ({ ...prev, status: e.target.value as 'active' | 'inactive' }))}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#FC5B15] bg-white"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white"
             >
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
@@ -301,7 +301,7 @@ export default function BlogForm({ initialData }: BlogFormProps) {
               value={tagInput}
               onChange={(e) => setTagInput(e.target.value)}
               onKeyDown={handleTagKeyDown}
-              className="flex-1 border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#FC5B15]"
+              className="flex-1 border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
               placeholder="Type tag and press Enter"
             />
             <button
@@ -317,13 +317,13 @@ export default function BlogForm({ initialData }: BlogFormProps) {
               {form.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-flex items-center gap-1 bg-[#fff3ee] text-[#e54e0e] px-2 py-0.5 rounded text-xs"
+                  className="inline-flex items-center gap-1 bg-primary-50 text-primary-600 px-2 py-0.5 rounded text-xs"
                 >
                   {tag}
                   <button
                     type="button"
                     onClick={() => removeTag(tag)}
-                    className="hover:text-[#c4420c]"
+                    className="hover:text-primary-700"
                   >
                     <X size={10} />
                   </button>
@@ -338,7 +338,7 @@ export default function BlogForm({ initialData }: BlogFormProps) {
           <button
             type="submit"
             disabled={saving || uploadProgress !== null}
-            className="bg-primary-600 text-white px-5 py-2 rounded-md text-sm font-medium hover:bg-[#e54e0e] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="bg-primary-600 text-white px-5 py-2 rounded-md text-sm font-medium hover:bg-primary-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             {saving ? 'Saving...' : isEdit ? 'Update Blog' : 'Publish Blog'}
           </button>
