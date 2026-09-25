@@ -5,6 +5,7 @@ interface BadgeProps {
 const statusStyles: Record<string, string> = {
   active: 'bg-green-100 text-green-700',
   inactive: 'bg-gray-100 text-gray-600',
+  draft: 'bg-amber-100 text-amber-800',
   open: 'bg-green-100 text-green-700',
   closed: 'bg-red-100 text-red-600',
   new: 'bg-primary-100 text-primary-700',
@@ -16,6 +17,7 @@ const statusStyles: Record<string, string> = {
 const statusLabels: Record<string, string> = {
   active: 'Active',
   inactive: 'Inactive',
+  draft: 'Draft',
   open: 'Open',
   closed: 'Closed',
   new: 'New',

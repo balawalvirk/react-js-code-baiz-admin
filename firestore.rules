@@ -1,22 +1,29 @@
 rules_version = '2';
+
+// =============================================================================
+// Code Baiz — SINGLE source of truth for Firestore
+// Used by: public website (react-js-code-baiz-landing) + admin panel
+// Deploy ONCE from react-js-code-baiz-admin:  firebase deploy --only firestore:rules
+// Do NOT maintain a second copy in the landing repo.
+// =============================================================================
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Only authenticated users (admins) can read/write blogs and jobs
+    // Blogs: website reads publicly; only signed-in admins create/update/delete
     match /blogs/{blogId} {
-      allow read: if request.auth != null;
+      allow read: if true;
       allow write: if request.auth != null;
     }
 
+    // Jobs: website lists open roles; only admins manage
     match /jobs/{jobId} {
-      allow read: if request.auth != null;
+      allow read: if true;
       allow write: if request.auth != null;
     }
 
-    // Applicants: public can create (submit applications from your website),
-    // only authenticated admin can read/update/delete
+    // Applicants: website form can create; only admins read/update/delete
     match /applicants/{applicantId} {
-      allow create: if true;  // Public form submissions from your website
+      allow create: if true;
       allow read, update, delete: if request.auth != null;
     }
   }

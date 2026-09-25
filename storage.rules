@@ -1,0 +1,42 @@
+rules_version = '2';
+
+// =============================================================================
+// Code Baiz — SINGLE source of truth for Storage
+// Used by: public website (resumes) + admin panel (blog images)
+// Deploy ONCE from react-js-code-baiz-admin:  firebase deploy --only storage
+// Do NOT maintain a second copy in the landing repo or parent folders.
+// =============================================================================
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Cover images (admin upload) — public read for website
+    match /blog-covers/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null
+        && request.resource.size < 5 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+
+    // Inline blog content images (admin editor) — public read for website
+    match /blog-content/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null
+        && request.resource.size < 5 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+
+    // Career applications (public website uploads resumes)
+    match /resumes/{allPaths=**} {
+      allow read: if request.auth != null; // admins download resumes
+      allow write: if request.resource.size < 10 * 1024 * 1024
+        && (
+          request.resource.contentType.matches('application/pdf')
+          || request.resource.contentType.matches('application/msword')
+          || request.resource.contentType.matches('application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+          || request.resource.contentType.matches('image/.*')
+        );
+    }
+
+    // Deny everything else by default (no open write-all)
+  }
+}

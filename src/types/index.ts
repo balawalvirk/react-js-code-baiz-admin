@@ -1,17 +1,29 @@
 import { Timestamp } from 'firebase/firestore';
 
 // ─── Blog Types ────────────────────────────────────────────────
-export type BlogStatus = 'active' | 'inactive';
+/** active = live on site; draft = work in progress; inactive = unpublished */
+export type BlogStatus = 'active' | 'inactive' | 'draft';
 
 export interface Blog {
   id: string;
   title: string;
   slug: string;
   excerpt: string;
-  content: string;         // HTML from rich text editor
-  coverImage: string;      // URL (Firebase Storage or external)
-  author: string;
+  /** SEO meta description (maps to <meta name="description"> / og:description) */
+  metaDescription: string;
+  /** Primary focus keyword for SEO */
+  primaryKeyword: string;
+  /** Secondary SEO keywords */
+  secondaryKeywords: string[];
+  /** Primary content tag (single) */
+  primaryTag: string;
+  /** Secondary tags (was previously just "tags") */
   tags: string[];
+  content: string; // HTML from rich text editor
+  coverImage: string;
+  /** Accessible alt text for cover image */
+  coverImageAlt: string;
+  author: string;
   status: BlogStatus;
   createdAt: Timestamp;
   updatedAt: Timestamp;
@@ -29,8 +41,8 @@ export interface Job {
   department: string;
   location: string;
   type: JobType;
-  description: string;     // HTML from rich text editor
-  requirements: string;    // HTML from rich text editor
+  description: string;
+  requirements: string;
   status: JobStatus;
   applicantCount: number;
   createdAt: Timestamp;

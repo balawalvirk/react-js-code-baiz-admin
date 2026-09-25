@@ -51,6 +51,7 @@ export async function deleteBlog(id: string): Promise<void> {
 }
 
 export async function toggleBlogStatus(id: string, currentStatus: string): Promise<void> {
+  // draft/inactive → active; active → inactive
   const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
   const ref = doc(db, BLOGS_COLLECTION, id);
   await updateDoc(ref, { status: newStatus, updatedAt: serverTimestamp() });

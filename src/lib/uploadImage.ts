@@ -14,13 +14,19 @@ export function validateImageFile(file: File): string | null {
   return null;
 }
 
-export function uploadCoverImage(
+function uploadToPath(
   file: File,
+  folder: string,
   onProgress: (percent: number) => void
 ): Promise<string> {
   return new Promise((resolve, reject) => {
-    const ext = file.name.split('.').pop();
-    const filename = `blog-covers/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+    if (!storage) {
+      reject(new Error('Firebase Storage is not configured. Check NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET.'));
+      return;
+    }
+
+    const ext = file.name.split('.').pop() || 'jpg';
+    const filename = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
     const storageRef = ref(storage, filename);
     const task = uploadBytesResumable(storageRef, file, { contentType: file.type });
 
@@ -30,13 +36,33 @@ export function uploadCoverImage(
         const pct = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
         onProgress(pct);
       },
-      (err) => reject(err),
+      (err) => {
+        const message =
+          err?.code === 'storage/unauthorized'
+            ? 'Upload blocked by Storage rules. Deploy storage.rules and ensure you are logged in.'
+            : err?.message || 'Upload failed';
+        reject(new Error(message));
+      },
       async () => {
         const url = await getDownloadURL(task.snapshot.ref);
         resolve(url);
       }
     );
   });
+}
+
+export function uploadCoverImage(
+  file: File,
+  onProgress: (percent: number) => void
+): Promise<string> {
+  return uploadToPath(file, 'blog-covers', onProgress);
+}
+
+export function uploadContentImage(
+  file: File,
+  onProgress: (percent: number) => void = () => {}
+): Promise<string> {
+  return uploadToPath(file, 'blog-content', onProgress);
 }
 
 export async function deleteImageByUrl(url: string): Promise<void> {

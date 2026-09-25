@@ -51,9 +51,13 @@ export default function BlogsPage() {
     try {
       await toggleBlogStatus(blog.id, blog.status);
       setBlogs((prev) =>
-        prev.map((b) => b.id === blog.id ? { ...b, status: b.status === 'active' ? 'inactive' : 'active' } : b)
+        prev.map((b) =>
+          b.id === blog.id
+            ? { ...b, status: b.status === 'active' ? 'inactive' : 'active' }
+            : b
+        )
       );
-      toast.success(`Blog ${blog.status === 'active' ? 'deactivated' : 'activated'}`);
+      toast.success(blog.status === 'active' ? 'Blog deactivated' : 'Blog activated');
     } catch {
       toast.error('Failed to update status');
     } finally {
@@ -114,7 +118,12 @@ export default function BlogsPage() {
                     <td className="px-4 py-3 text-gray-600">{blog.author}</td>
                     <td className="px-4 py-3">
                       <div className="flex flex-wrap gap-1">
-                        {(blog.tags || []).slice(0, 3).map((tag) => (
+                        {blog.primaryTag && (
+                          <span className="bg-primary-50 text-primary-700 px-1.5 py-0.5 rounded text-xs font-medium">
+                            {blog.primaryTag}
+                          </span>
+                        )}
+                        {(blog.tags || []).slice(0, 2).map((tag) => (
                           <span key={tag} className="bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded text-xs">{tag}</span>
                         ))}
                       </div>

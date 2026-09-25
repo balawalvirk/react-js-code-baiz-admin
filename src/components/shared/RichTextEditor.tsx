@@ -3,12 +3,15 @@
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Link from '@tiptap/extension-link';
+import Image from '@tiptap/extension-image';
 import Placeholder from '@tiptap/extension-placeholder';
 import {
   Bold, Italic, List, ListOrdered, Link as LinkIcon,
-  Heading2, Heading3, Quote, Undo, Redo, Minus
+  Heading1, Heading2, Heading3, Quote, Undo, Redo, Minus, ImageIcon,
 } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { uploadContentImage, validateImageFile } from '@/lib/uploadImage';
+import toast from 'react-hot-toast';
 
 interface RichTextEditorProps {
   value: string;
@@ -17,10 +20,20 @@ interface RichTextEditorProps {
 }
 
 export default function RichTextEditor({ value, onChange, placeholder }: RichTextEditorProps) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        heading: { levels: [1, 2, 3] },
+      }),
       Link.configure({ openOnClick: false }),
+      Image.configure({
+        allowBase64: false,
+        HTMLAttributes: {
+          class: 'rounded-lg max-w-full h-auto',
+        },
+      }),
       Placeholder.configure({ placeholder: placeholder || 'Start writing...' }),
     ],
     content: value,
@@ -46,6 +59,41 @@ export default function RichTextEditor({ value, onChange, placeholder }: RichTex
     if (url && editor) {
       editor.chain().focus().setLink({ href: url }).run();
     }
+  };
+
+  const insertImageWithAlt = async (file: File) => {
+    if (!editor) return;
+    const error = validateImageFile(file);
+    if (error) {
+      toast.error(error);
+      return;
+    }
+
+    const alt =
+      window.prompt(
+        'Alt text for this image (required for accessibility & SEO):\nDescribe what the image shows.',
+        file.name.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ')
+      )?.trim() || '';
+
+    if (!alt) {
+      toast.error('Alt text is required for images');
+      return;
+    }
+
+    const toastId = toast.loading('Uploading image…');
+    try {
+      const url = await uploadContentImage(file);
+      editor.chain().focus().setImage({ src: url, alt }).run();
+      toast.success('Image inserted', { id: toastId });
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Image upload failed', { id: toastId });
+    }
+  };
+
+  const handleImageFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) insertImageWithAlt(file);
+    e.target.value = '';
   };
 
   if (!editor) return null;
@@ -77,7 +125,6 @@ export default function RichTextEditor({ value, onChange, placeholder }: RichTex
 
   return (
     <div className="border border-gray-300 rounded-md overflow-hidden bg-white">
-      {/* Toolbar */}
       <div className="flex flex-wrap items-center gap-0.5 px-2 py-1.5 border-b border-gray-200 bg-gray-50">
         <ToolbarButton
           onClick={() => editor.chain().focus().toggleBold().run()}
@@ -94,6 +141,13 @@ export default function RichTextEditor({ value, onChange, placeholder }: RichTex
           <Italic size={14} />
         </ToolbarButton>
         <div className="w-px h-4 bg-gray-300 mx-1" />
+        <ToolbarButton
+          onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+          active={editor.isActive('heading', { level: 1 })}
+          title="Heading 1"
+        >
+          <Heading1 size={14} />
+        </ToolbarButton>
         <ToolbarButton
           onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
           active={editor.isActive('heading', { level: 2 })}
@@ -137,29 +191,32 @@ export default function RichTextEditor({ value, onChange, placeholder }: RichTex
           <Minus size={14} />
         </ToolbarButton>
         <div className="w-px h-4 bg-gray-300 mx-1" />
-        <ToolbarButton
-          onClick={addLink}
-          active={editor.isActive('link')}
-          title="Add Link"
-        >
+        <ToolbarButton onClick={addLink} active={editor.isActive('link')} title="Add Link">
           <LinkIcon size={14} />
         </ToolbarButton>
-        <div className="w-px h-4 bg-gray-300 mx-1" />
         <ToolbarButton
-          onClick={() => editor.chain().focus().undo().run()}
-          title="Undo"
+          onClick={() => fileInputRef.current?.click()}
+          title="Insert image (with alt text)"
         >
+          <ImageIcon size={14} />
+        </ToolbarButton>
+        <div className="w-px h-4 bg-gray-300 mx-1" />
+        <ToolbarButton onClick={() => editor.chain().focus().undo().run()} title="Undo">
           <Undo size={14} />
         </ToolbarButton>
-        <ToolbarButton
-          onClick={() => editor.chain().focus().redo().run()}
-          title="Redo"
-        >
+        <ToolbarButton onClick={() => editor.chain().focus().redo().run()} title="Redo">
           <Redo size={14} />
         </ToolbarButton>
       </div>
 
-      {/* Editor content */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/jpeg,image/png,image/webp,image/gif"
+        onChange={handleImageFile}
+        className="hidden"
+      />
+
       <EditorContent editor={editor} />
     </div>
   );

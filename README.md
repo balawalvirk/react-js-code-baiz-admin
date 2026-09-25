@@ -70,14 +70,21 @@ cp .env.example .env.local
 
 Fill in your Firebase config values in `.env.local`.
 
-### 5. Set up Firestore rules
+### 5. Deploy Firebase rules (single source for admin + website)
 
-Copy the contents of `firestore.rules` to your Firebase Console:
-- Firestore → Rules → Paste and publish
+**Do not keep separate rules in the landing repo.** Both apps share one Firebase project; rules live only here:
 
-Or deploy with Firebase CLI:
+- `firestore.rules` — blogs / jobs / applicants (public read where needed, admin write)
+- `storage.rules` — blog images (admin) + resumes (website apply form)
+
 ```bash
-firebase deploy --only firestore:rules
+firebase deploy --only firestore:rules,storage
+```
+
+Or deploy everything configured in `firebase.json`:
+
+```bash
+firebase deploy --only firestore,storage
 ```
 
 ### 6. Create Firestore indexes
