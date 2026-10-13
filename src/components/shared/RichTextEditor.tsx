@@ -3,15 +3,16 @@
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Link from '@tiptap/extension-link';
-import Image from '@tiptap/extension-image';
 import Placeholder from '@tiptap/extension-placeholder';
 import {
   Bold, Italic, List, ListOrdered, Link as LinkIcon,
   Heading1, Heading2, Heading3, Quote, Undo, Redo, Minus, ImageIcon,
 } from 'lucide-react';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { uploadContentImage, validateImageFile } from '@/lib/uploadImage';
 import toast from 'react-hot-toast';
+import { ResizableImage } from './ResizableImage';
+import ImageCropModal from './ImageCropModal';
 
 interface RichTextEditorProps {
   value: string;
@@ -21,6 +22,7 @@ interface RichTextEditorProps {
 
 export default function RichTextEditor({ value, onChange, placeholder }: RichTextEditorProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [cropFile, setCropFile] = useState<File | null>(null);
 
   const editor = useEditor({
     extensions: [
@@ -28,7 +30,7 @@ export default function RichTextEditor({ value, onChange, placeholder }: RichTex
         heading: { levels: [1, 2, 3] },
       }),
       Link.configure({ openOnClick: false }),
-      Image.configure({
+      ResizableImage.configure({
         allowBase64: false,
         HTMLAttributes: {
           class: 'rounded-lg max-w-full h-auto',
@@ -83,8 +85,8 @@ export default function RichTextEditor({ value, onChange, placeholder }: RichTex
     const toastId = toast.loading('Uploading image…');
     try {
       const url = await uploadContentImage(file);
-      editor.chain().focus().setImage({ src: url, alt }).run();
-      toast.success('Image inserted', { id: toastId });
+      editor.chain().focus().setImage({ src: url, alt, width: '100%' } as never).run();
+      toast.success('Image inserted — click it to resize (S/M/L/Full or drag corner)', { id: toastId });
     } catch (err) {
       toast.error(err instanceof Error ? err.message : 'Image upload failed', { id: toastId });
     }
@@ -92,7 +94,14 @@ export default function RichTextEditor({ value, onChange, placeholder }: RichTex
 
   const handleImageFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) insertImageWithAlt(file);
+    if (file) {
+      const error = validateImageFile(file);
+      if (error) {
+        toast.error(error);
+      } else {
+        setCropFile(file);
+      }
+    }
     e.target.value = '';
   };
 
@@ -196,7 +205,7 @@ export default function RichTextEditor({ value, onChange, placeholder }: RichTex
         </ToolbarButton>
         <ToolbarButton
           onClick={() => fileInputRef.current?.click()}
-          title="Insert image (with alt text)"
+          title="Insert image (crop + resize)"
         >
           <ImageIcon size={14} />
         </ToolbarButton>
@@ -218,6 +227,17 @@ export default function RichTextEditor({ value, onChange, placeholder }: RichTex
       />
 
       <EditorContent editor={editor} />
+
+      {cropFile && (
+        <ImageCropModal
+          file={cropFile}
+          onCancel={() => setCropFile(null)}
+          onConfirm={(file) => {
+            setCropFile(null);
+            void insertImageWithAlt(file);
+          }}
+        />
+      )}
     </div>
   );
 }
