@@ -219,11 +219,13 @@ export default function RichTextEditor({ value, onChange, placeholder }: RichTex
       </div>
 
       <input
+        id="editor-image-input"
         ref={fileInputRef}
         type="file"
         accept="image/jpeg,image/png,image/webp,image/gif"
         onChange={handleImageFile}
-        className="hidden"
+        className="sr-only"
+        aria-label="Insert image"
       />
 
       <EditorContent editor={editor} />
