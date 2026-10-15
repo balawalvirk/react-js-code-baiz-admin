@@ -430,14 +430,14 @@ export default function BlogForm({ initialData }: BlogFormProps) {
               </button>
             </div>
           ) : (
-            <div
+            <label
+              htmlFor="blog-cover-image-input"
               onDragOver={(e) => {
                 e.preventDefault();
                 setDragOver(true);
               }}
               onDragLeave={() => setDragOver(false)}
               onDrop={handleDrop}
-              onClick={() => fileInputRef.current?.click()}
               className={`relative flex flex-col items-center justify-center gap-2 w-full rounded-md border-2 border-dashed cursor-pointer transition-colors ${
                 dragOver
                   ? 'border-primary-500 bg-primary-50'
@@ -466,15 +466,17 @@ export default function BlogForm({ initialData }: BlogFormProps) {
                   <p className="text-xs text-gray-400">JPG, PNG, WebP, GIF — max 5MB</p>
                 </>
               )}
-            </div>
+            </label>
           )}
 
           <input
+            id="blog-cover-image-input"
             ref={fileInputRef}
             type="file"
             accept="image/jpeg,image/png,image/webp,image/gif"
             onChange={handleFileInput}
-            className="hidden"
+            className="sr-only"
+            aria-label="Upload cover image"
           />
 
           {form.coverImage && (
