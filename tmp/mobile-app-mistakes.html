@@ -1,0 +1,127 @@
+<!doctype html><html><head><meta charset='utf-8'><title>article</title></head><body>
+<p>TL;DR: Almost every app we are asked to fix makes the same two mistakes. First, the team ships on designer hunches instead of measuring what users actually do, so nobody can explain why signups or upgrades stall. Second, the app has no over-the-air update support, so every fix waits on a store review that can take a day or two. Fix both and your release loop becomes: measure, learn, ship, repeat.</p>
+<p></p>
+<h2>A familiar scene</h2>
+<p></p>
+<p>Your app is live. Downloads look fine. Ratings are decent. But signups stall, upgrades stall, and when you ask your team why, you get shrugs and opinions. Someone thinks the button colour is wrong. Someone else blames the onboarding copy. Nobody has numbers.</p>
+<p></p>
+<p>Then you find a real bug, something small and embarrassing, and you realise the fix will sit in a store review queue for 24 to 48 hours before it reaches a single user. A Friday-night bug means your users suffer until midweek.</p>
+<p></p>
+<p>We inherit apps in this state constantly. Behind them we almost always find the same two mobile app mistakes. They are cheap to fix, they change how fast a team learns, and almost nobody plans for them in version one.</p>
+<p></p>
+<h2>Mistake #1: Shipping on hunches instead of evidence</h2>
+<p></p>
+<h3>What this looks like</h3>
+<p></p>
+<p>A designer mocks up a screen. The founder likes it. The team builds it and ships it. The copy on the upgrade screen says whatever sounded good in the meeting. The call-to-action button sits wherever it fit the layout. Nobody runs a test, because nobody set up the tools to run one.</p>
+<p></p>
+<p>A month later the perks page gets almost no opens, the upgrade button gets clicks but no conversions, and every discussion about what to change is a debate between opinions. The loudest voice wins. That is not product development. That is guessing with a salary.</p>
+<p></p>
+<h3>Why it costs you</h3>
+<p></p>
+<p>Every release becomes a coin flip. You can ship ten versions of a screen and still not know whether the new headline beat the old one, because you measured nothing. Worse, hunches tend to protect the status quo. The team keeps defending the original design instead of finding out what users actually respond to.</p>
+<p></p>
+<p>This is the number one app conversion rate optimization mistake we see. Conversion rate optimization is just a formal name for a simple habit: measure what users do, change one thing, measure again. Without the measurement step, there is no optimization. There is only taste.</p>
+<p></p>
+<h3>The fix: build the measurement loop</h3>
+<p></p>
+<p>Fixing this is not a research project. It is a short setup pass followed by a habit. Here is the loop we install on every app we build or rescue:</p>
+<p></p>
+<ol>
+<li><strong>Instrument the app with analytics.</strong> Integrate a product analytics tool such as Amplitude, Mixpanel, or PostHog. If you want to watch real behaviour, add session recording too. You cannot improve what you cannot see.</li>
+</ol>
+<p></p>
+<ol>
+<li><strong>Define the events that matter.</strong> Track the handful of events that describe your money flow: button clicks, option changes on the plan picker, perks page opens, checkout starts, checkout completions. Five to ten events beat fifty vague ones.</li>
+</ol>
+<p></p>
+<ol>
+<li><strong>Measure the conversion rate of the key flow.</strong> Pick the flow that pays you, usually signup to paid upgrade, and measure the share of users who complete it. This number is your baseline. Write it down. Everything you change is judged against it.</li>
+</ol>
+<p></p>
+<ol>
+<li><strong>Run A/B tests instead of debates.</strong> Change one thing at a time: the headline copy, the button placement, the colours, the order of the plan options. Ship both versions to different user groups and let the numbers pick the winner. Arguments end when data arrives.</li>
+</ol>
+<p></p>
+<ol>
+<li><strong>Iterate until the flow is optimal.</strong> Then pick the next flow and start over. Improvement becomes a routine instead of a rescue mission.</li>
+</ol>
+<p></p>
+<blockquote><p>Designers are not fortune tellers. No one in your team, however talented, can predict how ten thousand strangers will react to a screen. The job of a good design is not to be right on the first guess. It is to make the second guess smarter than the first. That only happens when you measure.</p></blockquote>
+<p></p>
+<p>One caution: test one variable at a time. Teams that change the copy, the colours, and the layout in the same release learn nothing, because they cannot tell which change moved the number. Discipline here is the difference between a testing programme and theatre.</p>
+<p></p>
+<h2>Mistake #2: No over-the-air (OTA) update support</h2>
+<p></p>
+<h3>What this looks like</h3>
+<p></p>
+<p>Every change your team makes, no matter how small, goes through the same slow pipeline: build a new release, submit it to the App Store and Google Play, and wait. Apple&#x27;s review alone typically takes 24 to 48 hours, and that is the good case. A rejected build restarts the clock.</p>
+<p></p>
+<p>So a typo in your upgrade copy waits two days. A crash that affects ten percent of sessions waits two days. A pricing experiment waits two days, and then waits another two days when you revert it. Your shipping speed is capped by someone else&#x27;s queue.</p>
+<p></p>
+<p>Most founders accept this as the cost of doing business. It is not. It is a missing piece of infrastructure.</p>
+<p></p>
+<h3>The fix: ship updates without store review</h3>
+<p></p>
+<p>Over-the-air updates let you push JavaScript and asset changes to your users instantly, without a store submission and without a review. For apps built with React Native and Expo, this is handled by EAS Update and expo-updates. You make the change, publish it to your update channel, and users get it the next time they open the app.</p>
+<p></p>
+<p>What OTA covers:</p>
+<p></p>
+<ul>
+<li>Copy changes, new headlines, new pricing text.</li>
+<li>Styling changes: colours, spacing, layout tweaks.</li>
+<li>Most JavaScript logic: bug fixes, new screens, changed flows.</li>
+<li>Image and asset swaps.</li>
+</ul>
+<p></p>
+<p>What still needs a store build:</p>
+<p></p>
+<ul>
+<li>Anything that touches native code: new native modules, changed permissions, new push notification entitlements.</li>
+<li>Changes to the app&#x27;s native configuration.</li>
+</ul>
+<p></p>
+<p>In practice, the vast majority of day-to-day changes are JavaScript and assets. That means the vast majority of your fixes and experiments can ship in minutes instead of days.</p>
+<p></p>
+<p>Adding OTA support to an existing app is a focused engineering task: wire expo-updates into the build, set up release channels (for example staging and production), and define a rollout policy so updates reach users safely. For a team that knows the stack, it is measured in days, not months. Every day you postpone it is another day your Friday-night bug waits for Monday-morning review.</p>
+<p></p>
+<blockquote><p>The teams that improve fastest are not the teams with the best ideas. They are the teams with the shortest loop between idea and user. OTA updates are the cheapest way to shorten that loop that exists in mobile development.</p></blockquote>
+<p></p>
+<h3>What the two fixes look like together</h3>
+<p></p>
+<p>Here is the routine these two fixes create:</p>
+<p></p>
+<ul>
+<li>You notice the upgrade screen converts poorly. (Analytics shows it. That is mistake #1 fixed.)</li>
+<li>You write three new headline variants and test them against the original. (A/B testing, same fix.)</li>
+<li>The winner ships to every user the same afternoon. (OTA, mistake #2 fixed.)</li>
+<li>You measure the new baseline and move to the next screen.</li>
+</ul>
+<p></p>
+<p>Before the fixes, that same cycle took three weeks and four opinions. After the fixes, it takes a day and one set of numbers.</p>
+<p></p>
+<h2>Mobile app mistakes: FAQ</h2>
+<p></p>
+<p><strong>What are the most common mobile app mistakes?</strong> The two we see most often are shipping on hunches instead of measuring user behaviour, and shipping without over-the-air update support so every fix waits on store review. Both are infrastructure problems, and both are fixable in weeks.</p>
+<p></p>
+<p><strong>What is app conversion rate optimization?</strong> It is the practice of measuring how many users complete a key flow, such as signup to paid upgrade, and then running controlled experiments to improve that number. It needs analytics instrumentation and an A/B testing setup. Without both, you are guessing.</p>
+<p></p>
+<p><strong>What are over-the-air updates?</strong> Over-the-air (OTA) updates let a mobile app download JavaScript and asset changes directly, without a new store submission or review. For React Native apps built with Expo, OTA is provided by EAS Update and the expo-updates library. Native code changes still need a store build.</p>
+<p></p>
+<p><strong>Can I add OTA updates to an app that is already live?</strong> Yes. expo-updates can be added to an existing Expo or React Native project. You set up release channels and a rollout policy, then publish updates to them. The main constraint is that native changes still go through the stores.</p>
+<p></p>
+<p><strong>Does Apple allow OTA updates?</strong> Yes, for JavaScript and asset updates that do not change the app&#x27;s advertised purpose or add undisclosed functionality. This is standard practice and is how Expo-based apps ship.</p>
+<p></p>
+<p><strong>How do I start with mobile app analytics?</strong> Integrate a tool like Amplitude, Mixpanel, or PostHog, define five to ten key events around your money flow, and record the baseline conversion rate of your most important flow before you change anything.</p>
+<p></p>
+<p><strong>Do A/B tests work for apps with small user bases?</strong> They take longer to reach statistical confidence, but the habit still pays. With a small audience, test bigger changes and give each test more time. Even slow testing beats no testing.</p>
+<p></p>
+<h2>Get a free check-up on your app</h2>
+<p></p>
+<p>If signups or upgrades are stalling and your team cannot tell you why, that is exactly what our free app check-up is for. We will look at your analytics setup, your release pipeline, and your key conversion flows, and hand you a written report of what we find.</p>
+<p></p>
+<p>No cost, no obligation. Just reply and tell us about your app.</p>
+<p></p>
+<p>We are Code Baiz, a mobile and web app development agency in Brooklyn, New York. Our team of around 20 engineers has shipped more than 300 projects since 2019, mostly in React Native for iOS and Android, plus web apps. We have spent years inheriting apps with exactly the problems described above, and fixing them is what we do best.</p>
+<p></p>
+</body></html>
