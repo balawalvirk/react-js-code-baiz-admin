@@ -1,0 +1,93 @@
+<!doctype html><html><head><meta charset='utf-8'><title>article</title></head><body>
+<p>TL;DR: How much does it cost to maintain an app in 2026? The industry rule of thumb is 15 to 20 percent of what the app cost to build, every year. An app that cost $100,000 to build costs roughly $15,000 to $25,000 a year to keep healthy. That money covers bug fixes, OS updates, store compliance, security patches, and hosting. Skip it and the app quietly rots: crashes creep up, ratings fall, and the eventual rescue costs more than all the maintenance you skipped.</p>
+<p></p>
+<p>Most founders budget for the build and forget the years after. Launch day feels like the finish line. In reality it is the starting line. The moment your app goes live, the platforms underneath it start moving. Apple and Google ship new OS versions every year. Devices change. Third party services update their APIs. App stores change their rules. An app that nobody maintains does not stay still. It decays.</p>
+<p></p>
+<p>We inherit apps in this state all the time. A founder launches, spends nothing on upkeep for eighteen months, then calls us because the app crashes on new phones, push notifications stopped working, and Apple rejected the latest update. The repair bill is always bigger than the maintenance would have been. This post explains what app maintenance actually covers, what it costs by app size, and how to pick the right maintenance model for your situation.</p>
+<p></p>
+<h2>1. The 15 to 20 Percent Rule</h2>
+<p></p>
+<p>Ask any experienced agency how much app maintenance costs per year and you will hear the same answer: budget 15 to 20 percent of the original build cost annually.</p>
+<p></p>
+<p>An app that cost $50,000 to build needs $7,500 to $10,000 a year. An app that cost $150,000 needs $22,500 to $30,000. It is a rule of thumb, not a law of physics. Simple apps with little backend land near the bottom of the range. Apps with servers, payments, real time features, or heavy integrations land near the top.</p>
+<p></p>
+<p>The percentage is stable because the work is predictable. Every year brings the same cycle: new iOS and Android releases, new devices with different screen sizes and chips, store policy updates, and security patches for the libraries the app depends on. None of this is optional. Apple requires apps to be built against recent SDK versions before they accept updates. Let your tooling fall too far behind and you cannot ship a fix even in an emergency.</p>
+<p></p>
+<blockquote><p><strong>The number to remember:</strong> 15 to 20 percent of build cost, every year, for as long as the app matters to your business.</p></blockquote>
+<p></p>
+<h2>2. What Maintenance Money Actually Covers</h2>
+<p></p>
+<p>Founders often ask what they are paying for, so here is the checklist. A healthy maintenance plan covers all of it.</p>
+<p></p>
+<ul>
+<li><strong>Bug fixes and crash response.</strong> Users report crashes, freezes, and broken flows. Someone has to reproduce them, fix them, and ship the fix. Without this, your rating slides toward the 3-star range where downloads stall.</li>
+<li><strong>OS and device updates.</strong> Every year Apple and Google release a new OS, and new phones ship with new chips and screen layouts. An app built two years ago can look wrong or break outright on hardware that did not exist when it was written.</li>
+<li><strong>Store compliance.</strong> Apple and Google change their policies regularly. Privacy labels, SDK minimums, payment rules, background behavior. Miss a requirement and your next update gets rejected, or worse, your app gets pulled.</li>
+<li><strong>Security patches and dependency updates.</strong> Your app is built on libraries maintained by other people. Those libraries get security fixes. Applying them is unglamorous work that prevents embarrassing breaches.</li>
+<li><strong>Backend, hosting, and third party services.</strong> Servers cost money every month. So do services like push notifications, analytics, payment processing, and maps. Someone has to watch the bills, the uptime, and the API versions.</li>
+<li><strong>Monitoring and crash reporting.</strong> Good teams catch crashes before users review-bomb you. This means crash reporting, uptime alerts, and someone who looks at them.</li>
+<li><strong>Small improvements and upkeep.</strong> Copy tweaks, broken links, updated screenshots, fresh onboarding text. The small polish that keeps an app feeling alive instead of abandoned.</li>
+</ul>
+<p></p>
+<p>Notice what is not on the list: big new features. That is product development, and it is budgeted separately. Maintenance keeps the app running, compliant, and healthy. Features grow it.</p>
+<p></p>
+<h2>3. How Much Does It Cost to Maintain an App, by App Size</h2>
+<p></p>
+<p>Here are typical yearly ranges we see in 2026. Actual numbers depend on the stack, the team, and how much of the checklist above you cover properly.</p>
+<p></p>
+<ul>
+<li><strong>Simple MVP or single-purpose app</strong>: Typical build cost: $30,000 to $60,000; Yearly maintenance: $5,000 to $10,000; What that buys: Hosting and services, bug fixes, yearly OS and SDK updates, store compliance</li>
+<li><strong>Standard product with backend and payments</strong>: Typical build cost: $80,000 to $150,000; Yearly maintenance: $15,000 to $30,000; What that buys: Everything above, plus monitoring, security patches, and a monthly block of improvement hours</li>
+<li><strong>Complex platform with integrations or real time features</strong>: Typical build cost: $200,000 and up; Yearly maintenance: $40,000 and up; What that buys: Everything above, plus dedicated capacity for ongoing improvement and faster response times</li>
+</ul>
+<p></p>
+<p>Two costs are fixed no matter the app size. The Apple Developer Program costs $99 a year. A Google Play developer account is a one time $25 fee. Hosting and third party services usually run a few hundred dollars a month for a standard app, more for anything with serious traffic.</p>
+<p></p>
+<p>If your quote comes in far below these ranges, something is missing from the checklist. Usually it is the monitoring, the security patches, or the store compliance work. The cheapest quote is the one that skips the invisible work, and the invisible work is what keeps your app alive.</p>
+<p></p>
+<h2>4. Retainer vs Ad Hoc vs In-House: Picking Your Model</h2>
+<p></p>
+<p>There are three ways to buy maintenance. Each one fits a different situation.</p>
+<p></p>
+<p><strong>1. Monthly retainer with an agency.</strong> You pay a fixed monthly fee and the agency handles the whole checklist: monitoring, patches, fixes, compliance, and a set number of improvement hours. This is the best fit when the app is your business or a serious revenue channel. The agency learns your codebase, responds fast when something breaks, and you never negotiate scope during an outage. The cost is predictable and the quality is consistent because the same team touches your app every month.</p>
+<p></p>
+<p><strong>2. Ad hoc, pay per fix.</strong> You call a developer when something breaks. This looks cheaper until you do the math. The developer spends the first hours relearning your codebase every time. Emergency work gets billed at emergency rates. And the invisible work, monitoring, patches, compliance, simply does not happen, because nobody is paid to do it. Ad hoc works for a side project you barely touch. For anything that matters, it is the most expensive option in disguise.</p>
+<p></p>
+<p><strong>3. In-house developer or team.</strong> You hire your own engineer. This makes sense when the app needs constant new features and you can keep a full time person busy. For maintenance alone, one salary is almost always overkill, and one person becomes a single point of failure. They go on vacation, they quit, and suddenly nobody understands the infrastructure. Many teams pair a retainer agency with an in-house product owner: the agency handles the engineering, and the founder or a product person sets priorities.</p>
+<p></p>
+<blockquote><p><strong>Our honest take:</strong> if the app earns money or carries your brand, a retainer beats ad hoc every time. You buy speed, continuity, and someone who notices the problem before your users do.</p></blockquote>
+<p></p>
+<h2>5. Red Flags in a Maintenance Quote</h2>
+<p></p>
+<p>When you compare quotes, watch for these warning signs.</p>
+<p></p>
+<ul>
+<li><strong>&quot;You do not need maintenance.&quot;</strong> Run. This is said by teams that want the build contract and do not want the responsibility that follows. Every live app needs maintenance.</li>
+<li><strong>No monitoring or crash reporting mentioned.</strong> If the quote does not include a way to know when the app breaks, the plan is to find out from angry users. That is not a plan.</li>
+<li><strong>Vague scope.</strong> &quot;Ongoing support&quot; means nothing until it is written down. Hours per month, response times, what is included and what counts as extra work. If it is not in writing, it is not included.</li>
+<li><strong>No response time commitment.</strong> When your app goes down on a Friday night, how fast does someone respond? A maintenance agreement without a stated response time is a hope, not an agreement.</li>
+<li><strong>You do not own your accounts.</strong> Your app store accounts, your repositories, your hosting, your certificates must be in your name or your company&#x27;s name. A vendor who holds the keys holds you hostage.</li>
+<li><strong>Store policy and SDK updates are missing.</strong> These are the two most common reasons unmaintained apps get rejected or break. If the quote skips them, the vendor has never lived through an Apple policy change.</li>
+</ul>
+<p></p>
+<h2>Frequently Asked Questions</h2>
+<p></p>
+<p><strong>How much does it cost to maintain an app per month?</strong> Divide the yearly figure by twelve. A standard product at $15,000 to $30,000 a year works out to roughly $1,250 to $2,500 a month, plus hosting and third party services. Retainer agreements usually sit in that band.</p>
+<p></p>
+<p><strong>What happens if I do not maintain my app?</strong> At first, nothing visible. Then crashes start on new devices, a third party API changes and a feature silently breaks, Apple rejects an update over an old SDK, and your rating drops. We have seen founders skip two years of maintenance and pay more for the rescue than the maintenance would have cost.</p>
+<p></p>
+<p><strong>Is maintenance the same as adding new features?</strong> No. Maintenance keeps the app running, secure, and compliant. New features are product development. A good retainer includes a monthly block of improvement hours for small upgrades, but major features are scoped and priced separately.</p>
+<p></p>
+<p><strong>Can I maintain the app myself?</strong> If you are technical and the app is simple, you can handle the basics: apply dependency updates, test on new OS releases, keep the store listings current. The risk is the emergency you did not see coming. Most non-technical founders are better off with a retainer and a technical partner on call.</p>
+<p></p>
+<p><strong>How do I know my current maintenance is good enough?</strong> Check four things. Is your app built against a recent SDK? Are crash rates low and stable? Did your last update pass review without policy surprises? Can you ship a critical fix within days? If you answered no to any of these, your maintenance has gaps.</p>
+<p></p>
+<p><strong>When should I switch from ad hoc to a retainer?</strong> The moment the app matters to your revenue or reputation. If a day of downtime costs you real money, or if user trust drives your business, ad hoc is a gamble. A retainer turns app health into someone else&#x27;s job.</p>
+<p></p>
+<h2>Get a Second Pair of Eyes on Your App</h2>
+<p></p>
+<p>If you are not sure what shape your app is in, we will check it for you, free. Two of our engineers spend two to three days on your app, product and engineering, and we send you a written report of everything we find: the crashes, the outdated dependencies, the store compliance risks, the things quietly costing you users. We only ask for a testimonial if the report is genuinely useful to you.</p>
+<p></p>
+<p>We are Code Baiz, an app development agency in Brooklyn, New York. Around 20 engineers, 300+ mobile and web projects shipped since 2019. We build in React Native, and we have spent years rescuing apps that were built cheaply and maintained badly. Maintenance is not the exciting part of this business. It is the part that decides whether your app survives.</p>
+<p></p>
+</body></html>
