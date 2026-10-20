@@ -81,7 +81,9 @@ export default function RichTextEditor({ value, onChange, placeholder }: RichTex
     ) {
       return;
     }
-    editor.commands.setContent(html);
+    // NOTE: setContent must emit the update event (2nd arg `true`), otherwise
+    // the parent form never learns about the imported HTML and saves an empty post.
+    editor.commands.setContent(html, true);
     setImportOpen(false);
     setImportHtml('');
     toast.success('HTML imported into the editor');
