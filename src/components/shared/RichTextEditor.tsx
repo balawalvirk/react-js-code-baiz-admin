@@ -6,7 +6,7 @@ import Link from '@tiptap/extension-link';
 import Placeholder from '@tiptap/extension-placeholder';
 import {
   Bold, Italic, List, ListOrdered, Link as LinkIcon,
-  Heading1, Heading2, Heading3, Quote, Undo, Redo, Minus, ImageIcon,
+  Heading1, Heading2, Heading3, Quote, Undo, Redo, Minus, ImageIcon, FileCode,
 } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { uploadContentImage, validateImageFile } from '@/lib/uploadImage';
@@ -22,7 +22,10 @@ interface RichTextEditorProps {
 
 export default function RichTextEditor({ value, onChange, placeholder }: RichTextEditorProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const importTextareaRef = useRef<HTMLTextAreaElement>(null);
   const [cropFile, setCropFile] = useState<File | null>(null);
+  const [importOpen, setImportOpen] = useState(false);
+  const [importHtml, setImportHtml] = useState('');
 
   const editor = useEditor({
     extensions: [
@@ -55,6 +58,34 @@ export default function RichTextEditor({ value, onChange, placeholder }: RichTex
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (importOpen) importTextareaRef.current?.focus();
+  }, [importOpen]);
+
+  const openImport = () => {
+    setImportHtml('');
+    setImportOpen(true);
+  };
+
+  const doImportHtml = () => {
+    if (!editor) return;
+    const html = importHtml.trim();
+    if (!html) {
+      toast.error('Paste some HTML first');
+      return;
+    }
+    if (
+      !editor.isEmpty &&
+      !window.confirm('Replace the current editor content with the imported HTML?')
+    ) {
+      return;
+    }
+    editor.commands.setContent(html);
+    setImportOpen(false);
+    setImportHtml('');
+    toast.success('HTML imported into the editor');
+  };
 
   const addLink = () => {
     const url = window.prompt('Enter URL');
@@ -111,17 +142,23 @@ export default function RichTextEditor({ value, onChange, placeholder }: RichTex
     onClick,
     active,
     title,
+    id,
+    ariaLabel,
     children,
   }: {
     onClick: () => void;
     active?: boolean;
     title: string;
+    id?: string;
+    ariaLabel?: string;
     children: React.ReactNode;
   }) => (
     <button
       type="button"
       onClick={onClick}
       title={title}
+      id={id}
+      aria-label={ariaLabel || title}
       className={`p-1.5 rounded text-sm transition-colors ${
         active
           ? 'bg-gray-200 text-gray-900'
@@ -216,6 +253,15 @@ export default function RichTextEditor({ value, onChange, placeholder }: RichTex
         <ToolbarButton onClick={() => editor.chain().focus().redo().run()} title="Redo">
           <Redo size={14} />
         </ToolbarButton>
+        <div className="w-px h-4 bg-gray-300 mx-1" />
+        <ToolbarButton
+          onClick={openImport}
+          title="Import HTML"
+          id="import-html-button"
+          ariaLabel="Import HTML into editor"
+        >
+          <FileCode size={14} />
+        </ToolbarButton>
       </div>
 
       <input
@@ -239,6 +285,66 @@ export default function RichTextEditor({ value, onChange, placeholder }: RichTex
             void insertImageWithAlt(file);
           }}
         />
+      )}
+
+      {importOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Import HTML dialog"
+        >
+          <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl">
+            <div className="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
+              <h3 className="font-medium text-gray-900">Import HTML</h3>
+              <button
+                type="button"
+                onClick={() => setImportOpen(false)}
+                className="text-gray-500 hover:text-gray-800 text-lg leading-none"
+                aria-label="Close import dialog"
+              >
+                &times;
+              </button>
+            </div>
+            <div className="p-4">
+              <label
+                htmlFor="import-html-textarea"
+                className="block text-sm text-gray-600 mb-2"
+              >
+                Paste the article HTML below. Importing replaces the current
+                editor content.
+              </label>
+              <textarea
+                id="import-html-textarea"
+                ref={importTextareaRef}
+                aria-label="Article HTML to import"
+                value={importHtml}
+                onChange={(e) => setImportHtml(e.target.value)}
+                rows={12}
+                className="w-full border border-gray-300 rounded-md p-2 font-mono text-xs focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="<h2>Section title</h2><p>...</p>"
+              />
+            </div>
+            <div className="px-4 py-3 border-t border-gray-200 flex justify-end gap-2">
+              <button
+                type="button"
+                onClick={() => setImportOpen(false)}
+                className="px-3 py-1.5 rounded border border-gray-300 text-sm text-gray-700 hover:bg-gray-50"
+              >
+                Cancel
+              </button>
+              <button
+                id="import-html-submit"
+                type="button"
+                onClick={doImportHtml}
+                aria-label="Import HTML into editor"
+                className="px-3 py-1.5 rounded bg-blue-600 text-sm text-white hover:bg-blue-700"
+              >
+                Import
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
