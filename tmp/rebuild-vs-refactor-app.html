@@ -27,21 +27,9 @@
 <p></p>
 <ol>
 <li><strong>Frameworks and languages.</strong> Is the app built on a stack that is still alive and maintained? React Native, Swift, Kotlin, or Flutter on recent versions is a good sign. A framework that was abandoned years ago, dependencies full of known vulnerabilities, or a language you can no longer hire developers for is a red flag. A dead stack is one of the strongest rebuild signals there is.</li>
-</ol>
-<p></p>
-<ol>
 <li><strong>Architecture.</strong> Is there a structure, or a tangle? A healthy codebase separates the interface, the business logic, and the data. A new engineer should be able to find where a feature lives within a day. When changing one screen breaks an unrelated screen, the architecture is a liability that slows every future feature to a crawl.</li>
-</ol>
-<p></p>
-<ol>
 <li><strong>Security foundations.</strong> How does the app handle authentication, passwords, API keys, and user data? If credentials are hardcoded or passwords are weakly hashed, that is not a polish issue you fix later. Security problems at the foundation level often force a rebuild, because patching them onto a broken base leaves holes you cannot see.</li>
-</ol>
-<p></p>
-<ol>
 <li><strong>The data layer.</strong> Is the database schema sane? Can you migrate users and their data without losing anyone? We have seen apps with a decent interface sitting on a database that could not express the product the founder wanted to build. A rotten data layer can force a rebuild even when everything the user sees looks fine.</li>
-</ol>
-<p></p>
-<ol>
 <li><strong>Code organization and cleanliness.</strong> Is the code organized, named sensibly, and readable, or is it a maze? Messy but organized code can be cleaned up. Code that no living person can read, full of dead ends and copy-pasted blocks, is a different problem. Your next team will spend half their time just understanding it.</li>
 </ol>
 <p></p>
@@ -55,21 +43,9 @@
 <p></p>
 <ol>
 <li><strong>The foundations check passed.</strong> The stack is current, the architecture is sound, security is in place, and the data layer is sane. The problems are mess and age, not rot. This is the most common situation we see, and it is the one most rebuild pitches ignore.</li>
-</ol>
-<p></p>
-<ol>
 <li><strong>The problems are localized.</strong> Crashes in one flow, a few slow screens, an interface that looks three years old. If you can point at the problems, the codebase is workable. A <a href="https://www.codebaiz.com/blogs/mobile-app-redesign-signs">mobile app redesign</a> plus targeted engineering fixes usually handles this without touching the foundations.</li>
-</ol>
-<p></p>
-<ol>
 <li><strong>Your team can still ship on it.</strong> Ask your developers how long a medium feature takes. If the answer is days or a couple of weeks, the codebase is healthy enough to build on. If the answer is &quot;we need to rewrite that part first&quot; for every feature, treat that as a foundations problem and go back to section 2.</li>
-</ol>
-<p></p>
-<ol>
 <li><strong>You cannot afford downtime or a feature freeze.</strong> Refactors ship incrementally. Users get improvements every week while the business keeps running. A rebuild, even done well, means months where the old app gets nothing but critical fixes.</li>
-</ol>
-<p></p>
-<ol>
 <li><strong>The app makes money.</strong> If the app has paying users and real revenue, think twice before freezing it for a full rebuild. Refactor it, improve it, and keep the money coming in while you do.</li>
 </ol>
 <p></p>
@@ -79,21 +55,9 @@
 <p></p>
 <ol>
 <li><strong>The foundations failed.</strong> Wrong architecture choices at the core, security problems baked into the design, a data model that fights the product. When the cause is deep, the best move is to secure the existing app data, migrate to a fresh database, and build a new clean reliable app on top of it.</li>
-</ol>
-<p></p>
-<ol>
 <li><strong>Every fix breaks two other things.</strong> This is the tangle tax. When developers are afraid to touch the code because changes have unpredictable side effects, velocity drops to near zero. You are paying a full team to stand still. A rebuild is cheaper than another year of that.</li>
-</ol>
-<p></p>
-<ol>
 <li><strong>The stack is dead.</strong> The framework is abandoned, the dependencies have known vulnerabilities nobody will patch, and you cannot hire developers who want to work on it. Staying on a dead stack is not saving money. It is accumulating risk every month.</li>
-</ol>
-<p></p>
-<ol>
 <li><strong>The app was never really engineered.</strong> Some MVPs were assembled to demo, not built to scale: no architecture, no tests, shortcuts everywhere. That is fine for validating an idea. It is not a foundation for a business. When the prototype needs to become the product, a rebuild on proper foundations is usually faster than untangling the demo.</li>
-</ol>
-<p></p>
-<ol>
 <li><strong>Refactoring has already been tried and failed.</strong> If a competent team already spent months cleaning up and the app is still fragile, that is evidence, not opinion. The codebase has told you what it is. Believe it.</li>
 </ol>
 <p></p>
@@ -103,21 +67,9 @@
 <p></p>
 <ol>
 <li><strong>Freeze the old app except for critical fixes.</strong> No new features on the old codebase. It keeps serving users and earning revenue while all new development goes into the new app.</li>
-</ol>
-<p></p>
-<ol>
 <li><strong>Rebuild on clean foundations.</strong> New stack, proper architecture, security designed in from day one instead of bolted on later. This is the whole point: do the foundations right this time, so you never face this decision again for the wrong reasons.</li>
-</ol>
-<p></p>
-<ol>
 <li><strong>Migrate the data carefully.</strong> Secure the existing user data first, then move it to a fresh database built for the new app. Test the migration repeatedly with real data shapes before the cutover. Data migration is the highest-risk part of any rebuild.</li>
-</ol>
-<p></p>
-<ol>
 <li><strong>Run both apps in parallel.</strong> Test the new app internally, then put beta users on it while the old app keeps serving everyone else.</li>
-</ol>
-<p></p>
-<ol>
 <li><strong>Cut over when the new app is proven.</strong> Move users to the new app, keep the old one as a fallback for a short window, then retire it.</li>
 </ol>
 <p></p>
