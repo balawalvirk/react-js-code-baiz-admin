@@ -1,0 +1,158 @@
+<!doctype html><html><head><meta charset='utf-8'><title>article</title></head><body>
+<p>A founder came to us this year with an app that three agencies had already looked at. All three told him the same thing: tear it down and rebuild from scratch. The quotes were big, the timelines were long, and he was ready to sign one of them because he assumed three experts could not all be wrong.</p>
+<p></p>
+<p>We opened the codebase before we gave him our answer. The app was built in React Native, the stack was current, the architecture was sensible, and the security foundations were in place. The code was messy and the UI was dated, but the foundations were solid. We told him not to rebuild. We refactored the app over six weeks and shipped a refreshed product his users noticed. He saved most of his budget.</p>
+<p></p>
+<p>Six months later a different founder came to us with the opposite problem. His team had spent a year patching an app whose architecture was wrong from day one. Every fix broke two other things. We told him the truth: no amount of refactoring was going to save that codebase. He needed a rebuild.</p>
+<p></p>
+<p><strong>TL;DR:</strong> The rebuild vs refactor decision comes down to your app&#x27;s foundations: the frameworks and languages, the architecture, the security setup, the data layer, and how the code is organized. If the foundations are solid, refactor. If they are broken, rebuild. And a rebuild does not have to shut your business down: you can build the new app side by side while the old one keeps running. Below is the exact five-foundation check we run, when each path wins, and the side-by-side rebuild playbook.</p>
+<p></p>
+<p>We have shipped more than 300 projects since 2019, and we have watched this decision go wrong in both directions. Some founders pay for a full rebuild they never needed. More often, founders burn a year of updates on a codebase that was never going to carry the business.</p>
+<p></p>
+<h2>1. Why Every Developer You Ask Says &quot;Rebuild&quot;</h2>
+<p></p>
+<p>Let us be honest about the incentive problem first. A rebuild is a bigger project than a refactor, and bigger projects pay agencies more money. A developer who recommends a six-month rebuild just sold six months of work. That does not make every rebuild recommendation dishonest, but you should treat a rebuild pitch the way you would treat any sales pitch: ask what it is based on.</p>
+<p></p>
+<p>There is also a genuine engineering bias at play. Developers prefer working on fresh code. Reading someone else&#x27;s messy codebase is slow, frustrating work, and starting over feels cleaner. Sometimes it is faster. Often it just feels that way in week one, and the rebuild hits all the same product problems the old app had, because the problems were in the product thinking, not the code.</p>
+<p></p>
+<p>Here is the rule we give founders:</p>
+<p></p>
+<blockquote><p>If an agency recommends a rebuild in the first meeting, before anyone has opened the codebase, that is a quote, not a diagnosis. A real recommendation comes after someone has read the code.</p></blockquote>
+<p></p>
+<p>We have told founders not to rebuild even when a rebuild would have made us more money. A bad recommendation eventually becomes a bad reputation. The right question is never &quot;rebuild or refactor&quot; in the abstract. It is &quot;what is the state of this specific codebase,&quot; and that is answerable with a proper review, not a sales call.</p>
+<p></p>
+<h2>2. The Rebuild vs Refactor App Decision: Check the Five Foundations</h2>
+<p></p>
+<p>This is the framework we actually use. Before we recommend anything, two of our engineers spend a few days inside the codebase checking five foundations. Most developers love to say rebuild, but the foundations tell the real story.</p>
+<p></p>
+<ol>
+<li><strong>Frameworks and languages.</strong> Is the app built on a stack that is still alive and maintained? React Native, Swift, Kotlin, or Flutter on recent versions is a good sign. A framework that was abandoned years ago, dependencies full of known vulnerabilities, or a language you can no longer hire developers for is a red flag. A dead stack is one of the strongest rebuild signals there is.</li>
+</ol>
+<p></p>
+<ol>
+<li><strong>Architecture.</strong> Is there a structure, or a tangle? A healthy codebase separates the interface, the business logic, and the data. A new engineer should be able to find where a feature lives within a day. When changing one screen breaks an unrelated screen, the architecture is a liability that slows every future feature to a crawl.</li>
+</ol>
+<p></p>
+<ol>
+<li><strong>Security foundations.</strong> How does the app handle authentication, passwords, API keys, and user data? If credentials are hardcoded or passwords are weakly hashed, that is not a polish issue you fix later. Security problems at the foundation level often force a rebuild, because patching them onto a broken base leaves holes you cannot see.</li>
+</ol>
+<p></p>
+<ol>
+<li><strong>The data layer.</strong> Is the database schema sane? Can you migrate users and their data without losing anyone? We have seen apps with a decent interface sitting on a database that could not express the product the founder wanted to build. A rotten data layer can force a rebuild even when everything the user sees looks fine.</li>
+</ol>
+<p></p>
+<ol>
+<li><strong>Code organization and cleanliness.</strong> Is the code organized, named sensibly, and readable, or is it a maze? Messy but organized code can be cleaned up. Code that no living person can read, full of dead ends and copy-pasted blocks, is a different problem. Your next team will spend half their time just understanding it.</li>
+</ol>
+<p></p>
+<p>Here is how we score it. If four or five of these foundations are solid, refactoring is almost always the right call. If two or more foundations are broken, the honest math usually favors a rebuild, because you will pay for a rebuild anyway, one painful patch at a time.</p>
+<p></p>
+<p>This check is exactly what our free check-up covers: two engineers, two to three days, looking at both the product side and the engineering side, so the recommendation is based on evidence instead of opinion.</p>
+<p></p>
+<h2>3. When Refactoring Is the Right Call</h2>
+<p></p>
+<p>Refactoring means improving the existing codebase without throwing it away: cleaning up code, fixing architecture weak spots, updating the interface, and modernizing piece by piece. Here is when it wins.</p>
+<p></p>
+<ol>
+<li><strong>The foundations check passed.</strong> The stack is current, the architecture is sound, security is in place, and the data layer is sane. The problems are mess and age, not rot. This is the most common situation we see, and it is the one most rebuild pitches ignore.</li>
+</ol>
+<p></p>
+<ol>
+<li><strong>The problems are localized.</strong> Crashes in one flow, a few slow screens, an interface that looks three years old. If you can point at the problems, the codebase is workable. A <a href="https://www.codebaiz.com/blogs/mobile-app-redesign-signs">mobile app redesign</a> plus targeted engineering fixes usually handles this without touching the foundations.</li>
+</ol>
+<p></p>
+<ol>
+<li><strong>Your team can still ship on it.</strong> Ask your developers how long a medium feature takes. If the answer is days or a couple of weeks, the codebase is healthy enough to build on. If the answer is &quot;we need to rewrite that part first&quot; for every feature, treat that as a foundations problem and go back to section 2.</li>
+</ol>
+<p></p>
+<ol>
+<li><strong>You cannot afford downtime or a feature freeze.</strong> Refactors ship incrementally. Users get improvements every week while the business keeps running. A rebuild, even done well, means months where the old app gets nothing but critical fixes.</li>
+</ol>
+<p></p>
+<ol>
+<li><strong>The app makes money.</strong> If the app has paying users and real revenue, think twice before freezing it for a full rebuild. Refactor it, improve it, and keep the money coming in while you do.</li>
+</ol>
+<p></p>
+<h2>4. When a Rebuild Is the Right Call</h2>
+<p></p>
+<p>Sometimes the foundations are gone, and no amount of polishing will bring them back. Here is when we tell founders to rebuild.</p>
+<p></p>
+<ol>
+<li><strong>The foundations failed.</strong> Wrong architecture choices at the core, security problems baked into the design, a data model that fights the product. When the cause is deep, the best move is to secure the existing app data, migrate to a fresh database, and build a new clean reliable app on top of it.</li>
+</ol>
+<p></p>
+<ol>
+<li><strong>Every fix breaks two other things.</strong> This is the tangle tax. When developers are afraid to touch the code because changes have unpredictable side effects, velocity drops to near zero. You are paying a full team to stand still. A rebuild is cheaper than another year of that.</li>
+</ol>
+<p></p>
+<ol>
+<li><strong>The stack is dead.</strong> The framework is abandoned, the dependencies have known vulnerabilities nobody will patch, and you cannot hire developers who want to work on it. Staying on a dead stack is not saving money. It is accumulating risk every month.</li>
+</ol>
+<p></p>
+<ol>
+<li><strong>The app was never really engineered.</strong> Some MVPs were assembled to demo, not built to scale: no architecture, no tests, shortcuts everywhere. That is fine for validating an idea. It is not a foundation for a business. When the prototype needs to become the product, a rebuild on proper foundations is usually faster than untangling the demo.</li>
+</ol>
+<p></p>
+<ol>
+<li><strong>Refactoring has already been tried and failed.</strong> If a competent team already spent months cleaning up and the app is still fragile, that is evidence, not opinion. The codebase has told you what it is. Believe it.</li>
+</ol>
+<p></p>
+<h2>5. The Side-by-Side Rebuild Playbook: No Need to Put Everything on Hold</h2>
+<p></p>
+<p>Here is the part most founders do not know. A rebuild does not mean shutting the business down for six months. The old app can stay alive while the new one is built alongside it. We have done this for clients, and it is the only rebuild approach we recommend.</p>
+<p></p>
+<ol>
+<li><strong>Freeze the old app except for critical fixes.</strong> No new features on the old codebase. It keeps serving users and earning revenue while all new development goes into the new app.</li>
+</ol>
+<p></p>
+<ol>
+<li><strong>Rebuild on clean foundations.</strong> New stack, proper architecture, security designed in from day one instead of bolted on later. This is the whole point: do the foundations right this time, so you never face this decision again for the wrong reasons.</li>
+</ol>
+<p></p>
+<ol>
+<li><strong>Migrate the data carefully.</strong> Secure the existing user data first, then move it to a fresh database built for the new app. Test the migration repeatedly with real data shapes before the cutover. Data migration is the highest-risk part of any rebuild.</li>
+</ol>
+<p></p>
+<ol>
+<li><strong>Run both apps in parallel.</strong> Test the new app internally, then put beta users on it while the old app keeps serving everyone else.</li>
+</ol>
+<p></p>
+<ol>
+<li><strong>Cut over when the new app is proven.</strong> Move users to the new app, keep the old one as a fallback for a short window, then retire it.</li>
+</ol>
+<p></p>
+<p>This is not theory. We have seen it work on real products, including cases like https://rexchange.app/ and https://www.anybodymovz.com/, where the old apps stayed alive while the rebuilds happened internally, and the teams moved to the updated apps only when the new versions were ready. It takes extra resources to run two tracks at once, but it keeps the business running the whole time. That is worth more than the extra cost.</p>
+<p></p>
+<h2>6. The Cost and Time Reality of Rebuild vs Refactor</h2>
+<p></p>
+<p>Let us talk plainly about money and time, because this decision is a budget decision too.</p>
+<p></p>
+<p>A rebuild costs roughly what building the app costs. That is the truth founders need to hear: a rebuild is a fresh build, plus data migration, plus the parallel-running period. In our experience, a mid-size app rebuild typically runs three to six months. Anyone quoting you four weeks for a full rebuild is quoting you a reskin, not a rebuild.</p>
+<p></p>
+<p>A refactor is a different order of magnitude. In our experience, the refactors we recommend usually run four to eight weeks, at a fraction of a rebuild&#x27;s cost. You get a cleaner codebase and fixed problem areas without the risk and downtime of starting over.</p>
+<p></p>
+<p>The expensive mistake is not picking the wrong option. It is picking without the foundations check. Paying for a rebuild you did not need burns money. Spending a year refactoring a codebase that was never going to carry you burns both. The check is cheap. The wrong decision is not.</p>
+<p></p>
+<blockquote><p>The cheapest rebuild is the one you avoid with a proper review. The cheapest refactor is the one that fixes the real problem instead of polishing it.</p></blockquote>
+<p></p>
+<h2>Frequently Asked Questions</h2>
+<p></p>
+<p><strong>Can I refactor now and rebuild later?</strong> Yes, and sometimes that is the smart sequence. If the foundations are solid but the product needs to evolve beyond what the current architecture handles, refactor now to buy time and revenue, then plan a proper rebuild when the business can fund it.</p>
+<p></p>
+<p><strong>How long does a typical app rebuild take?</strong> For a mid-size app, plan three to six months including data migration and parallel testing. Larger or more complex apps take longer. Be suspicious of anyone promising a full rebuild in weeks: that timeline only works if the scope is tiny or the quality bar is low.</p>
+<p></p>
+<p><strong>Will my users lose their data during a rebuild?</strong> Not if the migration is done properly. User data is secured first, moved to a fresh database, and the migration is tested repeatedly before cutover. Data loss in a rebuild is a planning failure, not an inevitability. Ask any agency pitching you a rebuild to walk you through their migration plan before you sign anything.</p>
+<p></p>
+<p><strong>Is refactoring just postponing an inevitable rebuild?</strong> Not when the foundations are solid. A well-architected app can be refactored and extended for years. Refactoring becomes postponement only when the foundations are broken and everyone knows it. That is why the five-foundation check comes before the decision, not after.</p>
+<p></p>
+<p><strong>Should I get a second opinion before approving a rebuild?</strong> Yes. A rebuild is one of the most expensive decisions a founder makes about their product, and the recommendation often comes from the team that would profit from it. An independent review of the codebase costs little and either confirms the rebuild or saves you from it.</p>
+<p></p>
+<h2>Not Sure Which One You Need? Get a Professional Opinion First</h2>
+<p></p>
+<p>I will be direct with you: this is one of those decisions you should not make alone. The difference between a needed rebuild and an unnecessary one is tens of thousands of dollars and months of your time, and the answer is sitting inside your codebase where only experienced eyes can read it.</p>
+<p></p>
+<p>That is exactly what our free check-up is for. We will put two engineers on your app for two to three days, review both the product side and the engineering side, run the foundations check properly, and tell you straight whether you need a refactor, a rebuild, or neither. If the report is genuinely useful, all we ask is a testimonial.</p>
+<p></p>
+<p>Code Baiz is a mobile and web app development agency based in Brooklyn, New York. Our team of around 20 engineers has shipped more than 300 projects since 2019, and we have guided founders through rebuild and refactor decisions dozens of times. When the foundations are solid, we will tell you to keep your codebase. When they are not, we will show you exactly why, and build you something better.</p>
+<p></p>
+</body></html>
