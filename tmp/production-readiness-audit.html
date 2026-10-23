@@ -1,0 +1,198 @@
+<!doctype html><html><head><meta charset='utf-8'><title>article</title></head><body>
+<p>A founder came to us a while back with a problem he could not explain. His app worked. His team had tested it, the investors had tapped through it, the beta users liked it. Then he launched properly, and everything fell apart at once. Payments failed for real customers. The database slowed to a crawl by day three. A security scan by a partner flagged credentials sitting in plain text inside the app. He called us on a Friday and asked the question we hear more than any other: &quot;How did nobody catch this?&quot;</p>
+<p></p>
+<p>The answer is simple. Nobody ran a production-readiness audit. His team had tested whether the app worked. Nobody had checked whether it was ready for real users, real money, and real attacks.</p>
+<p></p>
+<p>A production-readiness audit is not a design review. It is a structured inspection of everything that has to hold up once the app is live: security, backend, data, performance, stability, and the release process itself. Here are the ten checks we run on every app, in plain words.</p>
+<p></p>
+<p><strong>TL;DR:</strong> A production-readiness audit covers ten areas: security, backend, database, performance, crash reporting, code quality, the release process, analytics, third-party services, and store and legal readiness. For each area we list what is verified, the red flags, and what to do when the audit finds trouble.</p>
+<p></p>
+<p>The audit matters most at two moments: right before launch, and right after you inherit an app someone else built. It answers one question: is this app safe to put in front of real users?</p>
+<p></p>
+<h2>1. Security Foundations</h2>
+<p></p>
+<p>Security is the check that gets skipped most and hurts most when it is missing. An app that &quot;works fine&quot; can still leak data, and you find out about it from an angry customer, not from your dashboard.</p>
+<p></p>
+<p><strong>What a real audit verifies:</strong></p>
+<p></p>
+<ul>
+<li>Authentication and sessions are handled correctly. Tokens expire, logins cannot be bypassed, password resets are safe, and old sessions actually die when a user logs out.</li>
+<li>No secrets live inside the app code. API keys and tokens belong on the server, never baked into the app where anyone can extract them.</li>
+<li>Sensitive data is encrypted in transit and at rest. That means HTTPS everywhere, no HTTP calls hiding in a corner of the code, and proper storage for things like tokens and personal data.</li>
+<li>The API cannot be abused by anyone who finds it. Endpoints check who is calling, rate limits exist, and a user cannot see another user&#x27;s data by changing an ID in a request.</li>
+</ul>
+<p></p>
+<p><strong>The red flag:</strong> your team has never worked through this list. An experienced engineer finds most of these in a day. A founder discovers them the hard way.</p>
+<p></p>
+<p>If the foundations are wrong here, surface fixes will not cover it. Our <a href="https://www.codebaiz.com/blogs/rebuild-vs-refactor-app">rebuild vs refactor guide</a> walks through that decision.</p>
+<p></p>
+<h2>2. Backend and API Health</h2>
+<p></p>
+<p>The backend is what the app stands on. A mobile app audit has to include the server side, because that is where outages and data loss actually happen.</p>
+<p></p>
+<p><strong>What a real audit verifies:</strong></p>
+<p></p>
+<ul>
+<li>Errors are handled, not hidden. Failed requests get proper error responses, timeouts are sane, and one slow service degrades gracefully instead of taking the whole app down.</li>
+<li>Rate limiting and abuse protection exist. Without them, one misbehaving client or one attack can knock the API over.</li>
+<li>Background work runs in the background. Emails, uploads, reports, and notifications should never block a user&#x27;s request from completing.</li>
+<li>The API behaves predictably under load. It has been tested with realistic traffic before real users arrive.</li>
+</ul>
+<p></p>
+<p><strong>The red flag:</strong> the backend runs on a single server nobody has stress-tested, and &quot;we will scale when we need to&quot; is the entire scaling plan.</p>
+<p></p>
+<p>If load questions come up, our <a href="https://www.codebaiz.com/blogs/is-my-app-ready-to-scale">scaling readiness checklist</a> covers what to check before a big push.</p>
+<p></p>
+<h2>3. Database and Data Safety</h2>
+<p></p>
+<p>Data is the one thing you cannot get back. An audit treats the database as the most precious part of the whole system, because it is.</p>
+<p></p>
+<p><strong>What a real audit verifies:</strong></p>
+<p></p>
+<ul>
+<li>Backups exist and have been tested. A backup you have never restored is a rumour, not a backup.</li>
+<li>Migrations are controlled. Database changes are versioned and reversible, not run by hand on the live server and hoped for the best.</li>
+<li>Indexes match real queries. Slow screens are often slow because the database is scanning millions of rows for every request. A quick review of query patterns against indexes finds this in an afternoon.</li>
+<li>Data retention and privacy rules are respected. Old data gets cleaned up, deleted accounts actually get deleted, and personal data is not kept forever &quot;just in case.&quot;</li>
+</ul>
+<p></p>
+<p><strong>The red flag:</strong> nobody can say when the last successful restore test was. That is the scariest sentence in a data audit.</p>
+<p></p>
+<h2>4. Performance and Load Times</h2>
+<p></p>
+<p>Slow apps do not get second chances. A production readiness audit measures performance on real devices and real networks, not on the office wifi.</p>
+<p></p>
+<p><strong>What a real audit verifies:</strong></p>
+<p></p>
+<ul>
+<li>Key screens load fast. Main screens render in under 3 seconds on a mid-range phone. Key API calls respond in under 500 milliseconds at the 95th percentile.</li>
+<li>Caching is used where it should be. Images, config, and repeat requests should not hit the server every single time.</li>
+<li>Assets are the right size. Nobody needs a 4000-pixel photo inside a 200-pixel thumbnail, and oversized assets are the most common cause of slow first launches.</li>
+<li>The app behaves well on poor networks. Timeouts, retries, and offline states are designed, not accidental. A user on a train should get a graceful message, not a frozen screen.</li>
+</ul>
+<p></p>
+<p><strong>The red flag:</strong> the team has never measured actual load times. &quot;Feels fast&quot; is not a strategy.</p>
+<p></p>
+<h2>5. Crash Reporting and Stability</h2>
+<p></p>
+<p>You cannot fix crashes you cannot see. A shocking number of apps go live with no crash reporting at all, which means the team learns about crashes from one-star reviews.</p>
+<p></p>
+<p><strong>What a real audit verifies:</strong></p>
+<p></p>
+<ul>
+<li>Crash reporting is installed and working. Tools like Sentry or Firebase Crashlytics are set up on every platform, symbols are uploaded so crashes are readable, and someone actually looks at the reports.</li>
+<li>The crash-free rate is healthy. For a production app, 99.9% of sessions crash-free is the bar. Below 99% means 1 in 100 sessions crashes.</li>
+<li>Errors are grouped and prioritised. The top five crashes should be known by name. If the team cannot list them, nobody is reading the reports.</li>
+<li>Release tracking is in place. Each new version gets watched for new crashes, so a bad release is caught in hours, not weeks.</li>
+</ul>
+<p></p>
+<p><strong>The red flag:</strong> there is no crash dashboard, or nobody opens it. Every crash your users hit is invisible to you.</p>
+<p></p>
+<h2>6. Code Quality and Architecture</h2>
+<p></p>
+<p>This is the check that answers the big question: was this app built to last, or built to demo? A production-readiness audit reads the code the way a building inspector reads a foundation.</p>
+<p></p>
+<p><strong>What a real audit verifies:</strong></p>
+<p></p>
+<ul>
+<li>Frameworks and dependencies are current and supported. Outdated frameworks stop getting security fixes.</li>
+<li>The architecture is organised and understandable. A new engineer should be able to find things. If the original team is the only team that can touch the code, you do not own your app, you rent it from them.</li>
+<li>Dead code and abandoned experiments are cleaned up. Half-finished features are where bugs hide.</li>
+<li>Dependencies are justified. Every third-party library is a commitment: it can break, get abandoned, or ship a security hole. The audit lists them and asks which ones are actually earning their place.</li>
+</ul>
+<p></p>
+<p><strong>The red flag:</strong> upgrading anything breaks everything, and only one person understands how it all fits together. That is not a codebase. That is a hostage situation.</p>
+<p></p>
+<p>If the foundations are solid, fixing is usually the right move. If they are not, rebuilding is cheaper than patching forever. Our <a href="https://www.codebaiz.com/blogs/rebuild-vs-refactor-app">rebuild vs refactor guide</a> covers the five-foundation check we use to decide.</p>
+<p></p>
+<h2>7. Update and Release Process</h2>
+<p></p>
+<p>The audit checks the machinery of shipping, not just the code being shipped.</p>
+<p></p>
+<p><strong>What a real audit verifies:</strong></p>
+<p></p>
+<ul>
+<li>You can ship urgent fixes fast. Over-the-air updates let you push fixes without waiting for store review.</li>
+<li>There is a real release process. Builds are tested before they go out, someone approves releases, and the process is written down rather than living in one person&#x27;s head.</li>
+<li>Rollback is possible. If a release breaks something, the team can revert quickly. If the only option is &quot;fix forward and hope,&quot; the release process is incomplete.</li>
+<li>Beta and staged rollouts exist. New versions reach a small group first, so problems surface with a hundred users instead of a hundred thousand.</li>
+</ul>
+<p></p>
+<p><strong>The red flag:</strong> releases happen when someone feels brave. The process is the product here.</p>
+<p></p>
+<h2>8. Analytics and Observability</h2>
+<p></p>
+<p>Analytics and observability are how you see the app&#x27;s health once it is live. Their absence is a finding in itself.</p>
+<p></p>
+<p><strong>What a real audit verifies:</strong></p>
+<p></p>
+<ul>
+<li>Key events are tracked. Signups, purchases, core actions: the events that tell you whether the app works as a business.</li>
+<li>Funnels and drop-offs are visible. If users vanish between two screens, someone should be able to see where and how many.</li>
+<li>Server-side logging and monitoring exist. The team gets alerted when error rates spike or the database slows down, rather than finding out from customers.</li>
+<li>Session recordings or replays are available for debugging. Watching what a frustrated user actually did is worth a hundred bug reports.</li>
+</ul>
+<p></p>
+<p><strong>The red flag:</strong> the only analytics are download counts. You know how many people installed the app and nothing about what they do in it.</p>
+<p></p>
+<h2>9. Third-Party Services and SDKs</h2>
+<p></p>
+<p>Modern apps are assembled from services: push, payments, maps, analytics, auth. Each one has its own keys, bills, and failure modes. The audit inventories all of them.</p>
+<p></p>
+<p><strong>What a real audit verifies:</strong></p>
+<p></p>
+<ul>
+<li>Every service is documented. Someone can list every third-party account the app depends on, who owns it, and what it costs.</li>
+<li>Keys and credentials are managed properly. They are rotated, scoped, and stored safely, not shared in a team chat.</li>
+<li>Unused SDKs are removed. Every unused SDK adds weight, startup time, and a potential security hole. Apps accumulate them like junk drawers.</li>
+<li>Critical paths have fallbacks. If the payment provider has an outage, the app should fail gracefully instead of freezing at checkout.</li>
+</ul>
+<p></p>
+<p><strong>The red flag:</strong> nobody knows the full list. Services get added by whoever needed them and are never removed when they stop being needed.</p>
+<p></p>
+<h2>10. Store and Legal Readiness</h2>
+<p></p>
+<p>The last check stops launches cold: the app stores and the law. An app can be technically perfect and still get rejected or pulled.</p>
+<p></p>
+<p><strong>What a real audit verifies:</strong></p>
+<p></p>
+<ul>
+<li>Privacy policy and terms exist and are accurate. They describe what the app actually collects, not what a template said.</li>
+<li>App permissions are justified. Every permission the app requests matches a real feature, because both stores now reject apps that ask for more than they need.</li>
+<li>Store guidelines are followed. Screenshots, descriptions, and content policies meet Apple and Google requirements.</li>
+<li>Developer accounts, signing keys, and store listings belong to the founder or the company, never to the agency that built the app.</li>
+</ul>
+<p></p>
+<p><strong>The red flag:</strong> the agency that built the app owns the store account, and the founder does not have the login. Fix that before anything else.</p>
+<p></p>
+<h2>What Happens After the Audit</h2>
+<p></p>
+<p>A production-readiness audit ends with a report, not with anxiety. The report lists every finding, ranks them by risk, and says what to fix first. Most apps we audit do not need to be rebuilt. They need a prioritised list of real problems, fixed in the right order: security and data first, then stability, then performance, then polish.</p>
+<p></p>
+<p>The pattern: surface problems with sound foundations mean fix, and it usually takes less time than founders fear. Deep problems, wrong architecture, missing security, untrustworthy data, mean secure the data and rebuild cleanly. Either way, the audit tells you which situation you are in, instead of guessing.</p>
+<p></p>
+<h2>Frequently Asked Questions</h2>
+<p></p>
+<p><strong>How long does a production-readiness audit take?</strong> For a typical app, two to three days with two to three engineers. The code review is the biggest part, then the security and backend checks. Very large or messy codebases take longer.</p>
+<p></p>
+<p><strong>When should I run a production-readiness audit?</strong> Three moments matter most: right before launch, right after inheriting an app from another agency, and before any major growth push.</p>
+<p></p>
+<p><strong>How is a production-readiness audit different from a code review?</strong> A code review looks at code quality in isolation. A production-readiness audit looks at the whole system: code, backend, database, security, release process, analytics, third-party services, and legal readiness. It answers whether the app is safe to run, not just whether the code is tidy.</p>
+<p></p>
+<p><strong>What does a production-readiness audit cost?</strong> It depends on the app&#x27;s size. We offer ours for free, in exchange for a testimonial if the report is genuinely useful. Most agencies charge a real fee, and it is worth paying, because what it finds usually saves far more than it costs.</p>
+<p></p>
+<p><strong>My agency says the app is ready. Should I still get an audit?</strong> Yes, from someone independent. Your agency did the work, which means they have blind spots about it. Every founder we have met who skipped the independent check says the same thing afterwards: the problems were obvious to fresh eyes.</p>
+<p></p>
+<p><strong>What if the audit finds that my app needs to be rebuilt?</strong> Then you want that answer before launch, not after. Rebuilding with your data secured and migrated is far cheaper than rebuilding after a public failure.</p>
+<p></p>
+<h2>Get a Free Production-Readiness Audit Before You Launch</h2>
+<p></p>
+<p>Most founders cannot judge their own app&#x27;s readiness. You are too close to it, and the team that built it has blind spots. That is exactly why independent audits exist, and it is why we offer ours for free.</p>
+<p></p>
+<p>My team will run a full production-readiness audit on your app: security, backend, database, performance, crashes, code quality, release process, analytics, third-party services, and store readiness. Two to three engineers, two to three days. You get a written report of every finding, ranked by risk, with what to fix first. If the report is genuinely useful, a testimonial is all we ask in return.</p>
+<p></p>
+<p>Want to know if your app is actually ready for real users? Message us and we will start the audit this week.</p>
+<p></p>
+<p>Code Baiz is a mobile and web app development agency in Brooklyn, New York. Our team of around 20 engineers has shipped more than 300 projects since 2019, most of them in React Native. We audit, fix, and scale apps for founders who cannot afford to get it wrong twice.</p>
+<p></p>
+</body></html>
