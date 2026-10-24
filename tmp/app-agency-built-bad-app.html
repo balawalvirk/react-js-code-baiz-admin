@@ -1,0 +1,174 @@
+<!doctype html><html><head><meta charset='utf-8'><title>article</title></head><body>
+<p>You paid for an app. You waited months. What arrived crashes on login, loads slowly, loses user data, or breaks every time you ask for a small change. Your agency says it is almost fixed. It has said that for weeks.</p>
+<p></p>
+<p>If that sounds familiar, you are not alone, and you are not stuck. We speak to founders in this position every month. The story is usually the same: a promising demo, a missed deadline, then bugs that never go away.</p>
+<p></p>
+<p><strong>TL;DR:</strong> Do not start by paying someone to fix random bugs. First, secure everything you own: code, accounts, and data. Second, get an independent audit that tells you exactly what is wrong. If the problems are surface level and the foundations are correct, fix the existing app in a planned order. If the cause is deeper, like very wrong architecture choices or security problems, secure the existing app data, migrate to a fresh database, and build a new clean reliable app on top of it. The audit decides which path you are on.</p>
+<p></p>
+<p>This guide is the decision framework we use. It will help you stop guessing and start fixing bad app development with evidence.</p>
+<p></p>
+<h2>1. First, Secure What You Own Before You Do Anything Else</h2>
+<p></p>
+<p>Before you argue with your agency, before you hire anyone new, protect what is yours. A badly built app what to do checklist always starts with ownership, because recovery is much harder if you lose access to your own product.</p>
+<p></p>
+<p>Do this in the next 48 hours:</p>
+<p></p>
+<ul>
+<li><strong>App store accounts.</strong> Confirm the Apple and Google developer accounts are in your company name and that you have the login. If the agency owns the account, you do not fully own your app.</li>
+<li><strong>Source code.</strong> Get the full code repository, not just a zip file from six months ago. Confirm you can open it, and confirm it matches what is live in the stores.</li>
+<li><strong>Backend and database.</strong> Find out where the server and database live, who pays for them, and who has admin access. Get those logins in your name.</li>
+<li><strong>Third party services.</strong> List every service the app uses: payments, push notifications, analytics, maps, email. Get the account owner and login for each one.</li>
+<li><strong>Signing keys and certificates.</strong> These prove the app is yours when you ship updates. If you lose them, shipping gets painful fast.</li>
+</ul>
+<p></p>
+<blockquote><p>If you cannot list who owns your code, your data, and your store accounts, fix that before you fix a single bug. Ownership is step zero.</p></blockquote>
+<p></p>
+<p>We have seen founders discover their agency held the only copy of the code or the only database login. You can still recover, but it takes longer. Securing access now saves that pain.</p>
+<p></p>
+<h2>2. Get an Independent Audit Before You Spend Another Dollar</h2>
+<p></p>
+<p>The first real step is to get an audit done to see what exactly is wrong. Not an opinion from a sales call. Not a list of bugs from your users. A proper review by someone who did not build the app.</p>
+<p></p>
+<p>Your current agency has blind spots about its own work. A new agency that wants the rebuild job has an incentive to say everything is broken. You need a neutral, evidence based look.</p>
+<p></p>
+<p>A good audit covers:</p>
+<p></p>
+<ul>
+<li><strong>Product flows.</strong> Do the core journeys actually work: signup, login, payment, the one action your app exists for?</li>
+<li><strong>Code and architecture.</strong> Is the code organised, readable, and built on a stack that is still supported?</li>
+<li><strong>Security foundations.</strong> How are passwords, tokens, API keys, and user data handled?</li>
+<li><strong>Backend and database.</strong> Is the data model sane, are backups real, and can the backend handle real users?</li>
+<li><strong>Crash and performance data.</strong> What do real devices and real users experience, not just the test phone in the office?</li>
+</ul>
+<p></p>
+<p>Our <a href="https://www.codebaiz.com/blogs/production-readiness-audit">production readiness audit guide</a> lists the ten checks a full audit should include, in plain words. Use it as your checklist when you talk to anyone about an audit, including us.</p>
+<p></p>
+<p>The audit should end with a written report: every finding, ranked by risk, with a clear recommendation. Fix, rebuild, or a mix of both. If someone will not put the recommendation in writing with reasons, you do not have an audit. You have a pitch.</p>
+<p></p>
+<h2>3. How to Read the Audit: Surface Problems vs Foundation Problems</h2>
+<p></p>
+<p>This is the most important distinction in the whole recovery. Two apps can look equally broken to users and need completely different fixes.</p>
+<p></p>
+<h3>Surface problems with sound foundations</h3>
+<p></p>
+<p>These are real problems, but they sit on top of a correct base:</p>
+<p></p>
+<ul>
+<li>Bugs in specific flows, like a checkout that fails for one payment method</li>
+<li>Slow screens caused by oversized images or missing caching</li>
+<li>A dated interface that confuses users but works underneath</li>
+<li>Missing crash reporting, analytics, or release process</li>
+<li>Messy code in places, but the overall structure makes sense</li>
+</ul>
+<p></p>
+<p>If this is your audit result, be grateful. It is the better outcome. Fixing is possible, and it is usually far cheaper and faster than starting again.</p>
+<p></p>
+<h3>Foundation problems that will not patch away</h3>
+<p></p>
+<p>These are problems in the base itself:</p>
+<p></p>
+<ul>
+<li>Very wrong architecture choices, where changing one screen breaks another</li>
+<li>Security problems baked into the design, like secrets stored inside the app or user data that anyone can access by changing an ID</li>
+<li>A database that cannot express what your product needs to do</li>
+<li>A dead or abandoned framework that no longer gets security fixes</li>
+<li>Code that no new engineer can understand after a fair effort</li>
+</ul>
+<p></p>
+<blockquote><p>Surface problems mean the house needs repair. Foundation problems mean the house was built wrong. You do not fix foundation problems with paint.</p></blockquote>
+<p></p>
+<p>Our <a href="https://www.codebaiz.com/blogs/rebuild-vs-refactor-app">rebuild vs refactor guide</a> walks through the five foundation check we use: frameworks, architecture, security, data layer, and code organisation. Run that check on your audit report before you decide.</p>
+<p></p>
+<h2>4. Path A: When You Can Fix the Existing App</h2>
+<p></p>
+<p>If the audit says the foundation is correct and the issues are surface level, fixing bugs is the right move. But be clear about what fixing actually involves.</p>
+<p></p>
+<p>Fixing a badly built app is not quick, and we will not pretend otherwise. Finding a bug, understanding why it happens, fixing it without breaking something else, testing it on real devices, and shipping it safely takes real time. Anyone who tells you they will clean up months of problems in a weekend is selling you the same story your last agency sold you.</p>
+<p></p>
+<p>A sane fix plan looks like this:</p>
+<p></p>
+<ol>
+<li><strong>Fix security and data risks first.</strong> If user data is exposed or backups do not work, nothing else matters until that is handled.</li>
+<li><strong>Fix stability next.</strong> Stop the crashes and the data loss. Users forgive a plain design. They do not forgive losing their work.</li>
+<li><strong>Fix the core flow.</strong> Make signup, login, and your main action work reliably for every user, every time.</li>
+<li><strong>Fix performance.</strong> Speed up the slowest screens and the slowest API calls. Slow is a bug users feel on every visit.</li>
+<li><strong>Then improve the product.</strong> Once the base is stable, improve design, copy, and features based on real user data.</li>
+</ol>
+<p></p>
+<p>Work through the list in order. Do not let anyone start with a redesign while crashes are still open. A prettier broken app is still a broken app.</p>
+<p></p>
+<p>Most founders we work with use a new team for the fix, because trust is gone and fresh eyes find more.</p>
+<p></p>
+<h2>5. Path B: When You Need to Secure Data and Rebuild Clean</h2>
+<p></p>
+<p>If the cause is deeper, like very wrong architecture choices or security problems, patching will cost you more in the long run. You will pay for fix after fix, and each fix will be slower and riskier than the last.</p>
+<p></p>
+<p>In that case, the best move is clear:</p>
+<p></p>
+<ol>
+<li><strong>Secure the existing app data.</strong> Back up everything, verify the backup restores, and document what data exists and where.</li>
+<li><strong>Migrate to a fresh database.</strong> Design a clean data model for the new app, then move users and their history across with repeated tests. Data migration is the highest risk part of any rebuild, so it gets the most care.</li>
+<li><strong>Build a new clean reliable app on top of it.</strong> Correct frameworks, proper architecture, security designed in from day one, and a release process that lets you ship safely.</li>
+<li><strong>Keep the old app alive while you build.</strong> You do not need to shut your business down. The old app keeps serving users while the new app is built side by side, then you move users over when the new app is proven.</li>
+</ol>
+<p></p>
+<p>This side by side approach takes extra resources, because two tracks run at once. It also makes the transition smooth, with no dead app or forced break for users.</p>
+<p></p>
+<p>A rebuild costs roughly what a new build costs, plus migration. What makes it worth it is that you stop paying the tangle tax on every future change. Features that took months start taking weeks, because the base finally helps instead of fighting.</p>
+<p></p>
+<h2>6. What Founders Get Wrong During Recovery</h2>
+<p></p>
+<p>We have watched this recovery go wrong in predictable ways. Avoid these, and your odds improve a lot.</p>
+<p></p>
+<ul>
+<li><strong>Paying for random fixes without an audit.</strong> You spend money, some bugs close, new ones open, and nobody can tell you if you are closer to done. Without an audit, there is no definition of done.</li>
+<li><strong>Asking the original agency to grade its own work.</strong> Even honest teams miss their own patterns. Get independent eyes.</li>
+<li><strong>Choosing the cheapest quote to fix an expensive mistake.</strong> Price was often part of how the first build went wrong. Judge the fix on process and evidence, not just cost.</li>
+<li><strong>Demanding a rebuild without evidence.</strong> Sometimes founders are so frustrated they want to burn it all down. If the foundations are solid, a rebuild wastes money you could spend on growth. Let the audit decide.</li>
+<li><strong>Ignoring data and accounts while debating code.</strong> Code can be rewritten. Lost user data and lost store accounts are much harder to replace. Secure them first, always.</li>
+<li><strong>Freezing the business for months.</strong> Your users and revenue matter during recovery. A good plan keeps the live app stable while the fix or rebuild happens.</li>
+</ul>
+<p></p>
+<blockquote><p>The pattern we see in successful recoveries is boring on purpose: secure, audit, decide, then execute in order. The drama is what got the app here. Boring gets it back.</p></blockquote>
+<p></p>
+<h2>7. How to Choose Who Fixes It</h2>
+<p></p>
+<p>In either path, find a competent person who has done this hundreds of times. That is not a slogan. Recovery work is pattern recognition. Experienced eyes see patterns many miss: the security hole hidden in a normal looking login, the database query that will fail at ten thousand users, the architecture shortcut that explains six separate bugs at once.</p>
+<p></p>
+<p>When you interview teams for fix bad app development work, ask:</p>
+<p></p>
+<ul>
+<li><strong>Have you recovered apps built by other agencies before?</strong> Ask for examples of the situation, not just the final app.</li>
+<li><strong>Will you audit before you quote?</strong> If they quote a full fix or rebuild before reading the code, they are guessing with your money.</li>
+<li><strong>What will you secure first?</strong> A good answer starts with data, accounts, and backups, not features.</li>
+<li><strong>How will you keep my live app stable during the work?</strong> Listen for a concrete plan, not reassurance.</li>
+<li><strong>Who owns everything at the end?</strong> The answer must be you: code, accounts, data, and keys, all in your name.</li>
+</ul>
+<p></p>
+<p>Speed without a stable base is how you got here.</p>
+<p></p>
+<h2>Frequently Asked Questions</h2>
+<p></p>
+<p><strong>My app agency built a bad app. Can it be fixed, or do I need a rebuild?</strong> It depends entirely on the foundations. If the audit finds surface problems on a correct base, fixing is usually the right move. If it finds wrong architecture or deep security problems, rebuilding cleanly after securing your data is usually cheaper over a year than endless patching.</p>
+<p></p>
+<p><strong>How long does an audit of a badly built app take?</strong> For a typical app, two to three days with two engineers. Larger or very messy codebases take longer. You should get a written report ranked by risk, not just a call with opinions.</p>
+<p></p>
+<p><strong>Should I confront my current agency or just leave?</strong> Secure your code, accounts, and data first, calmly and professionally. Then decide. Some founders give the agency a chance to fix specific audit findings. Most move on once trust is gone. Either way, do not start that conversation until your access is secure.</p>
+<p></p>
+<p><strong>Will I lose my users or their data if I rebuild?</strong> Not if the rebuild is planned properly. Your data is secured and backed up first, migrated to a fresh database with repeated tests, and users move to the new app only when it is proven. Data loss in a rebuild is a planning failure, not something you have to accept.</p>
+<p></p>
+<p><strong>How much will recovery cost?</strong> It depends on which path the audit points to. Fixing surface problems costs far less than a rebuild. A rebuild costs roughly what a new build costs, plus migration. That is exactly why the audit comes first: it stops you paying rebuild money for a fixable app, or fix money for an app that needs rebuilding.</p>
+<p></p>
+<p><strong>Can my app stay live while it is being fixed or rebuilt?</strong> Yes, and it should. For fixes, work ships in small safe releases. For rebuilds, the new app is built side by side while the old app keeps serving users, then you cut over when the new app is ready.</p>
+<p></p>
+<h2>Your App Can Be Recovered. Start With the Right Diagnosis</h2>
+<p></p>
+<p>If your agency built you a bad app, the worst thing you can do is keep paying for guesses. The best thing you can do is get a clear, written picture of what is wrong, then follow the path that picture points to.</p>
+<p></p>
+<p>That is what our free check up is for. I will put two engineers on your app for two to three days. We will review the product side and the engineering side, check the foundations, and tell you straight whether you should fix what you have or secure your data and rebuild clean. You get the full report either way. If the report is genuinely useful, all we ask is a testimonial.</p>
+<p></p>
+<p>Want a straight answer on your app? Message us and we will start the check this week.</p>
+<p></p>
+<p>Code Baiz is a mobile and web app development agency in Brooklyn, New York. Our team of around 20 engineers has shipped more than 300 projects since 2019, most of them in React Native. We fix and rebuild apps for founders who cannot afford to get it wrong twice, and we start every recovery the same way: secure, audit, then decide.</p>
+<p></p>
+</body></html>
