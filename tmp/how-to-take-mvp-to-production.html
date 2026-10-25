@@ -1,0 +1,218 @@
+<!doctype html><html><head><meta charset='utf-8'><title>article</title></head><body>
+<p>Your MVP worked. Twenty beta users signed up, tapped through the core flow, and told you the idea was good. Then you opened it to real users and the cracks showed in the first week. Password resets failed. A payment went through twice. The app slowed down every evening. One-star reviews mentioned crashes you had never seen.</p>
+<p></p>
+<p>That gap is normal. An MVP answers one question: does anyone want this? Production answers a harder one: can strangers trust this app with their data, their money, and their time, every day, without you watching?</p>
+<p></p>
+<p><strong>TL;DR:</strong> Learning how to take MVP to production means hardening nine areas, not adding features. Secure ownership and accounts, fix authentication and security, put the database on real backups and migrations, make payments fail safely, add crash reporting and alerts, test performance on real devices, build a release process with rollback, add analytics for the core flows, and clear store and legal readiness before you submit. Most MVPs need two to four weeks of this work, not a rebuild.</p>
+<p></p>
+<p>This is the mvp to production checklist we run before a public launch. It is deliberately boring. Boring is what production feels like when it is done right.</p>
+<p></p>
+<h2>How to Take MVP to Production Without Rebuilding Everything</h2>
+<p></p>
+<p>Founders often assume production means starting again. It usually does not. If your MVP uses a supported framework, a sane architecture, and a normal database, you can harden it in place.</p>
+<p></p>
+<p>Use this quick test before you decide:</p>
+<p></p>
+<ul>
+<li><strong>Keep and harden the MVP</strong> if the code is organised, a new engineer can understand it, and the core flow works reliably for your beta users.</li>
+<li><strong>Pause and get advice</strong> if every small change breaks something else, or if only one person can safely touch the code.</li>
+<li><strong>Consider a rebuild</strong> if the stack is abandoned, security was never designed in, or the database cannot hold the data your product now needs.</li>
+</ul>
+<p></p>
+<p>Our <a href="https://www.codebaiz.com/blogs/rebuild-vs-refactor-app">rebuild vs refactor guide</a> walks through that foundation check. For most founders, hardening is the right path, and the nine steps below are the order we use.</p>
+<p></p>
+<blockquote><p>An MVP proves demand. Production proves discipline. The features can stay almost the same. The standards underneath them have to change completely.</p></blockquote>
+<p></p>
+<h2>1. Secure Ownership, Code and Accounts First</h2>
+<p></p>
+<p>Production starts with ownership, not code. Before you launch an MVP app publicly, confirm you control everything it depends on.</p>
+<p></p>
+<p><strong>Your MVP shortcut:</strong> the developer&#x27;s laptop holds the code, the store account is in a freelancer&#x27;s name, and nobody wrote down where the server lives.</p>
+<p></p>
+<p><strong>The production standard:</strong></p>
+<p></p>
+<ul>
+<li><strong>Store accounts in your company name.</strong> Developer accounts, signing keys, and certificates belong to you, with logins you control.</li>
+<li><strong>Code in a repository you own.</strong> Full history, not a zip file, with written setup notes.</li>
+<li><strong>Backend and database under your billing.</strong> You know where they run and who has admin access.</li>
+<li><strong>Every third-party service listed.</strong> Payments, push, maps, analytics, email, with owner and login for each.</li>
+</ul>
+<p></p>
+<p>This takes a day and prevents the worst launch story we hear: a founder who cannot ship a fix because an ex-contractor owns the account.</p>
+<p></p>
+<h2>2. Harden Authentication and Security</h2>
+<p></p>
+<p>MVPs cut security corners to move fast. That is fine for twenty friendly users. It is not acceptable once real accounts and real data arrive.</p>
+<p></p>
+<p><strong>What to fix before launch:</strong></p>
+<p></p>
+<ul>
+<li><strong>Real session handling.</strong> Tokens expire, logout ends the session, and password reset links are single use and time limited.</li>
+<li><strong>No secrets inside the app.</strong> API keys and private tokens live on the server. Anything baked into the app can be extracted by anyone who downloads it.</li>
+<li><strong>Encrypted connections everywhere.</strong> HTTPS for every request, with no plain HTTP calls left in old screens.</li>
+<li><strong>Server-side permission checks.</strong> A user must never see another user&#x27;s data by changing an ID in a request.</li>
+<li><strong>Rate limits on sensitive endpoints.</strong> Login, signup, and password reset need limits, or automated attacks will find them fast.</li>
+</ul>
+<p></p>
+<p>You need the basics done correctly, because a breach in month one costs trust you have not built yet.</p>
+<p></p>
+<h2>3. Put Data on a Real Database Plan</h2>
+<p></p>
+<p>Demo data is forgiving. Production data is your business. Lose it and you do not get a second chance.</p>
+<p></p>
+<p><strong>The production standard for data:</strong></p>
+<p></p>
+<ul>
+<li><strong>Backups that have been tested.</strong> Automatic daily backups, and at least one restore you have actually performed.</li>
+<li><strong>Versioned migrations.</strong> Every database change is a written, reversible migration. Nobody edits the live database by hand before a launch.</li>
+<li><strong>Indexes on real queries.</strong> Your busiest screens should be backed by indexes, so they stay fast as data grows.</li>
+<li><strong>A clean test and production split.</strong> Real user data never lives in the database you use for experiments.</li>
+</ul>
+<p></p>
+<p>If your MVP grew inside a quick backend tool, this is where you move to a structure that can grow with you. Do it before the launch spike, not during it.</p>
+<p></p>
+<h2>4. Make Payments and Core Flows Fail Safely</h2>
+<p></p>
+<p>In an MVP, a failed payment is a bug report. In production, it is a refund, a chargeback, and a public review. The difference is how the flow behaves when something goes wrong halfway.</p>
+<p></p>
+<p><strong>Harden the flows that carry money and trust:</strong></p>
+<p></p>
+<ul>
+<li><strong>Idempotent payments.</strong> If a user taps pay twice, or the network drops mid-payment, they are charged once.</li>
+<li><strong>Clear pending and failed states.</strong> Users should always know whether they paid, whether it is processing, or whether it failed. Silence creates panic.</li>
+<li><strong>Receipts and records.</strong> Every transaction is logged well enough to resolve a dispute weeks later.</li>
+<li><strong>Edge cases tested on purpose.</strong> Expired cards, cancelled checkouts, refunds, and subscriptions renewing. Demos rarely show these paths, so MVP code is thinnest there.</li>
+</ul>
+<p></p>
+<p>Apply the same thinking to your core action: a booking, an order, a message, an upload. Ask what happens when it fails halfway, then make that answer safe and clear.</p>
+<p></p>
+<blockquote><p>Production quality is mostly about failure. Anyone can make the happy path work in a demo. Production is what happens on a bad network, with an expired card, on an old phone, at the worst possible moment.</p></blockquote>
+<p></p>
+<h2>5. Add Crash Reporting, Logging and Alerts</h2>
+<p></p>
+<p>Most MVPs launch blind. The team learns about crashes from reviews, days later. Production means you see problems before users report them.</p>
+<p></p>
+<p><strong>The minimum observability setup:</strong></p>
+<p></p>
+<ul>
+<li><strong>Crash reporting on every platform.</strong> Tools like Sentry or Firebase Crashlytics, with readable, grouped reports. Aim for <strong>99.9% of sessions crash-free</strong>.</li>
+<li><strong>Server logging with alerts.</strong> Someone gets notified when error rates spike. The alert goes to a person, not a dashboard nobody opens.</li>
+<li><strong>Release tracking.</strong> Every new version is watched for new crashes in its first days, so a bad release is caught in hours.</li>
+<li><strong>A weekly review habit.</strong> Ten minutes a week on the top crashes and slowest endpoints.</li>
+</ul>
+<p></p>
+<p>Our <a href="https://www.codebaiz.com/blogs/production-readiness-audit">production readiness audit guide</a> covers this as one of its ten checks. If you only fix one thing here, fix visibility. You cannot harden what you cannot see.</p>
+<p></p>
+<h2>6. Test Performance on Real Devices and Real Networks</h2>
+<p></p>
+<p>Your MVP felt fast on a new phone, on office wifi, with a nearly empty database. Real users will use older phones, weak signals, and full accounts.</p>
+<p></p>
+<p><strong>Set and measure real targets:</strong></p>
+<p></p>
+<ul>
+<li><strong>Main screens load in under 3 seconds</strong> on a mid-range phone on a mobile network.</li>
+<li><strong>Key API calls respond in under 500 milliseconds</strong> at the 95th percentile. Averages hide the slow experiences that drive users away.</li>
+<li><strong>Images sized for the screen.</strong> Full-size photos in small thumbnails are the most common cause of slow screens.</li>
+<li><strong>Graceful behaviour on poor networks.</strong> Timeouts, retries, and honest offline states. A frozen screen reads as a broken app.</li>
+</ul>
+<p></p>
+<p>Test with a three-year-old Android phone and a throttled connection before launch. It saves your first month of reviews.</p>
+<p></p>
+<h2>7. Build a Real Release Process With Rollback</h2>
+<p></p>
+<p>MVP shipping is often one person, one laptop, and hope. Production needs a process that works when you are tired or fixing a bug at midnight.</p>
+<p></p>
+<p><strong>The production release standard:</strong></p>
+<p></p>
+<ul>
+<li><strong>Automated builds and tests.</strong> Builds come from a pipeline, not a laptop.</li>
+<li><strong>Staged rollouts.</strong> New versions reach a small share of users first. If something is wrong, it affects a few users while you fix it, not everyone at once.</li>
+<li><strong>Over-the-air updates for fast fixes.</strong> For React Native apps, tools like EAS Update let you ship JavaScript fixes without waiting 24 to 48 hours for store review.</li>
+<li><strong>A rollback you have practised.</strong> If a release breaks something serious, you can return to the last good version in minutes. The first emergency should not be the first time you try it.</li>
+<li><strong>Feature flags for risky changes.</strong> Ship the code dark, turn it on for a small group, and expand when the data looks good.</li>
+</ul>
+<p></p>
+<p>Teams with safe releases ship more often later, because each release carries less fear.</p>
+<p></p>
+<h2>8. Add Analytics for the Core Flows</h2>
+<p></p>
+<p>Downloads tell you almost nothing. To launch an MVP app properly, you need to see what users do inside it.</p>
+<p></p>
+<p><strong>Track the events that decide your business:</strong></p>
+<p></p>
+<ul>
+<li><strong>Activation.</strong> Signup started, signup completed, onboarding finished. Know exactly where new users drop off.</li>
+<li><strong>The core action.</strong> The one thing your app exists for, tracked every time, with success and failure split out.</li>
+<li><strong>Revenue events.</strong> Trial started, purchase completed, subscription renewed, subscription cancelled.</li>
+<li><strong>Drop-off funnels.</strong> If 40% of users vanish between two screens, that screen is your highest value fix. Without tracking, you will never know it exists.</li>
+</ul>
+<p></p>
+<p>Keep the list short. Ten well-chosen events beat two hundred random ones. Review them weekly in the first month. Our <a href="https://www.codebaiz.com/blogs/is-my-app-ready-to-scale">scaling readiness checklist</a> shows how to read them before a big push.</p>
+<p></p>
+<h2>9. Clear Store and Legal Readiness Before You Submit</h2>
+<p></p>
+<p>The last step stops more launches than any technical problem. Apps get rejected for paperwork and policy issues that were knowable weeks earlier.</p>
+<p></p>
+<p><strong>Check before you submit:</strong></p>
+<p></p>
+<ul>
+<li><strong>Privacy policy and terms that match reality.</strong> They describe what your app actually collects and shares, not what a template said.</li>
+<li><strong>Permissions justified.</strong> Every permission the app requests maps to a visible feature. Both stores now push back on apps that ask for more than they need.</li>
+<li><strong>Account deletion built in.</strong> Apple requires apps with accounts to offer in-app account deletion. Build it before submission, not after a rejection.</li>
+<li><strong>Listings ready.</strong> Screenshots, descriptions, age ratings, and support contact details complete and accurate.</li>
+<li><strong>Data handling answers prepared.</strong> Both stores ask detailed questions about data collection. Answer them from your real analytics and SDK list, not from memory.</li>
+</ul>
+<p></p>
+<p>Build a one-week buffer into your launch date for review. A calm buffer beats a missed launch announcement.</p>
+<p></p>
+<h2>A Practical Hardening Sprint: Two to Four Weeks</h2>
+<p></p>
+<p>For a typical MVP with sound foundations, hardening takes two to four weeks, in this order:</p>
+<p></p>
+<ol>
+<li><strong>Week 1: ownership, security and data.</strong> Secure accounts, fix authentication and secrets, set up tested backups and migrations.</li>
+<li><strong>Week 2: core flows and visibility.</strong> Harden payments and the core action, add crash reporting and alerts, and fix the top issues they reveal.</li>
+<li><strong>Week 3: performance and releases.</strong> Hit load time targets on real devices, set up staged rollouts, over-the-air updates and rollback.</li>
+<li><strong>Week 4: analytics, store and soft launch.</strong> Add event tracking, finish store readiness, then launch to a small audience first.</li>
+</ol>
+<p></p>
+<p>Notice what is not on this list: new features. Freeze features during hardening. Every feature added mid-sprint reopens testing, and it is the most common reason hardening takes three months instead of three weeks.</p>
+<p></p>
+<h2>What Does Not Need to Change</h2>
+<p></p>
+<p>Hardening is not a rewrite. Some MVP choices are fine to keep:</p>
+<p></p>
+<ul>
+<li><strong>Your design can stay.</strong> A plain interface users understand beats a beautiful one that confuses them. Polish later, with real data.</li>
+<li><strong>Your feature set should stay small.</strong> Add features after launch, one at a time, on a stable base.</li>
+<li><strong>Your stack can usually stay.</strong> On a supported framework like React Native, production is about standards, not switching tools.</li>
+<li><strong>Your beta users can stay with you.</strong> Migrate their accounts properly and let them become your first reviewers.</li>
+</ul>
+<p></p>
+<p>The goal is a calmer app, not a different app.</p>
+<p></p>
+<h2>Frequently Asked Questions</h2>
+<p></p>
+<p><strong>How long does it take to take an MVP to production?</strong> For a typical MVP with sound foundations, two to four weeks of focused hardening. If the check finds foundation problems, like wrong architecture or missing security design, allow longer.</p>
+<p></p>
+<p><strong>What is the difference between an MVP and a production app?</strong> An MVP proves users want the product. A production app has to protect real data and real money, handle failure gracefully, show the team what is breaking, and ship fixes safely. The features may look identical. The standards underneath are different.</p>
+<p></p>
+<p><strong>Do I need to rebuild my MVP for production?</strong> Usually no. If the framework is supported, the architecture is sane, and the code is understandable, hardening in place is faster and cheaper. Get an independent check before you decide.</p>
+<p></p>
+<p><strong>What should be on an mvp to production checklist first?</strong> Ownership, security and data, in that order. Confirm you control the accounts and code, fix authentication and secrets, and get tested backups running. Lost data and lost accounts often cannot be fixed later.</p>
+<p></p>
+<p><strong>Can I launch my MVP app without all nine steps?</strong> You can soft launch to a small audience if visibility is in place. Do not open to paid acquisition or press until all nine are done. Growth multiplies whatever state the app is in.</p>
+<p></p>
+<p><strong>How much does it cost to harden an MVP?</strong> It depends on the app size and how many shortcuts the MVP took. Hardening a sound MVP costs far less than building it did. Skipping it and fixing public failures costs far more.</p>
+<p></p>
+<h2>Get a Free Production Readiness Check Before You Launch</h2>
+<p></p>
+<p>Most founders are too close to their MVP to judge it honestly. Beta users were forgiving. The public will not be.</p>
+<p></p>
+<p>That is why we offer a free production readiness check. My team will review your MVP against this exact checklist: ownership, security, data, payments, crashes, performance, releases, analytics, and store readiness. Two to three engineers, two to three days. You get a written report of what is ready, what is not, and the order to fix it in. If the report is genuinely useful, a testimonial is all we ask in return. The full method is in our <a href="https://www.codebaiz.com/blogs/production-readiness-audit">production readiness audit guide</a>.</p>
+<p></p>
+<p>Want to know if your MVP is actually ready for real users? Message us and we will start the check this week.</p>
+<p></p>
+<p>Code Baiz is a mobile and web app development agency in Brooklyn, New York. Our team of around 20 engineers has shipped more than 300 projects since 2019, most of them in React Native. We harden, fix and scale apps for founders who cannot afford to get it wrong twice.</p>
+<p></p>
+</body></html>
