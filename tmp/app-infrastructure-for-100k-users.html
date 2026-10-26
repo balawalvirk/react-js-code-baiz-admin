@@ -1,0 +1,228 @@
+<!doctype html><html><head><meta charset='utf-8'><title>article</title></head><body>
+<p>Your app is growing. A partner wants to feature you, and your waitlist says the next push could take you past 100,000 users. Then a simple question stops the room: will the app actually hold up?</p>
+<p></p>
+<p>Most founders cannot answer it. Not because the app is bad, but because nobody mapped what sits underneath it. One server, one database, and a release process that works as long as nothing goes wrong at the wrong time.</p>
+<p></p>
+<p>Growth does not break an app all at once. It breaks one layer at a time, in a predictable order. The database strains first. Then the backend runs out of room. Then slow screens, failed jobs, and invisible errors follow. Every layer can be fixed before the spike, usually without a rebuild.</p>
+<p></p>
+<p><strong>TL;DR:</strong> Solid app infrastructure for 100k users means eight layers: a database with indexes, pooling, and tested backups, a backend that scales sideways behind a load balancer, caching for hot data, storage and a CDN for files, background queues for heavy work, monitoring that warns you before users complain, CI/CD with staging and rollback, and security with rate limits. Build them in that order. That is the order they break in.</p>
+<p></p>
+<p>This is the mobile app infrastructure scaling breakdown we walk founders through before a big push. Just what an app backend for scale needs at 100,000 users, and what can wait.</p>
+<p></p>
+<h2>What 100,000 Users Actually Means in Real Numbers</h2>
+<p></p>
+<p>First, calm the number down. <strong>100,000 registered users is not 100,000 people in your app at once.</strong></p>
+<p></p>
+<p>If <strong>10 percent of registered users are active daily</strong>, that is 10,000 daily users. If <strong>10 to 20 percent of those overlap at your peak hour</strong>, plan for roughly 1,000 to 2,000 people at the same time, each triggering several API calls per minute.</p>
+<p></p>
+<ul>
+<li><strong>You do not need giant infrastructure.</strong> You need correct infrastructure. A well built single region setup with the eight layers below handles this comfortably.</li>
+<li><strong>Peaks decide everything.</strong> Your average hour will look fine. Your worst fifteen minutes, a push notification or a partner email, is what breaks you. Plan for the peak.</li>
+</ul>
+<p></p>
+<p>If you have not run the wider checks yet, start with our <a href="https://www.codebaiz.com/blogs/is-my-app-ready-to-scale">scaling readiness checklist</a>. This post goes deeper on infrastructure itself.</p>
+<p></p>
+<blockquote><p>The risk is not 100,000 users on paper. The risk is 2,000 users arriving in the same ten minutes, all hitting the one query, the one server, and the one flow you never tested under load.</p></blockquote>
+<p></p>
+<h2>1. The Database, the Layer That Breaks First</h2>
+<p></p>
+<p>The database is the one layer you cannot simply copy to get more room, and it collects every shortcut taken earlier.</p>
+<p></p>
+<p><strong>What breaks first:</strong></p>
+<p></p>
+<ul>
+<li><strong>Unindexed queries.</strong> A screen that searches a growing table gets slower with every user. Fast at 1,000 rows, painful at 100,000.</li>
+<li><strong>N+1 queries.</strong> The app loads a list, then makes one extra query per item. A feed of 50 items becomes 51 queries, per user, per open.</li>
+<li><strong>Connection limits.</strong> Add more backend copies for scale and you can exhaust the database with connections alone.</li>
+</ul>
+<p></p>
+<p><strong>What you need before 100k:</strong></p>
+<p></p>
+<ul>
+<li><strong>Indexes on your real queries.</strong> Index the fields you filter, sort, and join by, based on your slowest live queries.</li>
+<li><strong>Connection pooling.</strong> A pooler shares connections, so spikes do not create new ones until the database refuses.</li>
+<li><strong>Caching, and a read replica if reads dominate.</strong> Most apps read far more than they write. Repeat reads should not all hit the main database.</li>
+<li><strong>Tested backups and versioned migrations.</strong> Daily backups, at least one restore you have actually performed, and every schema change as a reversible migration. We covered this in our <a href="https://www.codebaiz.com/blogs/how-to-take-mvp-to-production">guide to taking an MVP to production</a>.</li>
+<li><strong>Archiving for old data.</strong> Move old logs out of hot tables. Live screens should not wade through years of history.</li>
+</ul>
+<p></p>
+<p><strong>Your target:</strong> know your three slowest queries by name. If nobody can name them, that is your first job.</p>
+<p></p>
+<h2>2. A Backend and API That Can Scale Sideways</h2>
+<p></p>
+<p>One server is a single point of failure and a hard ceiling. The fix is not a bigger server forever. It is a backend that can run in more than one copy.</p>
+<p></p>
+<p><strong>What breaks first:</strong></p>
+<p></p>
+<ul>
+<li><strong>Everything on one instance.</strong> One crash, one deploy, one spike, and the app is down for everyone.</li>
+<li><strong>State stored on the server.</strong> If a session lives only on one copy, users break when traffic spreads across copies.</li>
+<li><strong>Slow work inside the request.</strong> Image processing or report building inside a tap makes that tap time out under load.</li>
+</ul>
+<p></p>
+<p><strong>What you need before 100k:</strong></p>
+<p></p>
+<ul>
+<li><strong>Stateless copies behind a load balancer.</strong> Any copy handles any request, sessions live in a shared store, and adding capacity is a setting, not a rebuild.</li>
+<li><strong>Autoscaling on real signals.</strong> CPU, memory, and request counts, with a sensible floor and ceiling, tested early.</li>
+<li><strong>Timeouts, retries, and graceful failure.</strong> A slow service should degrade clearly, not stack up requests until everything freezes.</li>
+<li><strong>Health checks.</strong> The load balancer stops sending traffic to a failing copy, automatically.</li>
+</ul>
+<p></p>
+<p>You need <strong>more than one copy, no single point of failure, and a way to add room in minutes</strong>. Not a complex multi region setup.</p>
+<p></p>
+<h2>3. Caching, the Cheapest Speed You Will Ever Buy</h2>
+<p></p>
+<p>Every repeat answer served from cache is a database query you never ran and a screen that loaded instantly.</p>
+<p></p>
+<p><strong>What to cache first:</strong></p>
+<p></p>
+<ul>
+<li><strong>Hot, rarely changing data.</strong> Home feeds, categories, content lists, config, and public profiles.</li>
+<li><strong>Expensive query results.</strong> Anything that joins several tables, runs often, and changes rarely.</li>
+<li><strong>Sessions and rate limit counters.</strong> Fast shared storage is built for these quick checks.</li>
+</ul>
+<p></p>
+<p><strong>The rules that keep caching safe:</strong></p>
+<p></p>
+<ul>
+<li><strong>Every entry needs an expiry or an invalidation rule.</strong> Stale data shown as fresh is worse than slow data.</li>
+<li><strong>Never cache private data in a shared key.</strong> One user seeing another user page ends trust.</li>
+<li><strong>Measure the hit rate.</strong> If the cache is not answering most eligible requests, it is decoration.</li>
+</ul>
+<p></p>
+<h2>4. File Storage and a CDN for Images and Media</h2>
+<p></p>
+<p>Apps get heavier as they grow. Serving every photo and upload from your backend spends capacity on the wrong job.</p>
+<p></p>
+<p><strong>What you need before 100k:</strong></p>
+<p></p>
+<ul>
+<li><strong>Files in object storage, not on the server disk.</strong> Dedicated storage scales on its own and survives a backend restart.</li>
+<li><strong>A CDN in front of public files.</strong> Content serves from close to the user, so distance stops deciding speed.</li>
+<li><strong>Images resized for the screen.</strong> A full size photo inside a small thumbnail is still the most common cause of slow screens we see.</li>
+<li><strong>Signed URLs for private files.</strong> Receipts and private photos should use short lived signed links, not public addresses.</li>
+</ul>
+<p></p>
+<h2>5. Background Queues for Work That Should Never Block a Tap</h2>
+<p></p>
+<p>The rule is simple: <strong>if work does not need to finish before the user sees the next screen, it does not belong inside the request.</strong></p>
+<p></p>
+<p><strong>Move these to a queue first:</strong></p>
+<p></p>
+<ul>
+<li><strong>Emails and push notifications.</strong> A job with retries, not a step that can fail a signup.</li>
+<li><strong>Image and file processing.</strong> Resizing and converting after upload.</li>
+<li><strong>Reports, exports, and imports.</strong> Anything over a few seconds, with a progress state.</li>
+<li><strong>Third party syncs and webhooks.</strong> Retried safely, logged, and visible when they fail.</li>
+</ul>
+<p></p>
+<p>Queues also protect you in a spike. Work lines up and drains at a pace your system can handle. Add a way to see and retry failed jobs. A silent failed job is a customer who never got the email they asked for.</p>
+<p></p>
+<h2>6. Monitoring, Logging and Alerts, So You Hear It First</h2>
+<p></p>
+<p>At 1,000 users, users are your monitoring. At 100,000, that reverses. By the time ten users complain, thousands have hit the same problem and left quietly.</p>
+<p></p>
+<p><strong>What you need before 100k:</strong></p>
+<p></p>
+<ul>
+<li><strong>Uptime and API monitoring.</strong> Key endpoints checked constantly, with alerts on failure.</li>
+<li><strong>Performance monitoring.</strong> Response times at the <strong>95th percentile</strong>, error rates, and slowest endpoints in one place. Averages hide pain. The p95 shows it.</li>
+<li><strong>Crash reporting on every platform.</strong> Grouped and reviewed weekly, aiming for <strong>99.9 percent of sessions crash free</strong>, the bar in our <a href="https://www.codebaiz.com/blogs/production-readiness-audit">production readiness audit guide</a>.</li>
+<li><strong>Alerts that reach a person.</strong> Error spikes and queue backlogs should notify a named human, not fill a dashboard nobody opens.</li>
+<li><strong>A weekly review.</strong> Fifteen minutes on top errors, slowest endpoints, and capacity trends, before a trend becomes an outage.</li>
+</ul>
+<p></p>
+<blockquote><p>You cannot scale what you cannot see. Monitoring is the difference between fixing a problem at 200 affected users and reading about it at 20,000.</p></blockquote>
+<p></p>
+<h2>7. CI/CD, Staging and Rollback, So Releases Stop Being Scary</h2>
+<p></p>
+<p>How you ship decides how fast you recover, and at 100,000 users recovery speed is a product feature.</p>
+<p></p>
+<p><strong>What you need before 100k:</strong></p>
+<p></p>
+<ul>
+<li><strong>Staging that mirrors production.</strong> Same shape, smaller size. Changes meet a real environment before users do.</li>
+<li><strong>A CI/CD pipeline.</strong> Builds and tests run on every change. Releases never come from one developer laptop.</li>
+<li><strong>Staged rollouts.</strong> New versions reach a small share of users first.</li>
+<li><strong>Over the air updates.</strong> For React Native apps, tools like EAS Update ship JavaScript fixes without waiting <strong>24 to 48 hours</strong> for store review.</li>
+<li><strong>A practised rollback.</strong> One clear action returns you to the last good version. Practise it before the emergency.</li>
+</ul>
+<p></p>
+<p>Teams with this layer ship more often and fear releases less.</p>
+<p></p>
+<h2>8. Security, Rate Limits and Cost Control at Scale</h2>
+<p></p>
+<p>Growth makes you a bigger target and a bigger bill. Both need attention before the spike.</p>
+<p></p>
+<p><strong>Security and abuse protection:</strong></p>
+<p></p>
+<ul>
+<li><strong>Rate limits on sensitive endpoints.</strong> Login, signup, password reset, and search need limits per user and per address.</li>
+<li><strong>Secrets in a manager, never in code.</strong> Keys rotate, access is scoped, nothing private is baked into the app.</li>
+<li><strong>Access reviewed.</strong> Who can reach production and the database, with multi factor authentication on for all of it.</li>
+<li><strong>Dependencies kept current.</strong> Known holes in old libraries are the easiest way in.</li>
+</ul>
+<p></p>
+<p><strong>Cost control:</strong></p>
+<p></p>
+<ul>
+<li><strong>Spend alerts.</strong> Autoscaling without a ceiling can turn a spike or a loop bug into a painful invoice.</li>
+<li><strong>Cost per user tracked.</strong> Healthy infrastructure spreads fixed costs, so cost per user should fall or hold steady as you grow. If it climbs, look for uncached reads or oversized media first.</li>
+<li><strong>Load test before you buy.</strong> Buying a bigger database to hide an unindexed query is the most expensive fix there is.</li>
+</ul>
+<p></p>
+<h2>What You Do Not Need Yet</h2>
+<p></p>
+<p>Founders overbuild almost as often as they underbuild. At 100,000 users, you usually do <strong>not</strong> need:</p>
+<p></p>
+<ul>
+<li><strong>Microservices.</strong> A well organised single backend is easier to run and scale to this size and beyond.</li>
+<li><strong>Multiple regions.</strong> One well run region beats a fragile multi region setup your team cannot operate.</li>
+<li><strong>A database cluster for its own sake.</strong> Indexing, pooling, caching, and one replica solve most problems here.</li>
+<li><strong>Custom tooling.</strong> Managed services exist so a small team can spend its time on the product.</li>
+</ul>
+<p></p>
+<p>Build for the stage you are entering, with clear paths to the next one.</p>
+<p></p>
+<h2>A Practical Build Order Before You Hit 100k</h2>
+<p></p>
+<p>If several layers are missing, use this order. It follows what breaks first:</p>
+<p></p>
+<ol>
+<li><strong>Measure.</strong> Turn on performance monitoring, find your slowest queries, and load test your core flows.</li>
+<li><strong>Fix the database.</strong> Indexes, pooling, tested backups, and archiving.</li>
+<li><strong>Add caching and move media.</strong> Cache hot reads, use object storage, and serve images through a CDN.</li>
+<li><strong>Make the backend plural.</strong> Stateless copies, a load balancer, autoscaling, and health checks.</li>
+<li><strong>Move heavy work to queues.</strong> Emails, processing, and reports out of user requests, with visible retries.</li>
+<li><strong>Lock in safe releases.</strong> Staging, CI/CD, staged rollouts, over the air updates, and rollback.</li>
+<li><strong>Harden and watch.</strong> Rate limits, secrets, spend alerts, and a weekly check on errors and capacity.</li>
+</ol>
+<p></p>
+<p>For most apps with sound foundations, this is weeks of work, not months, and not a rebuild. If the foundations are wrong, unsupported frameworks, broken architecture, security never designed in, fix that decision first.</p>
+<p></p>
+<h2>Frequently Asked Questions</h2>
+<p></p>
+<p><strong>What app infrastructure do I need for 100,000 users?</strong> The eight layers above: a tuned database, a stateless backend behind a load balancer, caching, object storage with a CDN, background queues, monitoring, CI/CD with rollback, and security with rate limits. Most apps need all eight in simple form, not enterprise form.</p>
+<p></p>
+<p><strong>What breaks first when an app scales to 100k users?</strong> The database, usually through unindexed or N+1 queries and exhausted connections. Next comes a single server backend, then slow media and heavy work blocking requests.</p>
+<p></p>
+<p><strong>Do I need microservices for 100,000 users?</strong> Almost certainly not. A well organised single backend with stateless copies, caching, and queues handles this size comfortably. Split services only when a measured bottleneck demands it.</p>
+<p></p>
+<p><strong>How much does app infrastructure cost at 100k users?</strong> It varies with media weight and usage, so any single figure would be a guess. The healthy sign is cost per user falling or holding steady as you grow. Track it monthly and fix waste before buying capacity.</p>
+<p></p>
+<p><strong>When should I set up app backend for scale?</strong> Before the growth push, not during it. Finish measurement, database, and caching first. Those three prevent most scaling outages, and they are much harder to do mid spike.</p>
+<p></p>
+<p><strong>Can I load test my way to confidence?</strong> Mostly, yes. Simulate realistic peak traffic on core flows, fix the first thing that breaks, then test again. It does not replace monitoring, but it turns launch day into a rehearsed event.</p>
+<p></p>
+<h2>Get a Free Infrastructure Check Before Growth Hits</h2>
+<p></p>
+<p>Most founders know their product cold and their infrastructure hardly at all. That is normal. The risk is finding the gaps in public, during the push you worked a year to earn.</p>
+<p></p>
+<p>That is why we offer a free infrastructure check. My team will review your app against the eight layers in this guide: database, backend, caching, storage, queues, monitoring, releases, and security. Two to three engineers, two to three days. You get a written report of what is ready for 100,000 users, what is not, and the order to fix it in. If the report is genuinely useful, a testimonial is all we ask in return.</p>
+<p></p>
+<p>Want to know if your infrastructure will hold when growth arrives? Message us and we will start the check this week.</p>
+<p></p>
+<p>Code Baiz is a mobile and web app development agency in Brooklyn, New York. Our team of around 20 engineers has shipped more than 300 projects since 2019, most of them in React Native. We build, fix, and scale apps for founders who cannot afford to get it wrong twice.</p>
+<p></p>
+</body></html>
