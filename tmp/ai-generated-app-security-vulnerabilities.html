@@ -1,0 +1,114 @@
+<!doctype html><html><head><meta charset='utf-8'><title>article</title></head><body>
+<p>I think I finally figured it out.</p>
+<p></p>
+<p>For the past few years, we have checked, fixed and rebuilt a steady stream of apps that were built fast and cheap, many of them with AI tools doing most of the coding. And the same security problems keep showing up, in app after app. Not exotic problems. Basic ones.</p>
+<p></p>
+<p>It never made sense to me. These AI tools learned from enormous amounts of code, written by millions of developers. Should they not have learned how to build a login safely by now?</p>
+<p></p>
+<p>I believe I know why they have not. And the uncomfortable part is that the reason sits inside how AI learns in the first place, which means the problem may never fully fix itself.</p>
+<p></p>
+<p><strong>TL;DR:</strong> AI-generated app security vulnerabilities are not random bad luck. AI learns from code that is public, and most public app code is MVP code, written fast to test an idea, with production security skipped. The few apps that succeed take their code private, and the hardest lessons experienced engineers carry never get written down at all. So AI keeps reproducing beginner security mistakes, and now it is starting to train on its own output too.</p>
+<p></p>
+<h2>1. The same basic flaws, in app after app</h2>
+<p></p>
+<p>Here is what we keep finding when we open up an AI-built app:</p>
+<p></p>
+<ul>
+<li><strong>OTPs returned in the API response.</strong> The code that is supposed to be sent only to the user&#x27;s phone is also included in the API&#x27;s own response. Anyone who can call that endpoint can read the code and walk straight in.</li>
+<li><strong>API keys and secrets exposed.</strong> Keys hardcoded into the app or sitting in plain sight, where anyone who downloads the app can pull them out and use them.</li>
+<li><strong>Weak password hashing.</strong> Passwords hashed with fast, outdated algorithms, or the same salt reused for every password in the database, so a single leak puts every account at risk.</li>
+<li><strong>OTPs that never expire.</strong> A code sent last week still works today. No expiry, no limit on attempts, nothing stopping someone from simply guessing until it opens.</li>
+<li><strong>No rate limiting on logins.</strong> The door can be knocked on a million times an hour, and the app never notices.</li>
+</ul>
+<p></p>
+<p>None of these need a genius hacker to exploit. They are the kind of mistakes a junior developer makes in the first month and a senior catches in review. No serious production app ships like this.</p>
+<p></p>
+<p>But MVP code ships like this all the time. An MVP exists to answer one question: will anyone use this? Security hardening is slow, invisible work, and it is the first thing cut when the goal is a demo by Friday.</p>
+<p></p>
+<blockquote><p>These are not sophisticated attacks waiting to happen. They are unlocked doors, shipped to production because nobody was hired to check for locks.</p></blockquote>
+<p></p>
+<h2>2. AI learns from what is public, and what is public is tutorials and MVPs</h2>
+<p></p>
+<p>AI coding tools learn patterns from huge collections of code that anyone can see: open-source projects, tutorials, sample apps, boilerplates and forum answers.</p>
+<p></p>
+<p>Now look honestly at what most of that code is for:</p>
+<p></p>
+<ul>
+<li><strong>Tutorials teach one concept at a time.</strong> Security steps get skipped on purpose to keep the lesson simple. &quot;In a real app you would store this key safely,&quot; the tutorial says, and then it moves on. The copied code never gets the safe version.</li>
+<li><strong>Sample projects are built to demo a feature,</strong> not to run a business with real users and real money.</li>
+<li><strong>Weekend and hackathon projects are built to impress by Sunday night,</strong> and security is invisible in a demo.</li>
+</ul>
+<p></p>
+<p>An AI trained on this does not learn how production apps are built. It learns how code looks when security is somebody else&#x27;s problem, and it reproduces that style with total confidence.</p>
+<p></p>
+<p>There is a simple test for this. Ask an AI to build a login flow and watch what it produces by default. You will usually get something that works: users sign up, codes get sent, passwords get stored. What you will not see, unless you specifically demand it, is expiry on the codes, limits on attempts, secrets kept out of the app, and hashing chosen to resist attack rather than to run fast. The defaults are the tell. The defaults are MVP defaults.</p>
+<p></p>
+<h2>3. The 99.5% problem: almost every app fails</h2>
+<p></p>
+<p>Here is the number that ties it all together. By most industry estimates, <strong>around 99.5% of consumer apps fail financially</strong>. Only a tiny fraction ever turn into real, lasting businesses.</p>
+<p></p>
+<p>Follow that through. If nearly every app dies at the MVP stage, then nearly every line of app code ever written and published is MVP code: written fast, written cheap, written to test an idea before the money ran out.</p>
+<p></p>
+<p>So the public pool of code is not a healthy mix of beginner and expert work. It is an ocean of first drafts.</p>
+<p></p>
+<blockquote><p>AI does not learn from the best code ever written. It learns from the average code that is public. And the average app is an MVP that never made it.</p></blockquote>
+<p></p>
+<h2>4. The good code goes private, and it never comes back</h2>
+<p></p>
+<p>Now consider the small fraction of apps that do succeed. The moment an app takes off, its code disappears from public view.</p>
+<p></p>
+<p>Repositories go private. Security work moves behind NDAs, internal reviews and closed systems. No company publishes its authentication system, its fraud checks or the fixes from its last security incident for the world to copy. That code is a competitive asset, and publishing it would be a security risk in itself.</p>
+<p></p>
+<p>So the exact code that would teach an AI what production-grade security looks like is the code the AI can never see. The better an app gets, the less the AI learns from it.</p>
+<p></p>
+<h2>5. The most valuable lessons were never written down at all</h2>
+<p></p>
+<p>There is a second gap, and as an engineer I think it is the bigger one.</p>
+<p></p>
+<p>A large part of the security decisions my team makes never came from documentation or tutorials. They came from experience: a launch that went wrong, a client who came to us after being burned by a previous developer, a code review where someone caught the one line that would have leaked everything.</p>
+<p></p>
+<p>That judgment lives in engineers&#x27; heads and in team habits. It almost never gets written into public code, because it is not code. It is thousands of small decisions made while building, reviewing and rescuing real products.</p>
+<p></p>
+<p>An AI can read everything on the internet and still miss all of it, because the most valuable part was never on the internet.</p>
+<p></p>
+<p>Every experienced engineer carries a private checklist of things they now verify automatically, because each item on it once cost somebody real money, real users or a very long night. That checklist is the real security layer of a production app. It exists in people, not in training data.</p>
+<p></p>
+<h2>6. And now the loop is feeding itself</h2>
+<p></p>
+<p>The problem has one more twist. A growing share of the new code appearing online is now generated by AI itself: in repositories, in tutorials, in forum answers, in sample projects.</p>
+<p></p>
+<p>That means the next generation of models trains on data that includes the current generation&#x27;s output, flaws included. The mistakes stop looking like mistakes. They become the standard pattern, repeated so often that they read as correct.</p>
+<p></p>
+<p>Researchers who study this warn about systems trained on their own output gradually getting worse instead of better. Security is the worst place for that to happen, because a security flaw is invisible. The app works fine, users are happy, and nobody knows the door is unlocked until someone walks through it.</p>
+<p></p>
+<h2>7. What this means if your app was built with AI</h2>
+<p></p>
+<p>None of this means AI tools are useless. They are genuinely good at speed: prototypes, first versions, getting something in front of users quickly. Plenty of good products start that way, and our guide on <a href="https://www.codebaiz.com/blogs/how-to-take-mvp-to-production">how to take an MVP to production</a> exists because that path is normal now.</p>
+<p></p>
+<p>It does mean you should assume the security layer of an AI-built app is MVP-grade until an experienced human proves otherwise. And the stakes are not abstract. The flaws listed above are the kind behind the account takeover and data leak stories that quietly end young companies. A breach at MVP stage does not just cost money. It costs the trust a young product cannot buy back.</p>
+<p></p>
+<p>In practice:</p>
+<p></p>
+<ol>
+<li><strong>Get the security checked by engineers who have shipped production apps.</strong> Authentication, OTP handling, where the secrets live, how passwords are stored, when sessions and codes expire. This is exactly what a <a href="https://www.codebaiz.com/blogs/production-readiness-audit">production-readiness audit</a> is built to cover.</li>
+<li><strong>Fix surface flaws in place, and do not patch foundations.</strong> If the weaknesses sit in the architecture itself, the honest options are the ones in our <a href="https://www.codebaiz.com/blogs/rebuild-vs-refactor-app">rebuild vs refactor</a> breakdown, and the decision is cheaper early than after an incident.</li>
+<li><strong>Do not ask the AI that wrote the code to grade it.</strong> It learned those patterns as normal. Asking it to review its own style of code is asking the student to mark their own homework with the same wrong answer key.</li>
+</ol>
+<p></p>
+<h2>Frequently asked questions</h2>
+<p></p>
+<p><strong>Is every AI-built app insecure?</strong> No. A skilled developer using AI as a tool, reviewing the output properly and adding production security on purpose, can ship a safe app. The danger is unreviewed AI output going straight to real users with real data.</p>
+<p></p>
+<p><strong>Can I just ask the AI to make my app secure?</strong> It can fix a specific flaw you name. It is much weaker at finding the flaws you do not know to ask about, because it learned those patterns as ordinary code. That gap is why the review has to come from outside the model.</p>
+<p></p>
+<p><strong>What should I check first in an AI-built app?</strong> Whether codes or tokens leak inside API responses, whether keys or secrets sit inside the app itself, how passwords are hashed, whether codes and sessions expire, and whether login attempts are rate limited.</p>
+<p></p>
+<p><strong>Is vibe coding fine for a prototype?</strong> Yes, with one condition: treat it as a prototype. The risk starts when a quick demo quietly becomes the production app holding real user accounts, emails and payments.</p>
+<p></p>
+<h2>Get a second pair of eyes on your app</h2>
+<p></p>
+<p>If your app was built with AI, or built fast by a team you no longer work with, I am happy to have our team check it. The check is free, it covers the product and the engineering, and you get the findings either way. A second pair of eyes never hurts, and with security, the cheapest time to find a problem is before someone else does.</p>
+<p></p>
+<p>Code Baiz is a mobile and web app development agency in Brooklyn, NYC, with a team of around 20 engineers and <strong>300+ projects launched since 2019</strong>. We build new apps, and we fix and rebuild ones that were not built properly the first time.</p>
+<p></p>
+</body></html>
