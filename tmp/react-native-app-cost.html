@@ -1,0 +1,151 @@
+<!doctype html><html><head><meta charset='utf-8'><title>article</title></head><body>
+<p>Two founders ask us the same question in the same week. One has a booking app for a small chain of studios. The other has a marketplace with payments, chat and two types of users.</p>
+<p></p>
+<p>The honest answer is that the framework is not what sets the price. Scope sets the price. React Native changes the maths in one important way, because one codebase serves both iPhone and Android. But features, integrations, design depth and backend work still decide whether you are looking at a focused first version or a serious platform build.</p>
+<p></p>
+<p><strong>TL;DR:</strong> A simple React Native app with a handful of screens and no custom backend typically lands in the <strong>$15,000 to $40,000</strong> range with a US agency. A mid-level app with accounts, payments and a backend usually runs <strong>$40,000 to $90,000</strong>. A complex app or marketplace is commonly <strong>$90,000 to $200,000 or more</strong>. Building the same app natively for iOS and Android separately often adds <strong>60 to 80 percent</strong> on top of the app build itself, because almost everything gets built and tested twice. Maintenance after launch usually adds <strong>15 to 20 percent of the build cost per year</strong>.</p>
+<p></p>
+<p>These are market ranges founders see across US agencies, not a quote. This post shows where the money goes, so you can judge any quote, including ours.</p>
+<p></p>
+<h2>1. React Native App Cost by App Type</h2>
+<p></p>
+<p>The fastest way to sanity check a quote is to place your app in the right band first. Most founder apps fall into one of four groups.</p>
+<p></p>
+<ul>
+<li><strong>Simple app</strong>: Typical React Native cost: $15,000 to $40,000; What is usually included: 5 to 10 screens, standard login, content or booking flow, no custom backend or a very light one</li>
+<li><strong>Mid-level app</strong>: Typical React Native cost: $40,000 to $90,000; What is usually included: Accounts, payments, a custom backend, an admin panel, push notifications, one or two integrations</li>
+<li><strong>Complex app</strong>: Typical React Native cost: $90,000 to $150,000; What is usually included: Real time features, chat, maps and location, multiple user roles, several integrations, heavier QA</li>
+<li><strong>Marketplace or platform</strong>: Typical React Native cost: $120,000 to $200,000+; What is usually included: Two user types, two apps or one app with two modes, payments and payouts, trust and safety, a full admin system</li>
+</ul>
+<p></p>
+<p><strong>How to read this table:</strong></p>
+<p></p>
+<ul>
+<li><strong>Design depth moves you within a band.</strong> Template-like screens sit at the low end. Custom animation and brand work sit at the high end.</li>
+<li><strong>The backend is often the hidden half.</strong> Founders price the screens they can see. Accounts, data, payments and admin tools are built behind them.</li>
+<li><strong>Store launch and first release support are usually included</strong> in an agency build. Ongoing maintenance usually is not, and is priced separately.</li>
+</ul>
+<p></p>
+<p>If a quote lands far below the band for your app type, something has been left out. If it lands far above, ask which features are driving it. Both answers are useful, and both are cheaper to learn before you sign.</p>
+<p></p>
+<h2>2. Why One Codebase Changes the Maths</h2>
+<p></p>
+<p>React Native lets one team build one app that runs on both iOS and Android. To see what that saves, compare it with building two separate native apps for the same product.</p>
+<p></p>
+<p><strong>The same mid-level app, priced three ways:</strong></p>
+<p></p>
+<ul>
+<li><strong>React Native, one codebase:</strong> one design pass, one build, one test cycle, one team. Call this the baseline, for example <strong>$60,000</strong>.</li>
+<li><strong>Two native apps:</strong> the design is shared, but the iPhone app and the Android app are built as two separate engineering projects. Two builds, two test cycles, and often two sets of specialists. The same scope commonly lands around <strong>$95,000 to $110,000</strong>.</li>
+<li><strong>Native iOS only:</strong> the cheapest build today, perhaps <strong>$50,000 to $55,000</strong> for the same scope, but Android users get nothing, and adding Android later costs close to a second full build.</li>
+</ul>
+<p></p>
+<p>The saving is not magic and it is not exactly half. Design, backend and project management are shared in every model, so they do not halve. What you save is the duplicated app build and the duplicated testing. As a working rule, <strong>one codebase usually saves 30 to 40 percent against building both platforms natively</strong>, and it saves far more over the life of the app, because every future feature is also built once.</p>
+<p></p>
+<p>We compare the engineering trade-offs honestly in our guide on <a href="https://www.codebaiz.com/blogs/react-native-vs-native-app-development">React Native vs native app development</a>. There are cases where native is the right call, mainly apps built around heavy device hardware or extreme performance needs. For most founder apps, booking, commerce, content, community and business tools, the cost case for one codebase is strong.</p>
+<p></p>
+<h2>3. What Actually Drives React Native Development Cost Up</h2>
+<p></p>
+<p>When founders ask how much does react native development cost for their specific idea, these are the factors that move the number most.</p>
+<p></p>
+<p><strong>The biggest cost drivers:</strong></p>
+<p></p>
+<ul>
+<li><strong>Number of distinct flows, not screens.</strong> Ten screens in one simple flow are cheap. Three flows with branching rules, like buyer, seller and admin, are not.</li>
+<li><strong>Payments and payouts.</strong> Taking a card payment is standard. Paying money out to other users, holding funds and handling refunds and disputes is a different level of work and testing.</li>
+<li><strong>Integrations.</strong> Each external service, maps, chat, video, shipping, a CRM or an existing internal system, adds build time plus testing against a system you do not control.</li>
+<li><strong>Real time behaviour.</strong> Live chat, live tracking and live availability need infrastructure that stays awake and scales, not just screens.</li>
+<li><strong>Accounts, roles and permissions.</strong> One user type is simple. Staff, customers and admins who each see and do different things multiply the design, build and QA work.</li>
+<li><strong>Design ambition.</strong> A clean standard interface is fast to build. Custom transitions, complex charts and heavily branded screens take specialist time.</li>
+<li><strong>Data migration.</strong> Moving users, content or transaction history from an old system adds careful, unglamorous work that cannot be rushed safely.</li>
+<li><strong>Compliance.</strong> Healthcare, finance and children-facing apps carry legal and store requirements that add scope in design, security and review handling.</li>
+</ul>
+<p></p>
+<blockquote><p>A useful test: if a feature needs the words &quot;and then it automatically&quot; in your description, it is probably more expensive than it sounds. Automation is backend work, rules and edge cases, not a screen.</p></blockquote>
+<p></p>
+<p>None of this means cut these features blindly. It means price them knowingly. The common budget failure is a quote that assumed the simple version of each feature, and a founder who expected the complete version.</p>
+<p></p>
+<h2>4. The Costs Around the Build That Founders Forget</h2>
+<p></p>
+<p>The build quote is not the whole react native app cost in year one. Budget for the items around it, because none of them are optional for a live app.</p>
+<p></p>
+<ul>
+<li><strong>Developer accounts:</strong> Apple charges <strong>$99 per year</strong> and Google charges a <strong>one time $25</strong> fee. Small numbers, but the accounts must be in your company name.</li>
+<li><strong>Backend hosting and services:</strong> a modest live app usually runs on <strong>$50 to $500 a month</strong> of hosting, database, storage, email and push services at first, rising with usage.</li>
+<li><strong>Third party subscriptions:</strong> maps, analytics, crash reporting, messaging and payment tools often start free and become monthly costs as you grow. Payment processors also take a percentage of every transaction.</li>
+<li><strong>Your own time:</strong> discovery answers, prototype reviews and weekly build testing. A founder who disappears for three weeks does not save money. The project waits, then pays to restart.</li>
+</ul>
+<p></p>
+<p>Our breakdown of <a href="https://www.codebaiz.com/our-services/app-development-cost">what app development costs</a> covers these surrounding costs in general, and the same list applies here.</p>
+<p></p>
+<h2>5. What Maintenance Adds After Launch</h2>
+<p></p>
+<p>A React Native app is not a one time purchase. Plan on <strong>15 to 20 percent of the original build cost per year</strong> to keep it healthy. On a $60,000 build, that is roughly <strong>$9,000 to $12,000 a year</strong>, whether it arrives as a monthly retainer or as a series of urgent one off fixes. The retainer version is almost always cheaper in practice, because the work is planned instead of panicked.</p>
+<p></p>
+<p><strong>What that money actually buys:</strong></p>
+<p></p>
+<ul>
+<li><strong>Operating system updates.</strong> iOS and Android release major versions every year. React Native apps need testing and usually small fixes against each one.</li>
+<li><strong>React Native and library upgrades.</strong> The framework moves fast. Staying current in small steps is cheap. Jumping three versions at once, after something breaks, is not.</li>
+<li><strong>Store compliance.</strong> Both stores raise target requirements and change privacy rules regularly. Miss a deadline and your update gets blocked.</li>
+<li><strong>Crash fixing and small improvements.</strong> Real users find edge cases no test pass caught. Batching those fixes into regular releases is the normal rhythm of a live app.</li>
+</ul>
+<p></p>
+<p>One genuine React Native advantage shows up here too. <strong>Over the air updates</strong> let a team ship many fixes and small changes instantly, without waiting for store review, and one fix covers both platforms at once. That lowers the cost of every release for the life of the app.</p>
+<p></p>
+<p>Our post on <a href="https://www.codebaiz.com/blogs/mobile-app-development-services">mobile app development services</a> sets out what a full service should cover at each stage, including handover and maintenance.</p>
+<p></p>
+<h2>6. How to Lower the Cost Without Building a Worse App</h2>
+<p></p>
+<p>Founders usually cannot change their budget. They can change what the budget buys first.</p>
+<p></p>
+<ol>
+<li><strong>Cut scope, not quality.</strong> Launch with the one flow that makes money or proves demand. A small app built properly beats a big app built thinly, and you can add features to a healthy codebase later.</li>
+<li><strong>Use one codebase.</strong> This is the React Native decision itself. For a two platform launch it is the single biggest saving available, and it keeps saving on every release.</li>
+<li><strong>Use proven services instead of custom builds.</strong> Payments, chat, maps and analytics all have mature providers. Paying a small monthly fee beats paying to build and maintain your own version.</li>
+<li><strong>Decide design once.</strong> Approve a clickable prototype before engineering starts. Changing a prototype costs hours. Changing built screens costs weeks, and it is the most common reason builds overrun.</li>
+<li><strong>Keep one decision maker.</strong> Every extra approver adds review rounds. Review rounds are billed time, whichever pricing model you are on.</li>
+<li><strong>Do not skip QA or security to save money.</strong> These are the cuts that come back as public reviews, refunds and rebuilds. Founders who have been burned once already know this is the most expensive saving there is.</li>
+</ol>
+<p></p>
+<p>Our <a href="https://www.codebaiz.com/our-services/react-native-app-development">React Native app development</a> page explains how we scope these projects, and the questions to ask any team before you compare numbers.</p>
+<p></p>
+<h2>7. So, What Should You Budget?</h2>
+<p></p>
+<p>Pulling it together for a typical founder plan:</p>
+<p></p>
+<ul>
+<li><strong>Testing an idea:</strong> budget <strong>$15,000 to $40,000</strong> for a simple, real, store-ready app, not a demo that has to be thrown away.</li>
+<li><strong>Launching a serious product:</strong> budget <strong>$40,000 to $90,000</strong> for the build, plus hosting and services, plus <strong>15 to 20 percent a year</strong> for maintenance.</li>
+<li><strong>Building a marketplace or platform:</strong> budget <strong>$120,000 upward</strong> for the first version, and expect the admin, payments and trust work to be as large as the customer facing app.</li>
+</ul>
+<p></p>
+<p>If those ranges are far above what you have, the answer is usually a smaller first version, not a cheaper builder. A tight scope on a proper foundation can grow. A full scope on a weak foundation has to be rebuilt, and a rebuild means paying for the app twice. Our guide on <a href="https://www.codebaiz.com/blogs/how-to-take-mvp-to-production">how to take an MVP to production</a> shows how to plan that first version so it does not need to be discarded later.</p>
+<p></p>
+<blockquote><p>Get the scope priced properly before you compare builders. Two quotes are only comparable when both teams are pricing the same flows, the same integrations and the same standard of testing.</p></blockquote>
+<p></p>
+<h2>Frequently Asked Questions</h2>
+<p></p>
+<p><strong>How much does a React Native app cost for a startup?</strong> Most startup first versions built by a US agency land between $15,000 and $90,000, depending on scope. A simple store-ready app sits at the low end. Accounts, payments, a custom backend and an admin panel move it into the mid range. Marketplaces and real time apps cost more.</p>
+<p></p>
+<p><strong>Is React Native cheaper than building native apps?</strong> For a launch on both iOS and Android, usually yes, by roughly 30 to 40 percent on the total build, because the app is designed, built and tested once instead of twice. The saving continues after launch, since every feature and fix is also built once. For a single platform app, native can be slightly cheaper to build, but it closes the door on the other platform.</p>
+<p></p>
+<p><strong>How much does React Native development cost per hour?</strong> Rates vary by location and seniority. US agency teams commonly charge in the $75 to $150 per hour range, while offshore freelancers quote far less and carry far more risk on communication, testing and handover. The same app can take one team twice as long as another, which is why a fixed scope and a total price matter more than the rate.</p>
+<p></p>
+<p><strong>Why do React Native quotes vary so much for the same app?</strong> Because teams price different assumptions: which features are included, how much design and testing is in the number, whether the backend and admin panel are included, and what happens after launch. Ask each team to list what is included and excluded, then compare those lists, not just the totals.</p>
+<p></p>
+<p><strong>Does React Native cost more to maintain?</strong> No. Maintenance is usually cheaper than for two native apps, because OS updates, framework upgrades and fixes are handled in one codebase. Budget the standard 15 to 20 percent of build cost per year, with over the air updates reducing the cost and delay of small releases.</p>
+<p></p>
+<p><strong>Can I start with a smaller React Native app and add features later?</strong> Yes, and for most founders that is the right plan. Start with the core flow, built on a proper foundation with real accounts, a clean backend and tested code. Adding features to that foundation is routine work. The expensive path is an oversized scope on a weak foundation, then a rebuild in year two.</p>
+<p></p>
+<h2>Get a React Native Cost Estimate Based on Your Actual Scope</h2>
+<p></p>
+<p>Ranges only take you so far. The number that matters is the one attached to your flows, your integrations and your launch plan.</p>
+<p></p>
+<p>Tell us what your app needs to do and who uses it. My team will map the scope, place it in the right band, and tell you plainly where the cost sits and what could be cut or staged without weakening the product.</p>
+<p></p>
+<p>Want that estimate before you commit to a budget? Message us and we will work through your scope this week.</p>
+<p></p>
+<p>Code Baiz is a mobile and web app development agency in Brooklyn, New York. Our team of around 20 engineers has shipped more than 300 projects since 2019, most of them in React Native. We build, rescue and maintain apps for founders who cannot afford to get it wrong twice.</p>
+<p></p>
+</body></html>
