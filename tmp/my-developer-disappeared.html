@@ -1,0 +1,172 @@
+<!doctype html><html><head><meta charset='utf-8'><title>article</title></head><body>
+<p>The messages stopped on a Tuesday. No reply to the bug list. No reply to the invoice question. By the next week the pattern was clear to the founder who called us: my developer disappeared, the app is live, users are paying, and I do not have the code, the store passwords, or any idea what happens if something breaks tonight.</p>
+<p></p>
+<p>Parts of this are urgent, but it is a problem we see often and it is usually recoverable. What decides whether it stays recoverable is the order you do things in. Founders who hire a replacement before securing what they own often lose the access the replacement needs.</p>
+<p></p>
+<p><strong>TL;DR:</strong> Do not start by finding a new developer. Start by securing what is yours: one last clear written contact attempt, then the store accounts, the code, the signing keys, the backend and the data, in that order. Only then get what exists assessed, and decide whether to finish the app, stabilise it, or rebuild it.</p>
+<p></p>
+<p><strong>The first 48 hours at a glance:</strong></p>
+<p></p>
+<ol>
+<li><strong>Send one last clear message.</strong> Written, calm, with a deadline, asking for a full handover.</li>
+<li><strong>Secure the store accounts.</strong> Whoever controls them controls the live app.</li>
+<li><strong>Secure the code.</strong> The full repository, including history, into an account you own.</li>
+<li><strong>Secure the keys and backend.</strong> Signing keys, servers, database and backups.</li>
+<li><strong>Secure the money accounts.</strong> Payments, domain, hosting and renewals.</li>
+<li><strong>Get an independent assessment.</strong> Before anyone quotes you to finish or rebuild.</li>
+</ol>
+<p></p>
+<h2>1. My Developer Disappeared, or Is It Something Else?</h2>
+<p></p>
+<p>Developers stop responding for different reasons, and the reason changes your first move.</p>
+<p></p>
+<p><strong>The common patterns we see:</strong></p>
+<p></p>
+<ul>
+<li><strong>The project quietly died.</strong> The developer took on too much work, your app slipped, and avoiding you became easier than admitting it. The most common case by far.</li>
+<li><strong>Life happened.</strong> Illness, a family emergency, a full time job that banned side work. Some of these developers come back, apologetic, weeks later.</li>
+<li><strong>Money is in dispute.</strong> An unpaid invoice or a scope argument, with silence used as leverage.</li>
+<li><strong>The developer never had control to give you.</strong> A subcontractor built the app, your contact was a middleman, and the chain broke somewhere you cannot see.</li>
+<li><strong>The app is in worse shape than you were told.</strong> Silence can be how a developer avoids admitting the work is unfinished or broken.</li>
+</ul>
+<p></p>
+<p>The first three cases often unlock with one clear, written message. The last two do not, and every day spent waiting is a day your app sits exposed. Either way, the steps below protect you, and none of them burn the relationship if the developer reappears.</p>
+<p></p>
+<blockquote><p>Silence is information. A developer who will not answer a direct handover request is telling you the working relationship is over, whatever the reason. Plan on that basis, and be pleasantly surprised if you are wrong.</p></blockquote>
+<p></p>
+<h2>2. Hours 0 to 4: One Last Clear Message, Then Save Everything</h2>
+<p></p>
+<p>Your first job is a paper trail. Send one message, in writing, by email rather than chat if you have an address. Keep it short, calm and specific.</p>
+<p></p>
+<p><strong>Your message should say four things:</strong></p>
+<p></p>
+<ul>
+<li><strong>You need a full handover by a named date.</strong> Three to five working days is reasonable. Name what handover means: code, accounts, keys and passwords.</li>
+<li><strong>You are asking, not accusing.</strong> A developer who feels attacked goes quieter. One who is behind schedule often answers a message with a clear, finite task.</li>
+<li><strong>All fees agreed for delivered work will be settled.</strong> If money is the block, this removes it. Do not offer to pay for undelivered work.</li>
+<li><strong>If you do not hear back, you will secure the accounts yourself and appoint a new team.</strong> Stated plainly, not as a threat. It is simply what will happen.</li>
+</ul>
+<p></p>
+<p>While you wait, save everything you already have. Screenshots of the chats. Every invoice and contract. Every file ever sent to you, including old builds and design files. Founders are often surprised how much access is sitting in their own inbox, unused for a year. Then move on to the accounts whether they reply or not.</p>
+<p></p>
+<h2>3. Secure the App Store Accounts First</h2>
+<p></p>
+<p>The live app answers to whoever controls the store accounts. If your app is in the stores, this is the most urgent section in this guide.</p>
+<p></p>
+<p><strong>For Apple, check these in order:</strong></p>
+<p></p>
+<ul>
+<li><strong>Who owns the Apple Developer account?</strong> In your company name, you can reset access through Apple with proof of identity. In the developer&#x27;s name, the app sits in their account until they transfer it.</li>
+<li><strong>Who is the Account Holder in App Store Connect?</strong> Only the Account Holder can transfer the app, manage agreements and change banking details.</li>
+<li><strong>Can the app be transferred to you?</strong> Apple allows transfers between accounts when set conditions are met. If the developer cooperates, it is a clean, supported process.</li>
+</ul>
+<p></p>
+<p><strong>For Google Play, check the equivalent:</strong></p>
+<p></p>
+<ul>
+<li><strong>Who owns the Google Play Console account?</strong> Again, your name or theirs decides everything.</li>
+<li><strong>Who has admin access?</strong> The owner can add your new team and remove old access. Anyone with admin rights could also do damage, so this list matters.</li>
+<li><strong>Where is the upload key and keystore?</strong> Android apps are signed with a key. Play App Signing softens the old risks, but know your signing setup before anything changes.</li>
+</ul>
+<p></p>
+<p>If both accounts are in your name, this section takes an afternoon and the worst case is behind you. If they are in the developer&#x27;s name, your written request and, if needed, a lawyer&#x27;s letter carry the weight, with contracts and payment records as evidence. Most developers transfer access when asked formally.</p>
+<p></p>
+<h2>4. Secure the Code, All of It</h2>
+<p></p>
+<p>Next, the source code. This is where the phrase take over app from developer stops being an idea and becomes a checklist.</p>
+<p></p>
+<p><strong>What &quot;having the code&quot; actually means:</strong></p>
+<p></p>
+<ul>
+<li><strong>The full repository, not a zip of the latest files.</strong> A proper repository on GitHub, GitLab or Bitbucket holds the full history: every change, who made it, and when. History is how a new team works out why the code does what it does.</li>
+<li><strong>Every part of the product.</strong> The mobile app, the backend or API, the admin panel, and any website. Founders often receive the app code and discover months later that the backend was never handed over.</li>
+<li><strong>The repository in an account you own.</strong> Being a guest on the developer&#x27;s account is not ownership. Create your own organisation account, have the repository transferred into it, then remove access you no longer need.</li>
+<li><strong>Build instructions and environment files.</strong> How the app is built and which keys and settings it needs. Code without its configuration is a car without the keys.</li>
+</ul>
+<p></p>
+<p>If the developer is cooperating, ask for all of the above by name. Vague requests get vague handovers. If they are not, and the code only exists on their machine, be honest about the position: a new team can still assess the live app and your data, but some of the build may need to be recreated. Our guide on <a href="https://www.codebaiz.com/blogs/rebuild-vs-refactor-app">whether to rebuild or refactor your app</a> walks through that decision, because a forced rebuild and a chosen rebuild follow the same steps.</p>
+<p></p>
+<h2>5. Secure the Keys, the Backend and Your Data</h2>
+<p></p>
+<p>An app is more than its code. Underneath sit the services that hold your users and your data, often registered to whoever set them up.</p>
+<p></p>
+<p><strong>Work through this list and note the owner of each item:</strong></p>
+<p></p>
+<ul>
+<li><strong>Hosting and servers.</strong> AWS, Google Cloud, Firebase, Heroku or similar. Who owns the account, whose card pays the bill, and can you log in today?</li>
+<li><strong>The database and its backups.</strong> Your user data lives here. Confirm backups exist and run, and export a copy you control. Data you cannot export is data you do not fully own.</li>
+<li><strong>Signing keys and certificates.</strong> The Apple distribution certificate and profiles, and the Android keystore. A new team needs these to ship updates as the same app.</li>
+<li><strong>API keys for third party services.</strong> Maps, email, messaging, payments. List them, and plan to rotate any key the old developer could still use.</li>
+</ul>
+<p></p>
+<p>Once a handover is complete, or once it is clear none is coming, change the passwords and rotate the keys on everything you control. This is not an accusation. It is basic hygiene when a contractor relationship ends, like changing a lock when a tenant moves out.</p>
+<p></p>
+<blockquote><p>The scariest version of this story is never the missing code. It is the founder who learns the hosting bill was on the developer&#x27;s card, in the developer&#x27;s account, the month the account gets closed. Check who pays for what, today, in writing.</p></blockquote>
+<p></p>
+<h2>6. Secure the Money and the Renewals</h2>
+<p></p>
+<p>In the same pass, check the money and the dates. Who owns the Stripe or similar payments account, and do payouts land in your business account? Where is the domain registered, in whose name, and when does it renew? When does the Apple Developer Program fee fall due? A lapsed domain or a lapsed store account can take a live app down on its own, and a disappeared developer cannot renew either for you. One focused hour with a notebook removes these time bombs while the bigger decisions get made properly.</p>
+<p></p>
+<h2>7. Now Assess What You Actually Have</h2>
+<p></p>
+<p>Accounts secured, code in hand, data backed up. Only now does it make sense to ask what state the app is really in, because now the answer can be acted on.</p>
+<p></p>
+<p>A proper assessment, the same ground as a <a href="https://www.codebaiz.com/blogs/production-readiness-audit">production readiness audit</a>, covers the handover checklist in our <a href="https://www.codebaiz.com/blogs/mobile-app-development-process">mobile app development process guide</a> worked backwards: what exists, what is missing, and what state each piece is in.</p>
+<p></p>
+<p><strong>A real assessment answers these questions:</strong></p>
+<p></p>
+<ul>
+<li><strong>Does the code build and run?</strong> Sounds basic. It is the first thing to verify, and it fails more often than founders expect.</li>
+<li><strong>How much of the promised app exists?</strong> Feature by feature against the scope. Founders regularly discover a feature they were shown was a mock up.</li>
+<li><strong>Are the foundations sound?</strong> The framework, architecture, security basics and data structure. Sound foundations mean a new team can continue. Broken foundations change the maths.</li>
+<li><strong>What is risky right now?</strong> Expiring certificates, unpatched security issues, a database with no working backup. Risks get fixed first, before any new feature.</li>
+</ul>
+<p></p>
+<p>Ask for the findings in writing, each issue marked urgent, fix soon, or leave alone. A team that will only give you a verbal summary and a large quote has told you something about itself.</p>
+<p></p>
+<h2>8. Decide: Finish It, Stabilise It, or Rebuild It</h2>
+<p></p>
+<p>With the assessment in hand, there are three honest paths. Our <a href="https://www.codebaiz.com/our-services/app-rescue">app rescue and takeover service</a> exists for exactly this decision, and the pattern is consistent enough to describe plainly.</p>
+<p></p>
+<p><strong>The three paths, and when each fits:</strong></p>
+<p></p>
+<ul>
+<li><strong>Finish it.</strong> The code is sound, the missing work is a known list, and a new team can pick it up. This is the outcome in more cases than founders fear, provided the code and accounts were recovered.</li>
+<li><strong>Stabilise it.</strong> The app is live and earning, but fragile. A short phase of fixes, monitoring and backups makes it safe while a bigger decision is planned calmly, not in a panic.</li>
+<li><strong>Rebuild it, side by side.</strong> The foundations are wrong, or the code is unrecoverable, but the data and users are real. The new app is built alongside the live one, and users migrate when it is ready.</li>
+</ul>
+<p></p>
+<h2>9. Protect Yourself So This Cannot Happen Again</h2>
+<p></p>
+<p>However your recovery ends, set the new arrangement up so a disappearance can never strand you again. These rules cost nothing at the start of a relationship and everything at the end of one.</p>
+<p></p>
+<p><strong>The ownership rules we recommend to every founder:</strong></p>
+<p></p>
+<ul>
+<li><strong>Every account in your company name.</strong> Store accounts, repository, hosting, domain, payments. Your card, your email as owner, your team as admins.</li>
+<li><strong>A repository you control from day one.</strong> The developer works in it daily. If they vanish on a Friday, the code is in your account on the Monday.</li>
+<li><strong>Handover terms in the contract.</strong> What is delivered, in what form, and when, written before work starts, not negotiated after it ends.</li>
+<li><strong>No single point of failure.</strong> Documentation, or a team rather than one individual. One person can disappear. A team of around twenty cannot all disappear at once.</li>
+</ul>
+<p></p>
+<p>Our guide on <a href="https://www.codebaiz.com/blogs/hire-mobile-app-developer">how to hire a mobile app developer</a> covers the vetting questions in full. The short version: the way a developer talks about ownership and handover in week one tells you how the relationship ends in year two.</p>
+<p></p>
+<h2>Frequently Asked Questions</h2>
+<p></p>
+<p><strong>What is the first thing to do if my developer disappeared?</strong> Send one clear written message asking for a full handover by a named date, then secure the accounts you can reach: app stores first, then code, then backend and data. Do not wait for a reply before securing what is already in your name.</p>
+<p></p>
+<p><strong>My app developer ghosted me but the app is live. Can it be updated?</strong> Usually yes, if you control the store account and have, or can recover, the code and signing keys. If the code is lost, a new team can assess the live app and your data and plan a rebuild alongside it, so users are not stranded.</p>
+<p></p>
+<p><strong>The developer holds my code and will not reply. What are my options?</strong> Gather your contract, invoices and payment records, and send a formal handover request by email. Many cases resolve at this point. If not, a lawyer&#x27;s letter is the next step, while a new team assesses what can be recovered or rebuilt.</p>
+<p></p>
+<p><strong>How long does it take to take over an app from another developer?</strong> Securing accounts and code usually takes days once access is granted. Assessing a typical founder app takes about a week. Stabilising a live app can start at once after that.</p>
+<p></p>
+<h2>Has Your Developer Gone Quiet? Get a Second Pair of Eyes on What You Own</h2>
+<p></p>
+<p>If your developer stopped responding, what to do next is not to panic hire. It is to secure your accounts, code and data, then get an honest written assessment of what exists.</p>
+<p></p>
+<p>Send us what you have: the store links, whatever code or files you hold, and the last messages you received. My team will tell you plainly what can be recovered, and what it will take to finish or rebuild.</p>
+<p></p>
+<p>Code Baiz is a mobile and web app development agency in Brooklyn, New York. Our team of around 20 engineers has shipped more than 300 projects since 2019, most of them in React Native. We build, rescue and maintain apps for founders who cannot afford to get it wrong twice.</p>
+<p></p>
+</body></html>
