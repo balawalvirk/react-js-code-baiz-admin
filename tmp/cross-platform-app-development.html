@@ -1,0 +1,176 @@
+<!doctype html><html><head><meta charset='utf-8'><title>article</title></head><body>
+<p>Build once, launch everywhere. That is the promise founders hear when someone first mentions cross platform app development. One team, one codebase, one app that lands in both the Apple App Store and Google Play.</p>
+<p></p>
+<p>The promise is mostly real, which is why so many founder apps are built this way now. But mostly is the word that matters. Cross-platform is not magic. It is a specific way of building, with a specific mechanism underneath, specific savings, and specific places where it breaks down.</p>
+<p></p>
+<p><strong>TL;DR:</strong> Cross platform app development means writing most of your app once in a shared codebase, then letting a framework translate that work into a real iPhone app and a real Android app. For standard founder apps, accounts, content, booking, commerce, messaging and payments, it usually costs less and ships faster than two native builds. It fails, or stops saving money, when an app leans heavily on new platform features, extreme performance, or deep hardware access.</p>
+<p></p>
+<h2>1. Cross Platform App Development, in Plain Words</h2>
+<p></p>
+<p>Start with the alternative. A native app is built separately for each platform, in the platform&#x27;s own language and tools. The iPhone version and the Android version are two projects, built by two sets of skills, tested separately, and maintained separately for the life of the app.</p>
+<p></p>
+<p>Cross platform mobile app development replaces most of that duplication with one shared project.</p>
+<p></p>
+<p><strong>What is shared, and what is not:</strong></p>
+<p></p>
+<ul>
+<li><strong>Shared: the product logic.</strong> Screens, flows, business rules, data handling and most of the interface are written once.</li>
+<li><strong>Shared: the team and the timeline.</strong> One team builds, tests and ships features to both stores in the same release cycle.</li>
+<li><strong>Not shared: the final app packages.</strong> Each store still receives its own proper app build, prepared and submitted under that store&#x27;s rules.</li>
+<li><strong>Not shared: platform specific polish.</strong> Notifications, payments, permissions and a handful of system behaviours still need platform specific work and testing on real devices.</li>
+</ul>
+<p></p>
+<blockquote><p>Cross-platform does not remove the two platforms. It removes the need to build the same product twice to reach them.</p></blockquote>
+<p></p>
+<p>If you are still deciding whether you even need both platforms at launch, our guide to <a href="https://www.codebaiz.com/blogs/ios-vs-android-which-to-build-first">iOS vs Android, which to build first</a> walks through the audience and budget side of that choice.</p>
+<p></p>
+<h2>2. How It Works, Layer by Layer</h2>
+<p></p>
+<p>Founders do not need to write code, but understanding four layers explains almost every strength and failure that follows.</p>
+<p></p>
+<h3>The shared layer</h3>
+<p></p>
+<p>This is where most of the app lives. Developers write screens and logic once, using the framework&#x27;s components for buttons, lists, forms, navigation and data calls. When a user signs in or books a slot, that behaviour is defined in one place. Fix a bug here, and the fix exists for both platforms at once. That is where most of the saving comes from.</p>
+<p></p>
+<h3>The translation layer</h3>
+<p></p>
+<p>The two main frameworks translate shared code differently, and the difference is worth understanding at a headline level.</p>
+<p></p>
+<ul>
+<li><strong>React Native renders real native components.</strong> Your shared code describes the interface, and React Native maps it onto the actual iPhone and Android controls underneath. The app looks native because, at the surface, it is using native pieces.</li>
+<li><strong>Flutter draws its own interface.</strong> Flutter carries its own rendering engine and paints consistent components on both platforms. The result is very consistent between iPhone and Android, with more work needed when you want a screen to follow each platform&#x27;s own habits exactly.</li>
+<li><strong>Both can call native code when needed.</strong> When a feature needs direct access to the phone, developers add a small native module for that piece instead of rebuilding the whole app.</li>
+</ul>
+<p></p>
+<h3>The native layer</h3>
+<p></p>
+<p>Underneath, each phone still runs its own operating system, store rules and hardware. Camera, Bluetooth, background tasks, push notifications, purchases and location services all pass through this layer eventually. Good cross-platform work respects it. Weak work pretends it is not there, and that is where many failures start.</p>
+<p></p>
+<h3>The release layer</h3>
+<p></p>
+<p>One codebase does not mean one submission. The team still builds two packages, tests on iPhones and Android devices, and passes Apple and Google Play review separately. Planning for that work is part of the <a href="https://www.codebaiz.com/blogs/mobile-app-development-process">mobile app development process</a>, and any quote that skips it is missing real cost.</p>
+<p></p>
+<h2>3. The Two Real Options: React Native and Flutter</h2>
+<p></p>
+<p>For a founder choosing today, there are two serious frameworks. Others exist, but hiring pool, community support and long term maintenance all point to these two.</p>
+<p></p>
+<p><strong>React Native, in short:</strong></p>
+<p></p>
+<ul>
+<li><strong>Language and roots.</strong> Built on JavaScript and React, the same technology behind a large share of modern web apps, which makes web and app work easy to combine.</li>
+<li><strong>Interface.</strong> Uses real native components, so screens tend to feel at home on each platform.</li>
+<li><strong>Hiring.</strong> A very large developer pool, because React skills are common.</li>
+<li><strong>Best fit.</strong> Most founder apps, especially where the same business also needs a web product.</li>
+</ul>
+<p></p>
+<p><strong>Flutter, in short:</strong></p>
+<p></p>
+<ul>
+<li><strong>Language and roots.</strong> Built by Google, using the Dart language, which most developers have to learn specifically for Flutter.</li>
+<li><strong>Interface.</strong> Draws its own components, so designs look highly consistent across platforms and custom visuals are easy to control.</li>
+<li><strong>Hiring.</strong> A growing pool, smaller than React Native&#x27;s, and Dart skills rarely transfer to the rest of a business&#x27;s technology.</li>
+<li><strong>Best fit.</strong> Apps where pixel consistent custom design across platforms matters more than sharing skills with a web team.</li>
+</ul>
+<p></p>
+<p>We build in React Native, and we say so openly. For most founder apps, the larger hiring pool and the overlap with web development make it the safer long term bet, because the founder is never locked to one rare skill set. Flutter is a legitimate tool, especially on heavily custom interfaces. What should worry you is a team that claims its framework has no downsides at all.</p>
+<p></p>
+<p>Our fuller comparison of <a href="https://www.codebaiz.com/blogs/react-native-vs-native-app-development">React Native vs native development</a> covers the native side of this argument in detail.</p>
+<p></p>
+<h2>4. What It Costs, and Why the Saving Is Real but Not Half</h2>
+<p></p>
+<p>Founders often hear that cross-platform costs half as much as building natively twice. Treat that as a sales line, not a budget.</p>
+<p></p>
+<p><strong>Why the saving is real:</strong></p>
+<p></p>
+<ul>
+<li><strong>One product build instead of two.</strong> Discovery, design and the core engineering happen once.</li>
+<li><strong>One team to manage and pay.</strong> No duplicate standups, no features drifting apart between two codebases.</li>
+<li><strong>One maintenance line after launch.</strong> A change is built and tested once, then released to both stores.</li>
+<li><strong>Faster iteration.</strong> Feedback from all users feeds one roadmap, not two competing backlogs.</li>
+</ul>
+<p></p>
+<p><strong>Why the saving is not half:</strong></p>
+<p></p>
+<ul>
+<li><strong>The backend was never doubled anyway.</strong> Accounts, databases, payments and admin tools are shared in every model, native or cross-platform.</li>
+<li><strong>Testing still covers two platforms.</strong> Real iPhones and a proper range of Android devices both need time.</li>
+<li><strong>Platform specific work remains.</strong> Payments, notifications, permissions and store submissions still come in pairs.</li>
+<li><strong>Good native modules cost money.</strong> When a feature needs custom native work, it needs it on both platforms.</li>
+</ul>
+<p></p>
+<p>In US market terms, a cross-platform build commonly lands at roughly <strong>60 to 75 percent of the cost of two separate native builds</strong>, set by how much platform specific work the app needs. Our breakdown of <a href="https://www.codebaiz.com/blogs/react-native-app-cost">React Native app cost</a> shows how those numbers are built up by app type.</p>
+<p></p>
+<blockquote><p>Budget cross-platform as a real saving on the app layer, not as a discount on the whole product. The founders who get burned are the ones who spent the imaginary other half before launch.</p></blockquote>
+<p></p>
+<h2>5. Where Cross-Platform Works Best</h2>
+<p></p>
+<p>Some app shapes are proven ground. If your product looks like these, cross platform vs native is usually a short conversation.</p>
+<p></p>
+<p><strong>Strong fit app types:</strong></p>
+<p></p>
+<ul>
+<li><strong>Marketplaces and booking apps.</strong> Accounts, listings, search, calendars, messaging and payments are all standard, well supported patterns.</li>
+<li><strong>Content and community apps.</strong> Feeds, profiles, media, comments and notifications play to the frameworks&#x27; strengths.</li>
+<li><strong>Commerce apps.</strong> Catalogues, baskets, checkout and order tracking are routine, with payment providers offering mature support.</li>
+<li><strong>Business tools and dashboards.</strong> Forms, reports, approvals and customer records are exactly the kind of interface work shared code handles best.</li>
+<li><strong>Fitness, wellness and service apps.</strong> Tracking, scheduling, subscriptions and progress views are proven in production at scale.</li>
+</ul>
+<p></p>
+<p>Notice the pattern. These apps compete on product, service and marketing, not on squeezing the last drop of performance out of the phone. For them, shipping to both stores sooner, with money left for iteration, beats a small technical edge most users will never feel.</p>
+<p></p>
+<h2>6. When It Fails: The Honest Failure Cases</h2>
+<p></p>
+<p>This is the section most sales pages skip, and the one that decides whether cross-platform is right for you. It rarely fails all at once. It fails at the edges first, and working around the edges quietly eats the saving.</p>
+<p></p>
+<p><strong>The failure cases we warn founders about:</strong></p>
+<p></p>
+<ul>
+<li><strong>Heavy, new platform features on day one.</strong> When Apple or Google launches a new capability, native apps can use it immediately and cross-platform apps may wait for framework support. If your product depends on being first to a new system feature, that wait is a real risk.</li>
+<li><strong>Extreme performance demands.</strong> High end games, heavy real time video or audio processing, and complex custom graphics can push past what a shared layer handles comfortably. Most business apps never get close, but media and gaming products can.</li>
+<li><strong>Deep hardware and background behaviour.</strong> Unusual Bluetooth devices, constant background processing and specific sensor work often need substantial native code. When half the app ends up native anyway, the shared codebase stops paying for itself.</li>
+<li><strong>Plugin roulette.</strong> Cross-platform apps rely on community packages for many features. A key package that is abandoned or slow to update after an operating system release can block a launch. Experienced teams check the health of every major package first.</li>
+<li><strong>Skipped platform polish.</strong> An app that ignores iPhone and Android habits, navigation here, permission flows there, feels slightly wrong on both. Users rarely name the problem. They just trust the app less.</li>
+<li><strong>The wrong team, not the wrong tool.</strong> The most common failure we see in rescue work is a team that sold cross-platform as effortless, never budgeted the native work, and left the founder with an app that is 90 percent fine and blocked on the 10 percent that matters.</li>
+</ul>
+<p></p>
+<p>None of these are automatic deal breakers. A small native module or a realistic launch scope can keep most apps safely cross-platform. The deal breaker is discovering the limit after the budget is spent. That conversation belongs at the start, in writing.</p>
+<p></p>
+<p>If those checks are part of your plan, our <a href="https://www.codebaiz.com/our-services/react-native-app-development">React Native app development service</a> page explains how we structure a build, including the platform specific work that still gets done properly on each side.</p>
+<p></p>
+<h2>7. A Short Test to Run Before You Decide</h2>
+<p></p>
+<p>You do not need a technical background to test whether cross-platform fits your app. Answer these five questions honestly, in order.</p>
+<p></p>
+<ol>
+<li><strong>Do both audiences matter in the first six months?</strong> If yes, cross-platform starts with a strong lead. If only one audience exists, a single platform launch may be simpler.</li>
+<li><strong>List your three hardest features.</strong> Not the longest list, the hardest. Hardware, background work, media or unusual integrations belong here.</li>
+<li><strong>Check each hard feature for proven support.</strong> Ask any team quoting you to name a live app or a maintained package for each one. Vague confidence is not evidence.</li>
+<li><strong>Ask what percentage will be native code.</strong> A small, named percentage with reasons is a good sign. A promise of zero, for a complex app, is not.</li>
+<li><strong>Price all three routes on the same scope.</strong> One native platform, two native platforms and one cross-platform build, each including testing, store submission and launch support.</li>
+</ol>
+<p></p>
+<p>Founders who run this test usually find the answer quickly. Either the hard features are routine, and cross-platform is the sensible default, or one hard feature dominates the product and a native build deserves a serious look.</p>
+<p></p>
+<h2>Frequently Asked Questions</h2>
+<p></p>
+<p><strong>What is cross platform app development in simple terms?</strong> It is building one shared codebase that becomes a real app on both iPhone and Android, instead of building two separate apps. Most screens and logic are written once, while store submission, device testing and some system features are still handled per platform.</p>
+<p></p>
+<p><strong>Is cross platform mobile app development cheaper than native?</strong> Usually, yes, for the app layer. A common US market outcome is around 60 to 75 percent of the cost of two native builds, because design, backend and product work were never doubled in the first place. It is a real saving, but it is not half price.</p>
+<p></p>
+<p><strong>Are cross-platform apps lower quality than native apps?</strong> Not by default. Standard product apps built well in React Native or Flutter are hard for normal users to tell apart from native apps. Quality problems usually come from skipped platform work, weak packages or under testing on real devices, not from the framework itself.</p>
+<p></p>
+<p><strong>Which is better, React Native or Flutter?</strong> Both are proven. React Native has the larger hiring pool and shares skills with web development, which is why we build in it. Flutter offers very consistent custom interfaces. For most founders, the team&#x27;s experience matters more than the badge.</p>
+<p></p>
+<p><strong>When should I choose native instead?</strong> Choose native when your product depends on brand new platform features at launch, extreme performance such as high end gaming or heavy media processing, or deep hardware and background behaviour that would force large amounts of native code anyway. An honest team will flag these cases before you sign, not after.</p>
+<p></p>
+<p><strong>Can a cross-platform app be converted to native later?</strong> Parts can, but a full conversion is effectively a rebuild, so it should never be the plan. The better protection is a framework with a large community and clean architecture, so the app you launch is one you can maintain for years.</p>
+<p></p>
+<h2>Thinking About Cross-Platform for Your App? Get the Hard Features Checked First</h2>
+<p></p>
+<p>If you are considering cross platform app development, send us your feature list and tell us which three features worry you most. We will give you a plain answer on whether a shared codebase fits, where the native work will be, and what each route should cost, in writing.</p>
+<p></p>
+<p>No pressure to build with us. Knowing where your app sits against the failure cases above, before you spend anything, is the difference between cross-platform saving you money and cross-platform surprising you.</p>
+<p></p>
+<p>Code Baiz is a mobile and web app development agency in Brooklyn, New York. Our team of around 20 engineers has shipped more than 300 projects since 2019, most of them in React Native. We build, rescue and maintain apps for founders who cannot afford to get it wrong twice.</p>
+<p></p>
+</body></html>
