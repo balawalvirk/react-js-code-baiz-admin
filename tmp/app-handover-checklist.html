@@ -1,0 +1,204 @@
+<!doctype html><html><head><meta charset='utf-8'><title>article</title></head><body>
+<p>A founder taking over an app usually gets a link to a code folder, a password in a chat message, and good luck. Two weeks later the new team tries to ship a fix and discovers the real handover never happened. The store account belongs to the old developer. The signing key is on a laptop nobody can reach. The backup has never been tested.</p>
+<p></p>
+<p>That is why an app handover checklist matters. When you take over app from another developer, the code is only one of seven things changing hands. This guide lists <strong>42 items in seven groups</strong>, the tests that prove each group transferred, and a five day plan.</p>
+<p></p>
+<p><strong>TL;DR:</strong> A complete handover covers code and build, store accounts and signing keys, backend and data, third party services, payments and analytics, designs and documents, and contracts and close out. Judge it by three tests: <strong>you can log in as owner, the new team can build and release, and a backup can be restored.</strong> If any test fails, the handover is not finished.</p>
+<p></p>
+<p><strong>The seven groups at a glance:</strong></p>
+<p></p>
+<ol>
+<li><strong>Code and build.</strong> Repository, history, backend code, admin code, build instructions, release process.</li>
+<li><strong>Store accounts and signing.</strong> Apple account, Google Play account, app transfer, certificates, keystore, identifiers.</li>
+<li><strong>Backend, data and backups.</strong> Hosting, database, backup, restore test, file storage, scheduled jobs.</li>
+<li><strong>Third party services.</strong> Maps, email, messaging, push, crash reporting, API key register.</li>
+<li><strong>Payments, analytics and growth.</strong> Payment account, subscriptions, analytics, ad accounts, domain and DNS.</li>
+<li><strong>Designs, documents and knowledge.</strong> Design files, brand assets, architecture notes, known issues, test accounts.</li>
+<li><strong>People, contracts and close out.</strong> IP assignment, licences, invoices, access removals, renewal dates, sign off.</li>
+</ol>
+<p></p>
+<h2>1. Why Most Handovers Fail Even When the Code Arrives</h2>
+<p></p>
+<p>Code can be copied. Everything around it is held in accounts, and accounts transfer only when an owner takes a specific action. That gap is where takeovers stall.</p>
+<p></p>
+<p><strong>The failures we see most often:</strong></p>
+<p></p>
+<ul>
+<li><strong>Guest access mistaken for ownership.</strong> A founder added as a user assumed the app was theirs. Guest access can be removed in one click.</li>
+<li><strong>One missing key blocks every release.</strong> The keystore or certificate is missing, so no update can ship as the same app.</li>
+<li><strong>Secrets shared in chat, never recorded.</strong> Nobody kept a register, so nobody knows the full list to rotate.</li>
+<li><strong>Knowledge never written down.</strong> Why a workaround exists and which integration is fragile is in no document.</li>
+</ul>
+<p></p>
+<p>Our guide on <a href="https://www.codebaiz.com/blogs/my-developer-disappeared">what to do when your developer disappeared</a> covers the emergency version. This post is the planned version, while both sides are still talking.</p>
+<p></p>
+<blockquote><p>A handover is not a delivery. It is a transfer of control, and control is proven by logging in, building, and restoring, not by receiving files.</p></blockquote>
+<p></p>
+<h2>2. Group One: Code and Build, Items 1 to 6</h2>
+<p></p>
+<p><strong>Collect these six:</strong></p>
+<p></p>
+<ul>
+<li><strong>Item 1, the full repository in your organisation.</strong> GitHub, GitLab or Bitbucket, transferred into an account your company owns. A download of the latest files is not a repository.</li>
+<li><strong>Item 2, the complete history and branches.</strong> Commit history and active branches, which explain why the code looks the way it does.</li>
+<li><strong>Item 3, every codebase, not just the app.</strong> Mobile app, backend or API, admin panel, website and background scripts.</li>
+<li><strong>Item 4, build instructions a stranger can follow.</strong> Tools, versions, local setup and how to produce a release build.</li>
+<li><strong>Item 5, environment and configuration, listed by name.</strong> Settings for development, staging and production, with real values in a secure vault, never in the code.</li>
+<li><strong>Item 6, the release process, written down.</strong> Approval, testing, submission and rollback.</li>
+</ul>
+<p></p>
+<p><strong>Verification test:</strong> a developer who did not build the app builds it on a clean machine using only the written instructions. Any question they have to ask the old team is a gap to fix while that team is still available.</p>
+<p></p>
+<h2>3. Group Two: Store Accounts and Signing, Items 7 to 12</h2>
+<p></p>
+<p>Whoever controls the store accounts controls the live app. Settle this group first if anything else has to wait.</p>
+<p></p>
+<p><strong>Collect these six:</strong></p>
+<p></p>
+<ul>
+<li><strong>Item 7, the Apple Developer account in your company name.</strong> You as Account Holder. Only the Account Holder can transfer the app, change banking and renew the programme.</li>
+<li><strong>Item 8, the Google Play Console account in your company name.</strong> Owner access for you, admin access listed person by person.</li>
+<li><strong>Item 9, the app transfer, if the app sits in the wrong account.</strong> Both stores support transfers, and both sides must act. Start early.</li>
+<li><strong>Item 10, Apple certificates and provisioning profiles.</strong> With expiry dates noted.</li>
+<li><strong>Item 11, the Android keystore and upload key position.</strong> Know whether Play App Signing is enabled and where the upload key is held. With Play App Signing, a lost upload key is an owner reset request. Without it, a lost key can be permanent.</li>
+<li><strong>Item 12, bundle ID, package name and listing assets.</strong> Identifiers in your accounts, plus listing text, screenshots and artwork in original files.</li>
+</ul>
+<p></p>
+<p><strong>Verification test:</strong> log in to both consoles as owner and confirm you can see agreements, banking and release history. If you can only view the listing page, you do not control the app yet. That is the core of transfer app ownership, control follows the accounts, not the code folder.</p>
+<p></p>
+<h2>4. Group Three: Backend, Data and Backups, Items 13 to 18</h2>
+<p></p>
+<p>The backend is where your users actually live. Code can be rebuilt. Lost user data usually cannot.</p>
+<p></p>
+<p><strong>Collect these six:</strong></p>
+<p></p>
+<ul>
+<li><strong>Item 13, the hosting account in your name.</strong> AWS, Google Cloud, Firebase or similar, your card on billing, you as owner.</li>
+<li><strong>Item 14, the production database, with owner access.</strong> You can log in and export it. Data you cannot export is data you do not fully own.</li>
+<li><strong>Item 15, the backup schedule, in writing.</strong> Frequency, location and retention.</li>
+<li><strong>Item 16, a restore test, actually performed.</strong> Restore the latest backup into a separate environment and open the app against it. This is the difference between having backups and hoping you have them.</li>
+<li><strong>Item 17, file storage and user uploads.</strong> User uploads, and proof the app points at storage you control.</li>
+<li><strong>Item 18, cron jobs, queues and scheduled tasks.</strong> Password resets, renewals, reports and cleanup jobs, each with its trigger and failure logs.</li>
+</ul>
+<p></p>
+<p>If the data shape is sound and the restore test passes, keeping the existing foundation is usually realistic. Our <a href="https://www.codebaiz.com/blogs/production-readiness-audit">production readiness audit</a> guide covers the deeper checks that follow.</p>
+<p></p>
+<h2>5. Group Four: Third Party Services, Items 19 to 24</h2>
+<p></p>
+<p>Modern apps are stitched together from other companies services. Each one is an account, a key and a bill.</p>
+<p></p>
+<p><strong>Collect these six:</strong></p>
+<p></p>
+<ul>
+<li><strong>Item 19, maps and location services.</strong> The account and key restrictions.</li>
+<li><strong>Item 20, email and messaging providers.</strong> Transactional email and SMS, with sender domains under your control, or your password resets depend on the old developer.</li>
+<li><strong>Item 21, push notification setup.</strong> The push project in your organisation, plus the Apple push key.</li>
+<li><strong>Item 22, crash reporting and monitoring.</strong> Sentry, Crashlytics or similar, with alerts changed to your team.</li>
+<li><strong>Item 23, any AI or paid API services.</strong> Model providers and specialist APIs, billing in your name, limits confirmed.</li>
+<li><strong>Item 24, the full API key register.</strong> One list, every key, what it unlocks, and a rotation plan. After handover, rotate keys the old team could still use.</li>
+</ul>
+<p></p>
+<blockquote><p>If a service is not on the register, it does not get transferred, it does not get rotated, and it usually announces itself later by expiring at the worst moment.</p></blockquote>
+<p></p>
+<h2>6. Group Five: Payments, Analytics and Growth, Items 25 to 30</h2>
+<p></p>
+<p>Founders check the app and forget the money accounts, then discover months later that payouts or analytics history sit elsewhere.</p>
+<p></p>
+<p><strong>Collect these six:</strong></p>
+<p></p>
+<ul>
+<li><strong>Item 25, the payment account.</strong> Stripe or equivalent, in your business name, payouts to your bank account.</li>
+<li><strong>Item 26, in app purchase and subscription products.</strong> Every product, price and subscription group in both stores, matched against payment records.</li>
+<li><strong>Item 27, analytics, with history preserved.</strong> The project in your organisation, history preserved, so before and after can be compared.</li>
+<li><strong>Item 28, attribution and ad accounts.</strong> Install campaigns and attribution tools in your name, data intact.</li>
+<li><strong>Item 29, store optimisation and review tools.</strong> Keyword and review monitoring, plus who receives review alerts.</li>
+<li><strong>Item 30, domain, DNS and business email.</strong> Registrar in your name, DNS access and renewal dates. A lapsed domain can take down a healthy app.</li>
+</ul>
+<p></p>
+<h2>7. Group Six: Designs, Documents and Knowledge, Items 31 to 36</h2>
+<p></p>
+<p>This group decides how fast the new team can move after day one.</p>
+<p></p>
+<p><strong>Collect these six:</strong></p>
+<p></p>
+<ul>
+<li><strong>Item 31, design files in editable form.</strong> Figma or equivalent, in your workspace, including components, not only exported images.</li>
+<li><strong>Item 32, brand assets.</strong> Logos, icons, fonts with licences, colours and artwork source files.</li>
+<li><strong>Item 33, a short architecture note.</strong> How the pieces fit together, where data flows, and why the biggest choices were made. Two honest pages are enough.</li>
+<li><strong>Item 34, the known issues list, honestly stated.</strong> Deferred bugs, fragile areas, workarounds, and what the old team would fix next. Every codebase has this list.</li>
+<li><strong>Item 35, product documents and roadmap state.</strong> The brief, what was promised against what shipped, and what is in progress.</li>
+<li><strong>Item 36, test accounts and test data.</strong> Accounts for every role, sandbox payment details and admin logins.</li>
+</ul>
+<p></p>
+<p>If items 33 and 34 are weak, expect assessment to take longer. Our guide to <a href="https://www.codebaiz.com/blogs/rebuild-vs-refactor-app">rebuild vs refactor</a> explains why.</p>
+<p></p>
+<h2>8. Group Seven: People, Contracts and Close Out, Items 37 to 42</h2>
+<p></p>
+<p>The last group is paperwork. It is also the group that decides ownership if there is ever a dispute.</p>
+<p></p>
+<p><strong>Collect these six:</strong></p>
+<p></p>
+<ul>
+<li><strong>Item 37, IP assignment confirmed in writing.</strong> The contract that says code and designs belong to your company. Payment alone is not the same document.</li>
+<li><strong>Item 38, open source and third party licences listed.</strong> Which libraries the app uses and on what terms.</li>
+<li><strong>Item 39, final invoices and payment state, agreed.</strong> What was paid and what is owed, agreed by both sides.</li>
+<li><strong>Item 40, old access removed, in the right order.</strong> Remove old access only after owner access and the verification tests pass, or you can lock everyone out.</li>
+<li><strong>Item 41, every renewal date in one calendar.</strong> Apple programme, domain, hosting and certificates, with owner for each. Most takeover emergencies in the next year are missed renewals.</li>
+<li><strong>Item 42, written sign off from both sides.</strong> What was transferred, on what date, and that the handover is complete.</li>
+</ul>
+<p></p>
+<h2>9. Score the Handover: Red, Amber, Green</h2>
+<p></p>
+<p>Score each group after the verification tests, not after the files arrive.</p>
+<p></p>
+<p><strong>How we score a takeover:</strong></p>
+<p></p>
+<ul>
+<li><strong>Green, transfer proven.</strong> Owner login works, the test passes, items are in your register.</li>
+<li><strong>Amber, transfer claimed but not proven.</strong> Access was provided, but a test has not run, or an item is still in the old name.</li>
+<li><strong>Red, transfer blocked.</strong> An owner action is missing, a key is lost, or a backup does not restore.</li>
+</ul>
+<p></p>
+<p><strong>What the score means:</strong></p>
+<p></p>
+<ul>
+<li><strong>No reds, two ambers or fewer.</strong> Proceed to assessment and planning. The takeover is real.</li>
+<li><strong>One red in code, stores or data.</strong> Pause new features. Fix that group first, because everything else depends on it.</li>
+<li><strong>Reds in three or more groups.</strong> Treat this as a recovery, not a handover. Our <a href="https://www.codebaiz.com/blogs/cost-to-rebuild-an-app">cost to rebuild an app</a> guide shows how that changes the maths.</li>
+</ul>
+<p></p>
+<h2>10. The Five Day Handover Plan</h2>
+<p></p>
+<p>With a cooperating team, a typical founder app can run this in about a week.</p>
+<p></p>
+<ol>
+<li><strong>Day 1, accounts first.</strong> Groups two and seven, store ownership, transfers started, IP and payment state confirmed, renewal dates captured.</li>
+<li><strong>Day 2, code and build.</strong> Group one transferred into your organisation, and the clean machine build test run and fixed while help is available.</li>
+<li><strong>Day 3, backend and data.</strong> Group three, owner access, export taken, and the restore test performed, not scheduled.</li>
+<li><strong>Day 4, services and money.</strong> Groups four and five, key register completed, payment and analytics ownership confirmed, alerts pointed at your team.</li>
+<li><strong>Day 5, knowledge and close out.</strong> Group six collected, known issues walkthrough recorded, scoring completed, old access removed where safe, and sign off exchanged.</li>
+</ol>
+<p></p>
+<p>If the developer has vanished, the same list becomes a recovery inventory. That is why our <a href="https://www.codebaiz.com/our-services/app-rescue">app rescue and takeover service</a> runs this list before any code is touched, and why its first step, the app check and written verdict, is free.</p>
+<p></p>
+<h2>Frequently Asked Questions</h2>
+<p></p>
+<p><strong>What should an app handover checklist include?</strong> Seven groups, code and build, store accounts and signing, backend and data, third party services, payments and analytics, designs and documents, and contracts and close out. That is 42 items, each closed by a test, not by a file being sent.</p>
+<p></p>
+<p><strong>How long does it take to take over an app from another developer?</strong> With a cooperating developer, about five working days for a typical founder app. Assessing code quality and planning the next phase usually takes about another week.</p>
+<p></p>
+<p><strong>What is the most commonly missing item in an app takeover checklist?</strong> Signing and release control. Founders recover code and data, then discover the keystore, certificate or Account Holder access is missing, so no update can ship. Check group two on day one.</p>
+<p></p>
+<p><strong>Do I need to rotate API keys after a handover?</strong> Yes. Once owner access is proven and new keys are tested, rotate keys the old team could still use, update the register, and remove old access, in that order, so you do not break live services.</p>
+<p></p>
+<p><strong>What if the old developer will not hand over the app?</strong> Gather the contract and invoices and make a formal written request naming the items in this checklist. Many cases resolve there. If they still refuse, a lawyer is the next step.</p>
+<p></p>
+<h2>Taking Over an App? Run the Checklist Before You Run the Code</h2>
+<p></p>
+<p>Send us what you have now, store links, repository access, and any handover documents. We will run this checklist as part of a free app check, score each group red, amber or green in writing, and tell you what is missing before you commit to fix, harden or rebuild work.</p>
+<p></p>
+<p>No pressure to move the app to us. A proven handover is valuable whoever does the next phase, and finding a missing key this week is far cheaper than finding it on release day.</p>
+<p></p>
+<p>Code Baiz is a mobile and web app development agency in Brooklyn, New York. Our team of around 20 engineers has shipped more than 300 projects since 2019, most of them in React Native. We build, rescue and maintain apps for founders who cannot afford to get it wrong twice.</p>
+<p></p>
+</body></html>
