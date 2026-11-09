@@ -1,0 +1,162 @@
+<!doctype html><html><head><meta charset='utf-8'><title>article</title></head><body>
+<p>You did the hard part. The app is built, the launch post is drafted. Then the email lands: rejected, with a guideline number you have never seen, and your launch date starts sliding.</p>
+<p></p>
+<p>An app store rejection is not a verdict on your idea. It is usually a short list of things a reviewer could not verify, could not reach, or could not reconcile with your listing. Those are fixable problems. Founders waste weeks in two ways: resubmitting the same build with a hopeful note, or assuming the app needs rebuilding. This post covers why Apple and Google actually reject apps, how long each fix takes, and the triage method we use to get a rejected app approved without guessing.</p>
+<p></p>
+<p><strong>TL;DR:</strong> Apple reviewed <strong>9,100,620 submissions in 2025 and rejected 2,093,244, about 23 percent</strong>, per its App Store Transparency Report. Performance problems under Guideline 2.1 were cited <strong>1,354,418 times</strong>, more than any other section. On Google Play, the common traps are a Data safety form that does not match the app, an old target API level, unexplained permissions and a missing account deletion path. Read the rejection as a work list, fix only what it names, prove each fix in your notes, and resubmit once, cleanly.</p>
+<p></p>
+<h2>1. How Common Is App Store Rejection, Really?</h2>
+<p></p>
+<p>Rejection is normal. Nearly <strong>one in four</strong> Apple submissions was rejected in 2025, and hundreds of thousands were later approved after an earlier rejection. Review is a round trip: the reviewer finds a gap, you close it, the app goes live.</p>
+<p></p>
+<p><strong>The 2025 Apple rejection picture, by guideline section:</strong></p>
+<p></p>
+<ul>
+<li><strong>Performance, 1,354,418 citations.</strong> Completeness, bugs, metadata, hardware and software rules. This section outweighs the rest.</li>
+<li><strong>Legal, 495,673 citations.</strong> Privacy, data handling and intellectual property.</li>
+<li><strong>Design, 415,532 citations.</strong> Minimum functionality, spam and copycats.</li>
+<li><strong>Business, 283,820 citations.</strong> Payments and subscriptions.</li>
+<li><strong>Safety, 151,159 citations.</strong> Objectionable content and data security.</li>
+</ul>
+<p></p>
+<p>One submission can break several rules, so counts add up to more than the total. The pattern matters: completeness and accuracy cause most rejections, and those are the cheapest problems to fix. Google messages point at the same causes.</p>
+<p></p>
+<h2>2. Why Apple Rejects Apps: The Six Guidelines That Matter Most</h2>
+<p></p>
+<p>Apple names a guideline number in every rejection. These six cover most founder rejections.</p>
+<p></p>
+<h3>Guideline 2.1, App Completeness</h3>
+<p></p>
+<p>This is the catch all, and Apple has said that <strong>over 40 percent of unresolved review issues relate to Guideline 2.1</strong>. It covers crashes, bugs, broken links, placeholder screens, features the reviewer cannot find, and in app purchases that are not visible during review. The most common version is simple: the reviewer could not sign in. No working demo account, a one time code sent to a team member&#x27;s phone, or a backend switched off during review stops the test before it starts.</p>
+<p></p>
+<p><strong>The fix:</strong> test the exact release build on real devices, remove every placeholder, and give the reviewer a working demo account with full access.</p>
+<p></p>
+<h3>Guideline 2.3, Accurate Metadata</h3>
+<p></p>
+<p>Your listing shows things the app does not do yet: screenshots from a future version, features behind a paywall the reviewer cannot reach, or references to another platform.</p>
+<p></p>
+<p><strong>The fix:</strong> make the listing describe the build you submitted, with real screens from that build.</p>
+<p></p>
+<h3>Guideline 4.2, Minimum Functionality</h3>
+<p></p>
+<p>The app does too little, most often because it is a website wrapped in a container. A repackaged web view or a catalogue with no native value gets flagged.</p>
+<p></p>
+<p><strong>The fix:</strong> add real app value, such as offline use, push notifications, or native flows a website cannot offer. Cosmetic changes do not move this one.</p>
+<p></p>
+<h3>Guideline 4.3, Spam</h3>
+<p></p>
+<p>Multiple near identical apps, or another entry in a saturated category with nothing different, triggers this guideline. Template apps for several clients under one account are a classic case.</p>
+<p></p>
+<p><strong>The fix:</strong> consolidate duplicates into one app, and explain in your notes what is meaningfully different about this app.</p>
+<p></p>
+<h3>Guideline 5.1.1, Privacy, Permissions and Account Deletion</h3>
+<p></p>
+<p>Privacy was one of the largest categories in 2025, with <strong>more than 443,000 submissions rejected for privacy violations</strong>. The usual gaps are a missing privacy policy, vague permission purpose strings, a privacy label that does not match what the app and its SDKs collect, and no in app account deletion when users can create an account.</p>
+<p></p>
+<p><strong>The fix:</strong> list every SDK and what it collects, make the policy, label and app behaviour agree, write purpose strings in plain words, and ship account deletion inside settings. Our <a href="https://www.codebaiz.com/blogs/production-readiness-audit">production readiness audit</a> guide covers the checks that catch most of this before submission.</p>
+<p></p>
+<h3>Guideline 3.1.1, In App Purchase</h3>
+<p></p>
+<p>Digital goods or subscriptions sold through your own payment flow instead of Apple&#x27;s system. Physical goods and real world services can use your own checkout. Digital content consumed in the app generally cannot.</p>
+<p></p>
+<p><strong>The fix:</strong> route digital purchases through in app purchase, or remove the external path. Arguing without changing the flow rarely works.</p>
+<p></p>
+<blockquote><p>Most Apple rejections are a reviewer saying: I could not test it, I could not verify it, or the listing and the app do not match. Fix the sentence they actually wrote, not the one you feared.</p></blockquote>
+<p></p>
+<h2>3. Why Google Play Rejects Apps: The Traps Are Mostly Declarations</h2>
+<p></p>
+<p>Google Play leans harder on automated checks and declarations, so the build can be fine while the paperwork fails.</p>
+<p></p>
+<p><strong>The Play rejections we see most often:</strong></p>
+<p></p>
+<ul>
+<li><strong>Data safety mismatch.</strong> The form says one thing, the policy another, and the SDKs collect a third set of data. This is the leading Play trap. Every library counts, including analytics SDKs.</li>
+<li><strong>Target API level too old.</strong> Since <strong>31 August 2026, new apps and updates must target Android 16, API level 36</strong>. An old target is an automatic block. Old native libraries are the usual reason a team cannot raise it quickly.</li>
+<li><strong>Permissions without a clear purpose.</strong> Background location, broad photo access or health data need a declared, believable use.</li>
+<li><strong>Account deletion missing.</strong> Play requires an in app deletion option and a web link for deletion requests, with clear wording on what data is deleted or kept.</li>
+<li><strong>Broken functionality.</strong> Crashes during automated pre launch testing, a login the reviewer cannot pass, or core features that do nothing.</li>
+<li><strong>Misleading metadata.</strong> Keyword stuffed titles, screenshots that do not show the app, or claims the app cannot back up.</li>
+<li><strong>Closed testing not completed.</strong> New personal developer accounts must run a closed test with at least <strong>12 testers for 14 days</strong> before applying for production access.</li>
+</ul>
+<p></p>
+<p>Apple has a parallel rule. Since <strong>28 April 2026, uploads must use Xcode 26 and the iOS 26 SDK</strong>. Both stores treat build freshness as a launch task, not a developer detail. That is the kind of deadline our <a href="https://www.codebaiz.com/our-services/app-maintenance">app maintenance and support</a> work tracks month by month, because missing one turns a routine update into an emergency.</p>
+<p></p>
+<h2>4. The Rejection Triage Framework: Five Steps Before You Resubmit</h2>
+<p></p>
+<p>This is the method we run when a founder brings us a rejected app. A resubmission that fixes the wrong thing, or fixes the right thing without proving it, earns a second rejection and a slower second review.</p>
+<p></p>
+<ol>
+<li><strong>Read the exact words.</strong> Save the guideline or policy name, the device and OS the reviewer used, and any screenshot or recording they attached. That evidence is the scope of work.</li>
+<li><strong>Classify each issue into a fix band.</strong> Listing and notes fixes are same day. Build fixes such as a crash or a missing deletion flow are usually two to five days. Policy and data fixes are usually one to two weeks, because they touch legal wording as well as code. Foundation fixes, such as a wrapped website or a build that cannot meet the target API, can run one to three weeks or become a rebuild conversation.</li>
+<li><strong>Fix only what was named, plus its direct cause.</strong> Do not redesign unrelated screens in the same build. Every extra change is a new thing a reviewer can question.</li>
+<li><strong>Prove each fix in writing.</strong> Notes should map one to one to the rejection: the issue, what changed, and how the reviewer can see it. Include working credentials, steps to reach features behind a login, and a short recording for misunderstood flows.</li>
+<li><strong>Resubmit once, cleanly, then wait.</strong> One build that answers every point beats three hopeful builds in two days. Keep the backend live and the demo account active while you wait.</li>
+</ol>
+<p></p>
+<p><strong>A worked example:</strong> a services app is rejected under 2.1 and 5.1.1 on a Tuesday. The reviewer could not pass a code prompt, and found no account deletion. The team adds a reviewer account that skips the code step, builds deletion into settings, updates the privacy label, records a short video, and resubmits on Friday with notes answering both guidelines by number. A one week round trip, instead of a hopeful resubmission that restarts the clock.</p>
+<p></p>
+<h2>5. How Long Do Fixes and Resubmission Actually Take?</h2>
+<p></p>
+<ul>
+<li><strong>Same day:</strong> corrected screenshots and description, rewritten notes, a working demo account, a broken policy URL replaced.</li>
+<li><strong>Two to five days:</strong> a crash fixed and regression tested, account deletion added, permission strings rewritten and retested.</li>
+<li><strong>One to two weeks:</strong> privacy policy, declarations and SDK collection brought into agreement, in app purchase implemented, a Data safety form rebuilt from a real SDK inventory.</li>
+<li><strong>One to three weeks or more:</strong> minimum functionality problems needing real native features, a target API upgrade blocked by old libraries, or duplicate apps consolidated.</li>
+</ul>
+<p></p>
+<p>Review time varies by store and by how clean the reply is. A focused fix usually moves faster than a build that changed everything, because the reviewer can verify the named points without starting from zero. Budget for a possible two to three week slip after a first rejection, and submit early if a marketing date is fixed. Our <a href="https://www.codebaiz.com/blogs/mobile-app-development-process">mobile app development process</a> guide builds review and a rejection buffer into the launch steps for this reason.</p>
+<p></p>
+<h2>6. What a Good Team Does Differently on Resubmission</h2>
+<p></p>
+<p>The difference between teams that clear review in one round trip and teams that bounce three times is rarely coding skill. It is submission discipline.</p>
+<p></p>
+<ul>
+<li><strong>A pre submission test of the release build,</strong> on real devices, as a brand new user, with purchases and deletion exercised, not just the demo flow.</li>
+<li><strong>A reviewer pack prepared before submitting:</strong> full access demo credentials, notes explaining non obvious features, and a human contact for review questions.</li>
+<li><strong>Declarations checked against the build,</strong> not memory. The privacy label, Data safety form and policy come from an inventory of the SDKs actually in the build.</li>
+<li><strong>One owner for store deadlines,</strong> so target API dates and policy changes are tracked on a calendar. This is core <a href="https://www.codebaiz.com/our-services/app-maintenance">app maintenance</a> work, in our published range of <strong>15 to 20 percent of build cost per year</strong>, and it costs less than one emergency fix in launch month.</li>
+<li><strong>A calm, factual reply tone.</strong> Reviewers respond to evidence: what changed, where to tap, what to expect.</li>
+</ul>
+<p></p>
+<blockquote><p>Treat the reviewer as a careful first user with ten minutes and no context. Anything they cannot find or understand in that window is a product problem too.</p></blockquote>
+<p></p>
+<h2>7. The 12 Point Pre Submission Sweep</h2>
+<p></p>
+<p>Run this sweep before any first submission or major update. It catches the rejections above while they are still free to fix.</p>
+<p></p>
+<ol>
+<li><strong>Release build tested on real devices,</strong> including one older phone per platform, from a clean install.</li>
+<li><strong>No placeholder text, images or screens anywhere,</strong> including settings and empty states.</li>
+<li><strong>Demo account works end to end,</strong> with full access, no code sent to a team member, and the backend live for the review window.</li>
+<li><strong>Every link resolves:</strong> privacy policy, support and deletion pages load without a login.</li>
+<li><strong>Screenshots and description match this build,</strong> with no future features or other platform references.</li>
+<li><strong>Privacy policy, label and Data safety form agree,</strong> and every SDK is accounted for in all three.</li>
+<li><strong>Account deletion exists inside the app</strong> if account creation exists, plus the Play web deletion link.</li>
+<li><strong>Permission prompts use plain purpose strings</strong> a user would accept.</li>
+<li><strong>Digital goods use store billing,</strong> clearly separated from physical goods and real world services.</li>
+<li><strong>Build currency confirmed:</strong> current Xcode and iOS SDK, target API 36 on Play, no library blocking either.</li>
+<li><strong>Clear native value</strong> beyond a wrapped website, and no near duplicate in the same account.</li>
+<li><strong>Reviewer notes checked,</strong> covering credentials, feature locations and purchase access.</li>
+</ol>
+<p></p>
+<p>If an update was rejected, compare the new build against the last approved one. Update rejections often come from something the update changed, a new SDK, a new permission or a new purchase flow. Our <a href="https://www.codebaiz.com/blogs/how-to-take-mvp-to-production">how to take an MVP to production</a> checklist covers the hardening work that makes updates routine.</p>
+<p></p>
+<h2>Frequently Asked Questions</h2>
+<p></p>
+<p><strong>What is the most common app store rejection reason?</strong> On Apple, Guideline 2.1: crashes, bugs, placeholder content and logins a reviewer cannot use. Apple says over 40 percent of unresolved issues relate to it. On Google Play, Data safety and privacy mismatches are the most common trap we see.</p>
+<p></p>
+<p><strong>How long does it take to fix an app store rejection?</strong> Listing and demo account fixes can be same day. A crash or missing deletion flow is usually two to five days. Privacy alignment is usually one to two weeks. Minimum functionality or target API problems can take one to three weeks or more. Review time comes on top.</p>
+<p></p>
+<p><strong>Should I appeal a rejection or just fix it?</strong> Appeal when the reviewer misunderstood a feature that is present and compliant, and you can prove it with a recording and precise steps. Fix when anything in the message is factually right. Most rejections contain at least one fair point.</p>
+<p></p>
+<p><strong>My app was rejected for spam or minimum functionality. Is that a rebuild?</strong> Not always, but this band is most likely to need real product work. A wrapped website needs genuine native value. Duplicate apps usually need consolidation. Cosmetic resubmissions do not clear these guidelines.</p>
+<p></p>
+<p><strong>Can you help if our app keeps getting rejected?</strong> Yes. Repeated rejection is usually a triage and evidence problem, or declarations and the build drifting apart. We start by reading the exact store messages and giving you a written fix list before any resubmission, the same approach we use in a free app check.</p>
+<p></p>
+<h2>Rejected, and Not Sure What the Message Really Means?</h2>
+<p></p>
+<p>Send us the rejection message and your launch date. We will read the exact wording, classify each issue by fix time, and tell you whether it is a same day fix, a build fix, or a sign of a deeper problem. If we can fix it, we will scope the resubmission in writing, reviewer notes included, before work starts.</p>
+<p></p>
+<p>Code Baiz is a mobile and web app development agency in Brooklyn, New York. Our team of around 20 engineers has shipped more than 300 projects since 2019, most of them in React Native. We build, rescue and maintain apps for founders who cannot afford to get it wrong twice.</p>
+<p></p>
+</body></html>
