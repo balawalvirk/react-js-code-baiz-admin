@@ -1,0 +1,152 @@
+<!doctype html><html><head><meta charset='utf-8'><title>article</title></head><body>
+<p>It worked in the preview. You clicked through it, a test user signed up, a test payment even went through. Then real users arrived. People cannot log in twice. Someone can see data that is not theirs. A payment is taken and the account never unlocks. If you have a lovable app not working in production, you are not looking at bad luck. You are looking at the gap between a preview environment and a real one, and that gap has a small number of usual causes.</p>
+<p></p>
+<p><strong>TL;DR:</strong> <strong>Preview success is not production readiness.</strong> Preview tools use forgiving settings, test data, test payment modes and one happy path. Production adds real auth rules, real database security rules, live payment webhooks, real secrets and users who do unexpected things in an unexpected order. Stop any live harm first, work through the checks in order, then get a written verdict before you pay for a fix: fix, fix and harden, or rebuild. Our <a href="https://www.codebaiz.com/our-services/app-rescue">app rescue and takeover service</a> follows exactly that sequence, starting with a free check.</p>
+<p></p>
+<h2>1. Why Preview and Production Are Different Jobs</h2>
+<p></p>
+<p>An AI builder is very good at the visible job. Screens, forms, buttons and a flow that looks complete can appear in hours. Production is the invisible job underneath, and it is where a vibe coded app fix usually has to start.</p>
+<p></p>
+<ul>
+<li><strong>Preview data is polite.</strong> Real users have old accounts, duplicate emails, expired sessions and data created by an earlier broken version.</li>
+<li><strong>Preview settings are forgiving.</strong> Many preview setups relax rules that production enforces, so a flow can pass in preview while the live rule quietly blocks it, or allows far too much.</li>
+<li><strong>Preview payments are not real money.</strong> Test mode confirms a card form works. It does not prove a live payment tells your app, unlocks the right account, and stays matched when a payment fails, retries or is refunded.</li>
+<li><strong>Preview has no strangers.</strong> Production has people who lose connection mid action, use old phones, and, in a small number of cases, actively look for data they should not reach.</li>
+</ul>
+<p></p>
+<blockquote><p>The preview proved the idea can work once, on a good day. Production has to prove it works safely, for everyone, on a bad day too.</p></blockquote>
+<p></p>
+<p>Our <a href="https://www.codebaiz.com/blogs/ai-generated-app-security-vulnerabilities">guide to why AI generated app security vulnerabilities keep happening</a> explains the background. This post is the practical next step: what broke, and what to do in the right order.</p>
+<p></p>
+<h2>2. First, Stop the Harm: Data Anyone Can Read, and Keys Anyone Can Use</h2>
+<p></p>
+<p>Before you fix a broken screen, check whether anything live is exposed. A login bug annoys users. An open database or a leaked key can harm them, and that harm continues while you debug the screen.</p>
+<p></p>
+<p><strong>Check these two things first:</strong></p>
+<p></p>
+<ul>
+<li><strong>Can one user read another user data?</strong> Sign in as a test user and check profile, order and file screens, shared links, and, if your team knows how, a request with another record identifier. If the app returns data that is not yours, the database security rules are not doing their job.</li>
+<li><strong>Are secrets sitting in client code?</strong> Keys that belong on a server should never ship inside the app or browser code, where anyone can extract them. Our rescue page names this plainly among the problems found in tools like Lovable, Bolt and v0: exposed keys, broken login, payments that do not reconcile, and data anyone can read.</li>
+</ul>
+<p></p>
+<p>If either check fails, treat it as the first job. Restrict the rule, move the secret to the server, rotate the exposed key, and only then return to functional bugs. Do not post screenshots of keys, tokens or user data in a public place while asking for help.</p>
+<p></p>
+<h2>3. Broken Auth: Works Once, Fails on the Way Back</h2>
+<p></p>
+<p>Auth is the most common bolt app problems complaint, and it usually passes the first test. The first signup works. The failure appears on the return visit.</p>
+<p></p>
+<p><strong>The return visit failures to test:</strong></p>
+<p></p>
+<ul>
+<li><strong>Session does not survive.</strong> The user returns and is logged out, or stuck in a loop between the login and home screens.</li>
+<li><strong>Verification never completes.</strong> A confirmation link, magic link or one time code arrives late, expires too fast, points at the preview address, or confirms an account the live app cannot find.</li>
+<li><strong>Password reset breaks the account.</strong> The new password is accepted, and the user still cannot sign in, because reset and login are not talking to the same record.</li>
+<li><strong>Social and email sign in create two people.</strong> The same person ends up with two accounts, one holding their payment and data.</li>
+<li><strong>A logged out user can still act.</strong> Old sessions stay valid after a password change or account closure.</li>
+</ul>
+<p></p>
+<p>Test auth the way a real user lives it: sign up, sign out, sign back in, reset the password, return the next day, and try on a second device.</p>
+<p></p>
+<blockquote><p>If login only works the first time, you do not have a login system yet. You have a signup demo.</p></blockquote>
+<p></p>
+<h2>4. Database Security Rules: The Door Was Left Set to Preview</h2>
+<p></p>
+<p>In many AI built apps, the database started with rules written for speed of building, not safety. Broad access makes every screen easy to wire up during the build. In production, that same broad access is the problem.</p>
+<p></p>
+<p><strong>Signs your rules never got tightened:</strong></p>
+<p></p>
+<ul>
+<li><strong>A list loads more records than that user owns.</strong> The screen may display only their own, while the request already returned everyone else data to the device.</li>
+<li><strong>Creating works, but editing your own data fails, or the reverse.</strong> Rules written screen by screen, instead of by ownership, produce this uneven pattern.</li>
+<li><strong>Admin actions work from a normal account.</strong> The role check lives only in the visible interface, not in the rule itself.</li>
+<li><strong>Rules were never tested with a second account.</strong> Most rule problems are invisible with one test user, because there is no other person data to leak.</li>
+</ul>
+<p></p>
+<p>The fix is methodical. List what each user type should read, create, change and delete, by data type. Write rules to that list, then test every line with two normal accounts and one admin account.</p>
+<p></p>
+<h2>5. Payments and Webhooks: Paid, But Nothing Happened</h2>
+<p></p>
+<p>A payment has two halves. The first is the one users see: enter a card, confirm, get a success message. The second is the one that matters: the provider tells your app what happened, through a webhook, and your app updates the account. Most production payment failures live in that second half.</p>
+<p></p>
+<p><strong>Where the second half usually breaks:</strong></p>
+<p></p>
+<ul>
+<li><strong>The webhook points at the wrong address.</strong> It still points at a preview address, so live payments arrive and your live app never hears about them.</li>
+<li><strong>Test mode and live mode are mixed.</strong> The app takes a live payment while listening for test events, so records never match.</li>
+<li><strong>The success screen is trusted instead of the webhook.</strong> The app unlocks because the user reached a thank you page, not because the provider confirmed the money.</li>
+<li><strong>Retries create duplicates.</strong> A provider retries an event, as designed, and the app creates a second order or credit.</li>
+<li><strong>Refunds and failed renewals change nothing.</strong> Money goes back, or a renewal fails, and access stays wrong in either direction.</li>
+</ul>
+<p></p>
+<p>Reconcile one real transaction by hand before you change anything. Follow it from provider record to webhook event to account change. Where that chain stops is where your bug lives.</p>
+<p></p>
+<h2>6. The Production Gap Triage: Run These Five Steps in Order</h2>
+<p></p>
+<p>This is the tool we want you to keep. When an ai built app not working report lands, order matters. Founders start with the screen a user complained about. Engineers who rescue these apps start with harm, proof and layer.</p>
+<p></p>
+<ol>
+<li><strong>Stop the harm.</strong> Check the two exposures in section 2 first. If either is live, restrict, move and rotate before any other work.</li>
+<li><strong>Prove the break with one real path.</strong> Walk one failing journey, signup to login to payment to access, on the live app, on a real device, with a fresh account. Write down the exact step where the result stops matching the promise.</li>
+<li><strong>Trace the layer.</strong> Decide which layer owns that break: auth, database rules, payment webhook, environment settings, or the screen itself. Sections 3 to 5 give you the test for each. Do not let a screen fix stand in for a rule or webhook fix.</li>
+<li><strong>Test with a second account and a second day.</strong> Repeat the path with a different account, then return later. Many production failures only appear on account two or day two.</li>
+<li><strong>Read the verdict honestly.</strong> If the breaks are in settings, rules and one or two flows, and the foundations are sound, you have a fix job. If weak foundations show everywhere, you may have a harden or rebuild job. Section 7 explains that read.</li>
+</ol>
+<p></p>
+<p>Keep the notes from steps 2 to 4. A short record of one proved break, with the layer traced, is worth more than a long list of screenshots and guesses.</p>
+<p></p>
+<blockquote><p>Do not ask, is my app broken. Ask, which layer broke, on which real path, proved with which account. That question has an answer you can act on.</p></blockquote>
+<p></p>
+<h2>7. Fix, Fix and Harden, or Rebuild: How to Read the Verdict</h2>
+<p></p>
+<p>Not every broken AI built app needs to start again, and not every one can be patched into safety. The honest sequence on our rescue page is a free check, then a written verdict, fix, fix and harden, or rebuild, then a written quote.</p>
+<p></p>
+<ul>
+<li><strong>Fix, when the foundations are sound.</strong> The breaks are specific: a webhook address, a rule that was never tightened, a session setting, a reset flow. Fix those, test the full path again, and ship.</li>
+<li><strong>Fix and harden, when the app works but production standards were never applied.</strong> Rules need rewriting by ownership, secrets need moving to the server, payments need to trust webhooks instead of screens, and auth needs the return visit tests. This is the most common verdict for a preview built app that found real users.</li>
+<li><strong>Rebuild, when the foundations are missing.</strong> If the data model cannot protect ownership, auth is tangled across duplicate accounts, and every change breaks another flow, patching costs more than it saves. A production grade rebuild sits in the <strong>$60,000 to $120,000 or more</strong> range on our published pages. Our <a href="https://www.codebaiz.com/blogs/cost-to-rebuild-an-app">cost to rebuild an app guide</a> walks through that decision maths.</li>
+</ul>
+<p></p>
+<p>There is no honest price for a fix or harden pass before the check. The same symptom, paid but not unlocked, can be a one setting webhook fix or a sign that payment handling was never built. Anyone who prices your rescue before tracing the layer is guessing with your money. If a tightly scoped validation build is the right restart instead, that first version sits at <strong>$10,000 to $20,000</strong>. That is a narrow first version decision, not a rescue price.</p>
+<p></p>
+<h2>8. What a Proper Fix Looks Like, Step by Step</h2>
+<p></p>
+<ol>
+<li><strong>Secure first.</strong> Tighten data access by ownership, move secrets to the server, rotate anything exposed, and confirm with a second account that other user data is no longer reachable.</li>
+<li><strong>Fix auth as a system.</strong> Test signup, sign out, sign in, reset, verification, a second device and a return visit as one connected system, not separate screens.</li>
+<li><strong>Repair the payment chain.</strong> Point webhooks at the live app, separate test and live modes, make the webhook the source of truth for access, and handle retries, refunds and failed renewals without duplicates.</li>
+<li><strong>Set the production environment properly.</strong> Live addresses in every link and callback, live keys only on the server, error reporting on, and backups for data you cannot afford to lose.</li>
+<li><strong>Retest the whole path, not just the fix.</strong> Walk signup to payment to access with two accounts, on real devices, including unhappy paths: expired code, failed card, lost connection, refund.</li>
+<li><strong>Write down what changed.</strong> Rules changed, settings corrected and paths tested, so the next person does not have to rediscover any of it.</li>
+</ol>
+<p></p>
+<h2>9. What Not to Do When Production Breaks</h2>
+<p></p>
+<ul>
+<li><strong>Do not keep reprompting and redeploying blind.</strong> Each generated change can fix one screen while quietly changing a rule or flow that was working.</li>
+<li><strong>Do not test only with your own account.</strong> It was created during the build, often with special access or old data. Most production breaks hide from it and hit new users first.</li>
+<li><strong>Do not call test mode proof.</strong> A test payment and a preview login prove the preview. Live mode, a fresh account and a real device prove production.</li>
+<li><strong>Do not leave a known exposure for later.</strong> An app with readable user data is not nearly done. It is actively unsafe.</li>
+<li><strong>Do not pay for a rebuild before a written verdict.</strong> Equally, do not pay for patch after patch once the verdict is clearly rebuild. Both mistakes come from skipping the check.</li>
+</ul>
+<p></p>
+<h2>Frequently Asked Questions</h2>
+<p></p>
+<p><strong>Why did my Lovable or Bolt app work in preview but break live?</strong> Preview uses forgiving settings, test data and test payment modes. Production adds real database security rules, live webhooks, real secrets, sessions that must survive, and users who arrive in an order no demo follows.</p>
+<p></p>
+<p><strong>What should I check first?</strong> Harm first, then proof. Check whether any user can read data that is not theirs, and whether secrets are in client code. Then prove one break on one real path and trace which layer owns it.</p>
+<p></p>
+<p><strong>Can a vibe coded app be fixed, or does it always need a rebuild?</strong> Many can be fixed, or fixed and hardened, when the foundations are workable. A rebuild is for missing foundations. The verdict should come from a check, in writing, before paid work starts.</p>
+<p></p>
+<p><strong>How much does it cost to fix a Lovable or Bolt app?</strong> There is no honest published price for a fix before an assessment, because the same symptom can be a small settings fix or a deep payment problem. The published rebuild figure is $60,000 to $120,000 or more. The check on our rescue route is free, followed by a written verdict and quote.</p>
+<p></p>
+<p><strong>My payments are taken but accounts do not unlock. What broke?</strong> Usually the webhook chain. It may point at a preview address, test and live modes may be mixed, or the app may trust the success screen instead of the provider confirmation. Reconcile one real transaction end to end.</p>
+<p></p>
+<p><strong>Is it safe to keep users on the app while it is being fixed?</strong> Only if the harm check is clean. If data is readable across accounts or a secret is exposed, restrict that first, even if it means pausing part of the app.</p>
+<p></p>
+<h2>Your App Broke in Production. Get a Written Verdict Before You Pay for a Fix.</h2>
+<p></p>
+<p>Send us the one proved break from the triage, or just tell us where real users are getting stuck and we will run the check from the start. Our <a href="https://www.codebaiz.com/free-app-check">free app check</a> is the route in: two engineers look at the app, and you get a written verdict, fix, fix and harden, or rebuild, before any paid work begins. No guessing, and no rebuild sold where a fix would do.</p>
+<p></p>
+<p>Code Baiz is a mobile and web app development agency in Brooklyn, New York. Our team of around 20 engineers has shipped more than 300 projects since 2019, most of them in React Native. We build, rescue and maintain apps for founders and businesses who cannot afford to get it wrong twice.</p>
+<p></p>
+</body></html>
