@@ -1,0 +1,168 @@
+<!doctype html><html><head><meta charset='utf-8'><title>article</title></head><body>
+<p>Your app launched, users arrived, and then nothing broke for a while. That quiet stretch is when founders start asking what they are paying for. The honest answer is that a live app sits on ground that never stops moving. Apple and Google change their systems and rules every year, the libraries inside your app age, and new phones arrive. App maintenance services are the work that moves with that ground, so the app your users open today still opens next year.</p>
+<p></p>
+<p><strong>TL;DR:</strong> <strong>What is app maintenance? It is six recurring jobs, not a repair bill.</strong> OS and SDK updates, store policy compliance, monitoring and crash fixing, security updates, dependency upgrades, and small fixes and improvements, with over the air updates where supported. Run on a rhythm of a health check first, monitoring with a monthly summary, an update calendar, batched releases tested on real devices, and a monthly review, at <strong>15 to 20 percent of the original build cost per year</strong>. New features and redesigns are not maintenance, they are build work. Our <a href="https://www.codebaiz.com/our-services/app-maintenance">app maintenance and support services</a> page lists the same six jobs. This post explains what each one actually involves.</p>
+<p></p>
+<h2>1. Maintenance Is Not Fixing It When It Breaks</h2>
+<p></p>
+<p>The most common misunderstanding is that maintenance means someone waits for a problem and then fixes it. That is the smallest part of the job. Real app support and maintenance is mostly scheduled work that happens before a problem can reach a user.</p>
+<p></p>
+<p>Think of the split this way. A repair reacts to something already broken. Maintenance works through a list of things that will break, get blocked, or quietly decay if nobody touches them. An OS release is announced months ahead. A store deadline is published on a calendar. A library will need patching. None of that is a surprise, and handling it early, in a planned release, is a different job from handling it late, in a panic.</p>
+<p></p>
+<blockquote><p>If the first time you hear about a store deadline is a rejection email, you do not have a maintenance problem. You have a maintenance absence.</p></blockquote>
+<p></p>
+<p>That is why this post is about the work itself. Our cost guide covers what the work costs by app size, and we link it in section 10. Here we stay on the jobs, and how you can tell whether each one is happening at all.</p>
+<p></p>
+<h2>2. OS and SDK Updates: The Work That Has a Deadline</h2>
+<p></p>
+<p>Every year Apple and Google release a new version of iOS and Android, and the stores raise the bar for what a submitted app must be built with. Fall too far behind and the stores stop accepting your updates, which means you cannot ship even an urgent fix.</p>
+<p></p>
+<p><strong>What this job actually involves:</strong></p>
+<p></p>
+<ul>
+<li><strong>Tracking new OS releases and testing against them</strong> before users upgrade, so a broken screen is found by your team, not by your reviews.</li>
+<li><strong>Raising the build to the required SDK and target API levels</strong> on the store timetable, including the library upgrades that a higher target often forces.</li>
+<li><strong>Retesting on real devices,</strong> including older phones, because a simulator does not catch how a new OS behaves across hardware.</li>
+<li><strong>Scheduling the work before it is urgent,</strong> on an update calendar, not the week the deadline lands.</li>
+</ul>
+<p></p>
+<p>The deadlines are already in force. On Google Play, new apps and updates have had to target Android 16, API level 36, since 31 August 2026. On Apple, uploads have had to use Xcode 26 and the iOS 26 SDK since 28 April 2026. We covered what happens when a build misses those bars in our <a href="https://www.codebaiz.com/blogs/app-store-rejection">app store rejection guide</a>. Maintenance means you never read that guide with your own rejection in hand.</p>
+<p></p>
+<h2>3. Store Policy Compliance: The Paperwork That Can Block a Release</h2>
+<p></p>
+<p>The second job is keeping the app legal in the eyes of the stores. Both stores change their policies regularly, and an app can be fully working and still be blocked because its paperwork no longer matches its behaviour.</p>
+<p></p>
+<p><strong>What this job actually involves:</strong></p>
+<p></p>
+<ul>
+<li><strong>Privacy declarations kept honest.</strong> The Apple privacy label and the Google Play Data safety section must match what the app and its libraries actually collect.</li>
+<li><strong>Policy changes answered as they land.</strong> New rules on account deletion, permissions, data handling and content need a response in the listing, in the app, or in both.</li>
+<li><strong>Store listing upkeep.</strong> Screenshots, descriptions and disclosures kept aligned with the current build.</li>
+<li><strong>Deadline ownership.</strong> One named owner for store dates and policy notices, so nothing depends on someone happening to read a console email.</li>
+</ul>
+<p></p>
+<p>This work is easy to skip because nothing visibly breaks when you skip it. The bill arrives later, as a blocked update at the worst moment. A routine fix that should take days turns into a compliance project, because the update carrying it must also clear every policy gap that built up in the meantime.</p>
+<p></p>
+<h2>4. Monitoring and Crash Fixing: Finding Out Before Your Users Do</h2>
+<p></p>
+<p>A maintained app is a watched app. Crash reporting is connected from the start, someone actually looks at it, and fixes are prioritised by how many users a problem affects, not by who shouted loudest.</p>
+<p></p>
+<p><strong>What this job actually involves:</strong></p>
+<p></p>
+<ul>
+<li><strong>Crash reporting watched, not just installed.</strong> A tool that collects crashes nobody reads is decoration. The work is reading the reports and fixing the top crashes first.</li>
+<li><strong>Health signals beyond crashes.</strong> Failed logins, failed payments and error spikes often show a problem before a full crash does.</li>
+<li><strong>Fixes prioritised by user impact.</strong> A crash hitting many users on a common phone outranks a rare crash on one device.</li>
+<li><strong>A monthly summary you can actually read.</strong> What broke, what was fixed, and what is being watched, in plain words.</li>
+</ul>
+<p></p>
+<blockquote><p>Your users should never be your crash reporting system. By the time a problem reaches your reviews, it has already cost you people you will not get back.</p></blockquote>
+<p></p>
+<p>This is also where maintenance protects growth. Our <a href="https://www.codebaiz.com/blogs/is-my-app-ready-to-scale">guide to whether your app is ready to scale</a> makes the same point: monitoring is one of the checks that decides whether growth helps you or exposes you.</p>
+<p></p>
+<h2>5. Security Updates and Dependency Upgrades: The Quiet Patching</h2>
+<p></p>
+<p>Your app is built on libraries written by other people. Those libraries are a strength, until one is found to have a hole in it. Then it becomes a race: patch your app before the hole becomes your problem.</p>
+<p></p>
+<p><strong>What this job actually involves:</strong></p>
+<p></p>
+<ul>
+<li><strong>Dependency patches applied on a rhythm.</strong> Libraries with known security fixes get upgraded as regular work, not left until upgrading becomes a project of its own.</li>
+<li><strong>Routine hardening kept current.</strong> The ordinary, repeated work that keeps known weaknesses closed as standards and store expectations move.</li>
+<li><strong>Upgrades tested before release.</strong> A library upgrade can change behaviour as well as fix a hole, so it is tested and released in a planned batch, not pushed out blind.</li>
+<li><strong>Old dependencies retired deliberately.</strong> Replacing an abandoned library is planned work. Discovering it is abandoned during an emergency is the expensive version of the same job.</li>
+</ul>
+<p></p>
+<p>None of this produces a visible feature, which is why founders undervalue it and why it belongs on a written list. If your arrangement does not name security and dependency work, assume it is not happening.</p>
+<p></p>
+<h2>6. Small Fixes and Small Improvements: Batched, Tested, Released</h2>
+<p></p>
+<p>Live products generate a steady stream of small things. A label that confuses users. A flow that needs one step fewer. A minor bug. A piece of copy that no longer matches the business. Individually none justifies a project. Together they are the difference between an app that feels alive and one that feels abandoned.</p>
+<p></p>
+<p><strong>What this job actually involves:</strong></p>
+<p></p>
+<ul>
+<li><strong>Small fixes collected and batched</strong> into regular planned releases, instead of a chaotic stream of one off submissions or a backlog that never moves.</li>
+<li><strong>Small improvements included by agreement,</strong> handled inside the monthly rhythm.</li>
+<li><strong>Releases tested on real devices before they ship,</strong> so a batch of small fixes does not quietly introduce a bigger problem.</li>
+<li><strong>Over the air updates where supported.</strong> On React Native apps, many small fixes can be shipped instantly without waiting on store review, which shortens the gap between finding a small problem and fixing it for everyone.</li>
+</ul>
+<p></p>
+<p>Batching turns maintenance from a series of interruptions into a predictable release train you can plan around, and keeps the app visibly improving without turning every tweak into a negotiation.</p>
+<p></p>
+<h2>7. How a Maintenance Month Actually Runs</h2>
+<p></p>
+<p>Good maintenance has a shape you should be able to see. Ours is published on our service page, and it is a useful template for judging any arrangement.</p>
+<p></p>
+<ol>
+<li><strong>Health check first.</strong> The app and codebase are assessed, and anything already overdue is fixed or listed honestly. A takeover of another team app starts here too, with a written verdict.</li>
+<li><strong>Monitoring on.</strong> Crash and health reporting is connected, watched, and summarised monthly in plain words.</li>
+<li><strong>Update calendar.</strong> OS, SDK and store deadlines for the year are tracked and scheduled before they become urgent.</li>
+<li><strong>Regular releases.</strong> Fixes and small improvements are batched into planned releases, tested on real devices, and shipped on a rhythm.</li>
+<li><strong>Monthly review.</strong> What was done, what is coming, and what your user data says to build next, so maintenance feeds product decisions.</li>
+</ol>
+<p></p>
+<p>If you cannot point to these five beats in your current arrangement, you may be paying for availability rather than maintenance. Availability is someone answering the phone. Maintenance is the calendar, the monitoring and the releases happening whether anyone calls or not.</p>
+<p></p>
+<h2>8. The Maintenance Coverage Audit: Check Your Own App in Six Points</h2>
+<p></p>
+<p>This is the tool we want you to keep. It is a mobile app maintenance checklist built from the six jobs above. Run it on your own app and score each line covered, overdue or missing. You do not need to open the code to answer most of it.</p>
+<p></p>
+<ol>
+<li><strong>OS and SDK position.</strong> Can someone tell you which SDK and target API your build uses, and when the next store deadline lands? Covered means a date on a calendar. Missing means nobody knows.</li>
+<li><strong>Store paperwork.</strong> Do your privacy label and Data safety section match what the app collects now, including its libraries? Overdue is the common score here.</li>
+<li><strong>Crash visibility.</strong> Can someone name your top crash and how many users it hits? If the answer is a shrug, monitoring is installed but not worked.</li>
+<li><strong>Dependency state.</strong> Are library patches applied on a rhythm, and is any library abandoned or badly out of date? Missing here is invisible until it is urgent.</li>
+<li><strong>Release rhythm.</strong> When was your last planned release, and are small fixes batched and tested, or shipped one at a time under pressure? No rhythm means every fix is an event.</li>
+<li><strong>Small improvement flow.</strong> Is there an agreed way small tweaks get into a release, or does every change need a fresh quote? Friction here is why apps slowly stop improving.</li>
+</ol>
+<p></p>
+<p><strong>How to read your scores:</strong> Six covered lines means maintenance is real. Any overdue line is next month work, named and scheduled. Any missing line is a gap with a deadline attached, because the stores and the libraries will set one for you.</p>
+<p></p>
+<h3>The Three Bucket Sort for Everything That Arrives Next</h3>
+<p></p>
+<p>Once the audit is done, sort every new request into one of three buckets.</p>
+<p></p>
+<ul>
+<li><strong>Keep it alive.</strong> Crashes, broken flows, failed payments, security patches. This is maintenance, and it goes first.</li>
+<li><strong>Keep it current.</strong> OS and SDK work, store policy answers, dependency upgrades, listing upkeep. This is maintenance, and it goes on the calendar.</li>
+<li><strong>Grow it.</strong> New features, new sections, redesigns. This is not maintenance. It is build work, scoped and priced as build work, even when the same team does it.</li>
+</ul>
+<p></p>
+<blockquote><p>The bucket test protects everyone. Founders stop expecting features inside a maintenance fee, and teams stop calling feature work maintenance to avoid a scope conversation.</p></blockquote>
+<p></p>
+<h2>9. What Maintenance Does Not Include</h2>
+<p></p>
+<p>A clear boundary is part of a good arrangement. Maintenance does not include new features or redesigns. Those are scoped and priced as build work. Small improvements can roll into the monthly rhythm by agreement, because a tweak to what exists is maintenance sized. A new feature is a new thing, with design, build and testing of its own.</p>
+<p></p>
+<p>Two other things maintenance is not. It is not a rescue. If an app arrives with serious problems, the honest first step is a health check and a written verdict and fix list, and only then does regular maintenance start. And it is not a promise that nothing will break. Maintenance decides whether you find out early and fix it in a planned release, or find out late, from users, in public.</p>
+<p></p>
+<h2>10. What Happens If You Skip It, and What It Costs</h2>
+<p></p>
+<p>Skip maintenance and, for a while, nothing happens. That is the trap. Then a store deadline lands, a new OS version breaks a screen, or a library is retired, and the same work arrives as an emergency, at an unpredictable cost, usually in your busiest month. No plan, fixes as emergencies, is the most expensive option over any two year period, and most rescue projects start as maintenance nobody was doing.</p>
+<p></p>
+<p>The planned version has a known shape. Budget <strong>15 to 20 percent of your original build cost per year</strong>, usually as a monthly retainer, quoted in writing after a health check. That is the only maintenance figure we publish, and we will not invent plan tiers around it. For the full cost maths by app size, read our <a href="https://www.codebaiz.com/blogs/app-maintenance-costs">guide to how much it costs to maintain an app</a>. This post does not rebuild those tables. Its job is the work.</p>
+<p></p>
+<p>For context, the builds maintenance protects sit in our published ranges: an MVP at <strong>$10,000 to $20,000</strong>, a simple app from <strong>$25,000</strong>, and a production grade product at <strong>$60,000 to $120,000 or more</strong>.</p>
+<p></p>
+<h2>Frequently Asked Questions</h2>
+<p></p>
+<p><strong>What is app maintenance, in one sentence?</strong> The recurring work that keeps a live app working, compliant, secure and improving after launch: OS and SDK updates, store compliance, monitoring, security patches, dependency upgrades and small fixes, run monthly.</p>
+<p></p>
+<p><strong>What do app maintenance services include that support alone does not?</strong> Support reacts when something breaks. Maintenance also includes the scheduled work that stops things breaking or getting blocked: deadline tracking, policy upkeep, dependency patching, batched releases and a monthly review. If an arrangement only reacts, it is support, whatever it is called.</p>
+<p></p>
+<p><strong>How much do app maintenance services cost?</strong> Plan on 15 to 20 percent of the original build cost per year, usually as a monthly retainer, quoted in writing after a health check. There is no honest universal monthly figure, because the percentage follows your app size and stack.</p>
+<p></p>
+<p><strong>Can you maintain an app another team built?</strong> Yes, takeovers are common. They start with a health check. If serious problems surface, you should get a written verdict and fix list first.</p>
+<p></p>
+<p><strong>Do I need maintenance if my app is stable?</strong> Yes. Stable today is not the same as safe. Store rules, OS versions and libraries move every year whether your app changes or not.</p>
+<p></p>
+<p><strong>How do I know if my current maintenance is actually happening?</strong> Run the Coverage Audit in section 8. If nobody can name your SDK position, top crash, last release date and next store deadline, the work is not happening.</p>
+<p></p>
+<h2>Not Sure What Shape Your App Is In? Start With a Free Check.</h2>
+<p></p>
+<p>If the audit left you with overdue or missing lines, do not guess at the fix. Start with our <a href="https://www.codebaiz.com/free-app-check">free app check</a>. Two engineers look at your app and code, and you get a written view of what is working, what is overdue, and what maintenance would need to cover, before any paid work begins. If your app is healthy, the check will say so.</p>
+<p></p>
+<p>Code Baiz is a mobile and web app development agency in Brooklyn, New York. Our team of around 20 engineers has shipped more than 300 projects since 2019, most of them in React Native. We build, rescue and maintain apps for founders and businesses who cannot afford to get it wrong twice.</p>
+<p></p>
+</body></html>
