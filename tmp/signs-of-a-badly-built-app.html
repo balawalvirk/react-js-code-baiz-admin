@@ -1,0 +1,201 @@
+<!doctype html><html><head><meta charset='utf-8'><title>article</title></head><body>
+<p>A founder does not need to read code to feel that something is wrong. The app is live, users are in it, money has been spent, and yet every conversation sounds the same. A fix is nearly ready, then it slips. A bug is closed, then a user reports it again. A small change brings a warning that touching that screen might break two others. None of those moments proves the app was built badly. Together, over weeks, they form a pattern you can see without opening a single file.</p>
+<p></p>
+<p><strong>TL;DR:</strong> <strong>The signs of a badly built app are visible in how the app behaves and how work on it behaves.</strong> Look for crashes users report before you do, releases that keep slipping, fixes that break other things, bugs that return, work only one person can do, testing nobody can show you, numbers you cannot see yourself, repeated update trouble, and an app that slows as it grows. One symptom is a prompt to ask questions. A repeating pattern is a prompt to get an independent check. Section 11 gives you a Symptom Pattern Tracker to record what you see over two weeks.</p>
+<p></p>
+<h2>1. What Counts as a Symptom, and What Does Not</h2>
+<p></p>
+<p>This post is a diagnosis guide, not a verdict and not a remedy guide. A symptom is something you can observe from the founder seat: in store reviews, in your support inbox, in release dates, in the answers your team gives you, and in screens you can open yourself.</p>
+<p></p>
+<p><strong>A symptom in this post is:</strong></p>
+<p></p>
+<ul>
+<li><strong>Observable without code.</strong> You can point to a review, a date, a message, or a missing dashboard.</li>
+<li><strong>A sign to investigate, not a proven cause.</strong> Crashes and slowness can each have more than one cause. The symptom tells you where to look, not what the answer will be.</li>
+<li><strong>Stronger as a pattern than as a moment.</strong> Every app has a bad week. The badly built app symptoms list matters when problems repeat across releases and months.</li>
+</ul>
+<p></p>
+<p>What this post does not do is list findings only an engineer can see inside the code. Those belong to an audit itself. Our <a href="https://www.codebaiz.com/blogs/production-readiness-audit">production readiness audit guide</a> covers the 10 engineer led checks in full. Here we stay on your side of the screen, where a founder decides whether a check is needed at all.</p>
+<p></p>
+<blockquote><p>You are not being asked to judge the engineering. You are being asked to notice whether the evidence in front of you still matches the story you are being told.</p></blockquote>
+<p></p>
+<h2>2. Symptom One: Users Report Crashes Before You Hear About Them</h2>
+<p></p>
+<p>The clearest early sign is learning about failures from the people who suffered them. A one star review names a crash on a specific screen. A support email says the app closed during checkout. Then, when you ask the team, it is the first they have heard of it.</p>
+<p></p>
+<p><strong>What you can check yourself:</strong></p>
+<p></p>
+<ul>
+<li><strong>Read your last 20 store reviews and count how many name a crash, a freeze, or a forced close.</strong> The same screen named twice is a pattern, not an anecdote.</li>
+<li><strong>Search your support inbox for crash, frozen, kicked out, and will not open.</strong> Note whether they cluster after a release.</li>
+<li><strong>Ask one plain question: where do you see crashes, and can you show me?</strong> A healthy team can open a crash report and name the top problems. A vague answer is itself part of the symptom.</li>
+</ul>
+<p></p>
+<p>A single crash report proves very little. Users have old phones and poor connections. What should concern you is the combination: users reporting crashes, the same screens repeating, and no system on your side that saw them first.</p>
+<p></p>
+<h2>3. Symptom Two: Small Changes Take Weeks and Releases Keep Slipping</h2>
+<p></p>
+<p>Every founder learns that software takes longer than the first estimate. That is normal. The symptom is different: almost every change, including small ones, takes weeks, and release dates move again and again with explanations that never name the blocker.</p>
+<p></p>
+<p><strong>What you can check yourself:</strong></p>
+<p></p>
+<ul>
+<li><strong>List your last five requested changes and the date each one actually shipped.</strong> Judge the gap between promised and actual, not any single delay.</li>
+<li><strong>Separate new features from small fixes.</strong> A text change or a small flow adjustment taking as long as a feature is a signal worth questioning.</li>
+<li><strong>Ask what has to happen between done and live.</strong> If nobody can describe the steps in plain words, the release process itself may be part of the problem.</li>
+</ul>
+<p></p>
+<p>Slow releases alone do not prove poor quality app development. Teams get busy. The warning is the pattern: work is always nearly ready, dates are always approximate, and the app improves more slowly than the effort going into it justifies.</p>
+<p></p>
+<h2>4. Symptom Three: Fixing One Thing Breaks Something Else</h2>
+<p></p>
+<p>This is the symptom founders describe most vividly. A release fixes login and breaks notifications. A payment fix ships and a different screen starts failing. The team fixes that, and an older problem comes back.</p>
+<p></p>
+<p><strong>What you can check yourself:</strong></p>
+<p></p>
+<ul>
+<li><strong>Keep a simple release note for yourself.</strong> For each release, write what was meant to be fixed and what users reported in the week after.</li>
+<li><strong>Notice the language around changes.</strong> Warnings like we cannot touch that part, said often and about many areas, suggest the parts of the app are tangled in ways the team fears.</li>
+<li><strong>Ask how the team knows a fix did not break anything else.</strong> The answer should name something concrete done before release, not just confidence.</li>
+</ul>
+<p></p>
+<blockquote><p>When every fix feels risky to the people who built the app, that fear is information. A well structured app can still break, but a routine change should not feel like a gamble every time.</p></blockquote>
+<p></p>
+<h2>5. Symptom Four: The Same Bug Comes Back After It Was Fixed</h2>
+<p></p>
+<p>A returned bug is more telling than a new bug. New bugs happen in any living product. A bug that was reported, fixed, announced as fixed, and then reported again in the same flow points to a fix that treated the visible moment rather than the underlying behaviour, or to testing that never covered the path users actually take.</p>
+<p></p>
+<p><strong>What you can check yourself:</strong></p>
+<p></p>
+<ul>
+<li><strong>Track repeat reports by flow, not by exact wording.</strong> Group reports by the job the user was trying to do: signing in, paying, uploading, booking, saving.</li>
+<li><strong>Count how many of your last ten closed bugs have been reopened or reported again.</strong> Even a rough count turns feelings into evidence.</li>
+<li><strong>Ask what changed the second time.</strong> If the second fix is identical to the first, with no new check added, expect a third visit.</li>
+</ul>
+<p></p>
+<p>Together with symptom three, this is the classic founder visible face of technical debt symptoms: work goes in, effort is real, and the same ground is covered again and again while new work waits.</p>
+<p></p>
+<h2>6. Symptom Five: Only One Person Can Work on the App</h2>
+<p></p>
+<p>Sometimes the risk is not in a screen at all. It is in a calendar. One developer is the only person who can fix urgent problems, explain how key parts work, or ship a release. When that person is away or leaves, work stops.</p>
+<p></p>
+<p><strong>What you can check yourself:</strong></p>
+<p></p>
+<ul>
+<li><strong>Ask who else has worked on each main area in the last three months.</strong> You are checking whether knowledge is shared or held by one person.</li>
+<li><strong>Ask what happens if that person is away for two weeks.</strong> A calm, specific answer is reassuring. Silence or jokes about nobody touching the app are not.</li>
+<li><strong>Notice whether estimates always wait for one person.</strong> If every question has to go through the same person, the app may be understandable to only one mind.</li>
+</ul>
+<p></p>
+<p>An app only one person can safely change is fragile even if it runs well today. It also limits every future choice, because a new team will first have to reverse engineer what was never spread around.</p>
+<p></p>
+<h2>7. Symptom Six: Nobody Can Show You Testing Before a Release</h2>
+<p></p>
+<p>You do not need to understand testing tools to spot this symptom. You only need to ask to see evidence that someone checked the app before users did. The symptom appears when releases go out on confidence alone, or when the first real test of a change is your users trying it live.</p>
+<p></p>
+<p><strong>What you can check yourself:</strong></p>
+<p></p>
+<ul>
+<li><strong>Ask one question before the next release: what was tested, on which devices, and where can I see the result.</strong> A team with a real routine can answer simply and show something.</li>
+<li><strong>Notice whether problems are found by users in the first hours after most releases.</strong> An occasional escape is human. A pattern is a process gap.</li>
+<li><strong>Check whether the same core flows are rechecked every time.</strong> Login, signup, payment, and your main user job should be exercised before every release.</li>
+</ul>
+<p></p>
+<p>This is not about a perfect process. It is about whether any repeatable check stands between a change and your customers. If there is none you can point to, treat every other symptom as more serious, because nothing is catching problems before they ship.</p>
+<p></p>
+<h2>8. Symptom Seven: You Cannot See the Numbers Yourself</h2>
+<p></p>
+<p>A founder should be able to answer basic health questions without filing a request. How many users crashed this week. Where users drop out of the main flow. Which version most users are on. If you cannot see any of this yourself, you are running the app on impressions.</p>
+<p></p>
+<p><strong>What you can check yourself:</strong></p>
+<p></p>
+<ul>
+<li><strong>Try to answer three questions from screens you can open: how many active users this week, where the biggest drop off in your main flow is, and whether crashes went up or down after the last release.</strong> If none is answerable, visibility is missing.</li>
+<li><strong>Ask for access, not a summary.</strong> A monthly screenshot is not the same as holding access yourself.</li>
+<li><strong>Notice whether decisions are argued from data or from opinion.</strong> When nobody can see what users do, debates are settled by whoever argues loudest.</li>
+</ul>
+<p></p>
+<p>Lack of visibility does not build a bad app by itself. It hides one, and lets the other eight symptoms run longer than they should.</p>
+<p></p>
+<h2>9. Symptom Eight: Store and Update Trouble Keeps Repeating</h2>
+<p></p>
+<p>One rejection is a normal part of running an app. Stores change rules and reviews take time. The symptom is repetition: updates blocked again and again for similar reasons, users stuck on old versions, or every store requirement arriving as a surprise emergency.</p>
+<p></p>
+<p><strong>What you can check yourself:</strong></p>
+<p></p>
+<ul>
+<li><strong>List the last year of store problems in one line each.</strong> Look for the same kind of problem returning.</li>
+<li><strong>Ask how the team learns about store changes before they become deadlines.</strong> Our guide to what <a href="https://www.codebaiz.com/our-services/app-maintenance">app maintenance actually includes</a> sets out the update calendar a maintained app should have.</li>
+<li><strong>Check how many of your users are still on old versions.</strong> A long tail often means updates are painful enough that the team ships rarely, making each update bigger and riskier.</li>
+</ul>
+<p></p>
+<p>Repeated store trouble is rarely about the store alone. It usually reflects a process that only reacts when forced, and store deadlines do not negotiate.</p>
+<p></p>
+<h2>10. Symptom Nine: The App Gets Slower as It Gains Users or Data</h2>
+<p></p>
+<p>The last symptom arrives quietly. Early users were happy. Then, as accounts, content, and history grow, screens take longer, lists hesitate, and searches time out. The app has not changed its features. It has changed its load.</p>
+<p></p>
+<p><strong>What you can check yourself:</strong></p>
+<p></p>
+<ul>
+<li><strong>Use the app as a real user with a real account history, on a mid range phone and an ordinary connection.</strong> Time your main screens honestly, and compare with what new users on empty accounts feel.</li>
+<li><strong>Ask users with the longest history whether the app has slowed for them.</strong> Long standing users carry the most data, so they feel it first.</li>
+<li><strong>Ask what the team expects to happen if usage doubles.</strong> Our <a href="https://www.codebaiz.com/blogs/is-my-app-ready-to-scale">scaling readiness checklist</a> explores this in depth. A specific answer names limits. A shrug is a warning.</li>
+</ul>
+<p></p>
+<p>Slowness under growth is a sign to investigate, not proof the foundations are wrong. Some slowdowns have simple causes. But when slowness joins crashes, returning bugs, and risky fixes, the picture points to an app built for its first version, not for the product it has become.</p>
+<p></p>
+<h2>11. The Symptom Pattern Tracker: Turn Two Weeks of Notes Into a Decision</h2>
+<p></p>
+<p>Counting symptoms from memory overstates bad weeks and understates slow patterns. Use this tracker instead. It takes minutes a day.</p>
+<p></p>
+<p><strong>For the next two weeks, keep one log with four columns:</strong></p>
+<p></p>
+<ul>
+<li><strong>Symptom.</strong> Which of the 9 symptoms above appeared, named in your own words.</li>
+<li><strong>Evidence.</strong> The review, message, or release date that shows it. One line is enough. If you cannot point to evidence, mark it as a feeling.</li>
+<li><strong>Frequency.</strong> How many times it appeared in the two weeks.</li>
+<li><strong>Direction.</strong> Isolated, repeating, or worsening. Isolated means once, with a clear cause and a clean fix. Repeating means it has happened before in similar form. Worsening means each occurrence affects more users or more team time than the last.</li>
+</ul>
+<p></p>
+<p><strong>Then read your count of distinct symptoms, not total incidents:</strong></p>
+<p></p>
+<ol>
+<li><strong>0 to 2 symptoms, isolated.</strong> Normal living product territory. Keep the log monthly and fix the items.</li>
+<li><strong>3 to 5 symptoms, or any symptom repeating.</strong> Ask your team the check questions above, in writing, and compare answers with your log. This is where an independent view earns its keep, because you now have evidence instead of a worry.</li>
+<li><strong>6 to 9 symptoms, or any symptom worsening.</strong> Stop adding features until you know what you are building on, and get the app checked before the next significant spend. At this level the pattern is the finding.</li>
+</ol>
+<p></p>
+<p>The tracker does not declare your app badly built. It turns a vague sense that something is off into a short, dated record an engineer can confirm or clear.</p>
+<p></p>
+<h2>12. What to Do Next, and What a Check Actually Answers</h2>
+<p></p>
+<p>If your tracker points to a pattern, the next step is not an argument and not an instant rebuild. It is a check that answers the questions your symptoms raised, carried out by someone who did not build the app.</p>
+<p></p>
+<p>A proper check is the engineer led version of this post. Our <a href="https://www.codebaiz.com/free-app-check">free app check</a> runs the production readiness checks we use on our own launches: two engineers, two to three days, and a written report ordered by how much each finding can hurt, with a verdict of fix, fix and harden, or rebuild. It costs nothing, with no obligation. If the app is healthy, the report says that too.</p>
+<p></p>
+<p>Only if a rebuild later proves necessary do the larger figures enter the picture. A production grade rebuild is <strong>$60,000 to $120,000 or more</strong>, and ongoing care runs at <strong>15 to 20 percent of build cost per year</strong>. Most founders who run the tracker early have a short list of fixable problems, found while fixing is still the cheaper path. Our <a href="https://www.codebaiz.com/blogs/rebuild-vs-refactor-app">rebuild vs refactor guide</a> explains how that decision is made.</p>
+<p></p>
+<blockquote><p>Do not spend rebuild money on a suspicion, and do not keep spending feature money on top of a pattern you have not had checked. Evidence first, then the decision is usually obvious.</p></blockquote>
+<p></p>
+<h2>Frequently Asked Questions</h2>
+<p></p>
+<p><strong>What are the clearest signs of a badly built app for a non-technical founder?</strong> Crashes users report before your team does, fixes that break other screens, bugs that return after being fixed, and work only one person can do. Each is visible in reviews, support messages, and release history.</p>
+<p></p>
+<p><strong>Does one symptom mean my app was built badly?</strong> No. One symptom is a prompt to ask the check questions in that section and watch whether it repeats. Patterns across several symptoms, or one symptom getting worse, are what justify an independent check.</p>
+<p></p>
+<p><strong>How is this different from a production readiness audit?</strong> This post is the founder observable diagnosis that comes first. An audit is the engineer led inspection that follows, reading the code, backend, and release process to confirm causes. The symptom list tells you whether to ask for one.</p>
+<p></p>
+<p><strong>My team says these problems are normal. How do I respond?</strong> Some are normal in isolation. Ask for evidence rather than reassurance: crash reports by name, release dates against promises, testing you can see, and numbers you can open yourself.</p>
+<p></p>
+<p><strong>Should I rebuild if I recognise several symptoms?</strong> Not on symptoms alone. Symptoms justify a check, not a rebuild. The check gives a verdict of fix, fix and harden, or rebuild, with reasons.</p>
+<p></p>
+<p><strong>What does it cost to find out for certain?</strong> Our production readiness check is free. Two engineers spend two to three days on it and you receive a written report. If the report is genuinely useful, all we ask is a testimonial.</p>
+<p></p>
+<h2>Recognise the Pattern? Get It Checked Before You Spend More</h2>
+<p></p>
+<p>Run the Symptom Pattern Tracker for two weeks. If your count lands at 3 or more, or any single symptom is getting worse, send us your log for a <a href="https://www.codebaiz.com/free-app-check">free app check</a>. I will tell you plainly which symptoms point to real problems, which are normal growing pains, and what we would fix first. If your app is sound, the report will say so, and you will have that in writing. No pressure either way. A second pair of eyes never hurts.</p>
+<p></p>
+<p>Code Baiz is a mobile and web app development agency in Brooklyn, New York. Our team of around 20 engineers has shipped more than 300 projects since 2019, most of them in React Native. We build, rescue and maintain apps for founders and businesses who cannot afford to get it wrong twice.</p>
+<p></p>
+</body></html>
