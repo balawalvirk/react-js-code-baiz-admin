@@ -1,0 +1,225 @@
+<!doctype html><html><head><meta charset='utf-8'><title>article</title></head><body>
+<p>A founder came to us with a full product in mind. Two user types, a marketplace, subscriptions, chat, referrals, an admin panel, the works. The problem was not the vision. The problem was the order. She had no revenue yet, no paying customers, and a budget set aside from her own savings. Building the whole product first would have spent all of it answering a question a much smaller build could have answered: will strangers pay for the core job at all. That ordering mistake is what mobile app development for startups has to get right, because building an app for your startup is really three different builds, each belonging to a different stage of the business.</p>
+<p></p>
+<p><strong>TL;DR:</strong> <strong>Build in stages, and let proof unlock each stage.</strong> Pre-revenue, build a validation MVP at <strong>$10,000 to $20,000</strong> that proves people will pay for one core job. With first paying customers, spend from <strong>$25,000</strong> making that core reliable, supported and measurable. As revenue grows, build the production product at <strong>$60,000 to $120,000 or more</strong>. At every stage, maintenance runs <strong>15 to 20 percent of the build cost per year</strong>, and the standards for accounts, payments, security and ownership never drop. Section 7 turns the stages into a sequencer with the exact proof that should unlock each spend.</p>
+<p></p>
+<h2>1. Mobile App Development for Startups Is a Sequencing Problem</h2>
+<p></p>
+<p>Most app advice treats a startup as one moment. You have an idea, you build the app, you launch. Real startups do not work like that. They move through stages, and each stage can afford a different build, needs a different build, and should be judged by a different question.</p>
+<p></p>
+<p>We define the stages by revenue, not by funding rounds, on purpose. A stage that only makes sense after a raise does not help the founders we work with most, who are self-funded, building from savings or from a job, and deciding what their own money should buy next. If you have raised money, the same sequence still applies. The money changes what you can afford. It does not change what the evidence justifies.</p>
+<p></p>
+<p><strong>The three stages in one line each:</strong></p>
+<p></p>
+<ul>
+<li><strong>Stage 1, pre-revenue.</strong> No paying customers yet. The build exists to prove the core job is worth paying for.</li>
+<li><strong>Stage 2, first paying customers.</strong> People pay, return and start depending on the app. The build exists to make the core reliable.</li>
+<li><strong>Stage 3, growing revenue.</strong> Revenue repeats and the product is a real business. The build exists to carry growth without breaking.</li>
+</ul>
+<p></p>
+<p>Underneath the stages sits a simple product rule we use with every founder. A successful product needs three things together: a validated market, a properly engineered product, and consistent sales, marketing and distribution. Missing any one eventually breaks the machine. Staging is how you fund those legs in the right order, instead of paying for the second at full size before the first has been tested.</p>
+<p></p>
+<p>If you have not tested demand yet, start before stage 1. Our guide on <a href="https://www.codebaiz.com/blogs/how-to-validate-app-idea">how to validate your app idea</a> covers the landing page, concierge and paid pre-sales tests that separate real signal from politeness. This post picks up where that one ends, at the moment the signal says build.</p>
+<p></p>
+<h2>2. The Three Stages at a Glance</h2>
+<p></p>
+<p>Before the detail, here is the whole sequence on one screen. Notice that what changes between stages is scope and purpose. What does not change is standards.</p>
+<p></p>
+<ol>
+<li><strong>Stage 1, pre-revenue: the validation MVP, $10,000 to $20,000.</strong> One core job, one first audience, accounts and payments done properly, measurement from day one. The question it answers: will strangers pay for this.</li>
+<li><strong>Stage 2, first paying customers: the reliable core, from $25,000.</strong> The same core job, hardened. Crash visibility, support flows, admin basics, fixes shipped fast. The question it answers: can real customers depend on this every week.</li>
+<li><strong>Stage 3, growing revenue: the production product, $60,000 to $120,000 or more.</strong> The full product the evidence has earned. Custom backend depth, integrations, the parked features that real users asked for, room to scale. The question it answers: can this carry a growing business.</li>
+</ol>
+<p></p>
+<p><strong>What grows at each stage:</strong></p>
+<p></p>
+<ul>
+<li><strong>Feature count.</strong> One core job, then the reliability layer around it, then the wider product.</li>
+<li><strong>Audience size.</strong> One narrow first group, then every customer who finds you, then growth on purpose.</li>
+<li><strong>Operational weight.</strong> You supporting users by hand, then proper support and admin tools, then systems that work without you in the middle.</li>
+</ul>
+<p></p>
+<p><strong>What must be there from the start, at every stage:</strong></p>
+<p></p>
+<ul>
+<li><strong>Accounts, payments and data handled properly.</strong> Retrofitting these under live users is the expensive version of the same work.</li>
+<li><strong>Ownership in your name.</strong> Code, store accounts and backend in your company name from day one, not as a stage 3 cleanup.</li>
+<li><strong>Measurement.</strong> Every stage decision depends on evidence, and evidence only exists if the app was instrumented from the first build.</li>
+</ul>
+<p></p>
+<blockquote><p>The stage decides how much you build. It never decides how well you build it. A small app built properly can grow. A big app built badly has to be rebuilt, and rebuilding is the one cost no stage budgets for.</p></blockquote>
+<p></p>
+<h2>3. Stage 1, Pre-Revenue: Build Only What Proves People Will Pay</h2>
+<p></p>
+<p>Pre-revenue is the stage with the least money and the most uncertainty, so it gets the smallest build and the sharpest question. The validation MVP exists to prove one thing: a specific group will use, and ideally pay for, the one core job your app does.</p>
+<p></p>
+<p><strong>What belongs in a stage 1 build:</strong></p>
+<p></p>
+<ul>
+<li><strong>The core flow, complete.</strong> Start to finish, including signing up, paying if the product charges, cancelling and getting a receipt. A core job that stops before the money moment proves nothing about willingness to pay.</li>
+<li><strong>Accounts and payments at production standard.</strong> This is the part founders most want to cheapen and the part that hurts most when it is cheapened. Login, password reset and payment states are trust, and trust is the product at this stage.</li>
+<li><strong>Measurement on the key actions.</strong> Signup, the core action, purchase and drop off. Without those four, stage 2 decisions become arguments instead of reads.</li>
+<li><strong>A backend that can grow.</strong> Simple, but not disposable. The database and architecture choices made here decide whether stage 3 is an upgrade or a rebuild.</li>
+</ul>
+<p></p>
+<p><strong>What gets parked at stage 1, in writing, with a revisit date:</strong></p>
+<p></p>
+<ul>
+<li><strong>Second user types and complex permissions.</strong> One audience first. Extra roles multiply build, testing and support before you know anyone wants the core.</li>
+<li><strong>Social features, feeds and referrals.</strong> Growth tools for a product that has not proved its core job yet. An empty feed makes a new app feel dead.</li>
+<li><strong>Polish on screens nobody may use.</strong> Polish the core flow. Settings and help screens can be plain until real users live in them.</li>
+</ul>
+<p></p>
+<p>Our <a href="https://www.codebaiz.com/our-services/mvp-app-development">MVP app development service</a> page states the same rule in one line: an MVP is the smallest version real users can love, pay for and give you honest signal on, built on foundations that do not need throwing away when it works. And our <a href="https://www.codebaiz.com/blogs/mvp-app-development">MVP app development guide</a> covers how to choose what stays in version one, including the scoring tests we run through a feature list with a founder. This post does not repeat that scoring. Its job is the order you spend in, across all three stages.</p>
+<p></p>
+<p>One warning belongs here, because we see it constantly. A stage 1 budget spent on a stage 3 feature list buys a thin, fragile version of everything, where the core job is no more proven than before and the money for stage 2 no longer exists.</p>
+<p></p>
+<h2>4. Stage 2, First Paying Customers: Make It Reliable Before You Make It Bigger</h2>
+<p></p>
+<p>The first paying customers change the job. The question is no longer whether anyone wants the core job. They do, and now they depend on it, tell other people about it, and judge you on what happens when something goes wrong. Stage 2 money goes on reliability before it goes on new features.</p>
+<p></p>
+<p><strong>What stage 2 spending usually covers:</strong></p>
+<p></p>
+<ul>
+<li><strong>Hardening the MVP for real use.</strong> The security, data, payment failure and release work that turns a proven first version into one strangers can trust daily. Our <a href="https://www.codebaiz.com/blogs/how-to-take-mvp-to-production">MVP to production checklist</a> lists those nine hardening steps in order, and most sound MVPs need that work, not a rebuild.</li>
+<li><strong>Visibility.</strong> Crash reporting, server alerts and a weekly look at the top failures. At stage 1 you learn from the users you know. At stage 2, users you have never spoken to hit problems you will never hear about unless the app reports them itself.</li>
+<li><strong>Support and admin basics.</strong> The tools that let you find a customer, see what happened, fix an account and issue a refund without asking an engineer. Founders do this by hand at stage 1, and doing it by hand at stage 2 is what eats the week.</li>
+<li><strong>The fixes real usage demands.</strong> The device that breaks the layout, the edge case in checkout, the slow screen on a weak connection. This is unglamorous work, and it is exactly what paying customers are paying for.</li>
+</ul>
+<p></p>
+<p>Budget shape at this stage follows the published bands. A simpler app starts <strong>from $25,000</strong>, and a first version that needs meaningful hardening and reliability work sits in that territory, scoped in writing against what the stage 1 build actually contains. Maintenance also becomes a real line from here on, at <strong>15 to 20 percent of the build cost per year</strong>, because operating systems, store rules and dependencies keep moving whether you plan for them or not.</p>
+<p></p>
+<p>The stage 2 trap mirrors the stage 1 trap. Founders often want to celebrate first revenue by building the parked feature list. Resist it until the core is boringly reliable. Features added to a fragile core produce fragile features, and reviews describe the fragility, not the ambition.</p>
+<p></p>
+<h2>5. Stage 3, Growing Revenue: Build the Production Product the Evidence Earned</h2>
+<p></p>
+<p>Stage 3 begins when revenue repeats and the limits of the current build show up as measured problems, not fears. Support takes too long because the admin is thin. A partner wants an integration you do not have. Usage peaks slow the app down at the same time every day. Those are stage 3 signals, and they justify stage 3 spending.</p>
+<p></p>
+<p><strong>What stage 3 spending usually covers:</strong></p>
+<p></p>
+<ul>
+<li><strong>The full production product.</strong> A production grade app runs <strong>$60,000 to $120,000 or more</strong>, with a custom backend, payments, an admin panel and proper testing across real devices. This is the band most real businesses land in once the product has earned it.</li>
+<li><strong>The parked features, in evidence order.</strong> Not the whole park list, and not in the order they were dreamed up in. In the order real users, real revenue and real support pain rank them.</li>
+<li><strong>Integrations and depth.</strong> The third party services, reporting and workflows that a growing business runs on, each one scoped and priced before it is built.</li>
+<li><strong>Room to scale.</strong> Performance work, infrastructure that matches actual load, and a release process that ships improvements without risking the whole user base on each one.</li>
+</ul>
+<p></p>
+<p>If your product is two sided, be honest about that at this stage if not before. A marketplace is two user apps plus an admin system, with payments that split money between strangers and trust features that keep both sides safe, which is why marketplace builds run <strong>$80,000 and up</strong> in our published ranges. Pretending a marketplace is a normal app with an extra login is how stage budgets collapse.</p>
+<p></p>
+<p>Our <a href="https://www.codebaiz.com/our-services/mobile-app-development">mobile app development service</a> page covers how we run builds at this level, from written scope through store launch and support. Stage 3 is not a bigger stage 1. It is a different purchase, made with revenue evidence instead of hope, and priced against a scope that real usage wrote.</p>
+<p></p>
+<h2>6. What Never Changes, Whatever Stage You Are In</h2>
+<p></p>
+<p>Staging controls scope and spend. It does not create a cheap tier of quality that you upgrade out of later. These five things are identical at stage 1 and stage 3, and any team that offers to skip them at the early stage is selling you a rebuild.</p>
+<p></p>
+<ul>
+<li><strong>Ownership.</strong> Your code repository, your Apple and Google developer accounts, your backend and your data, in your name from day one. If you ever change teams, everything goes with you.</li>
+<li><strong>Security basics.</strong> Real session handling, no secrets inside the app, server side permission checks, rate limits on sensitive screens. The flaws we find in cheap first builds are almost always in this list.</li>
+<li><strong>Payments done properly.</strong> Charged once, with clear pending, failed and refunded states and records you can resolve a dispute from weeks later.</li>
+<li><strong>Written scope before money moves.</strong> Features included, features parked, cost and timeline, in writing, at every stage, not just the first one.</li>
+<li><strong>Maintenance as a standing cost.</strong> <strong>15 to 20 percent of the build cost per year</strong>, planned, instead of emergency work at the worst moment. Skipping it does not save the money. It converts it into unplanned cost later.</li>
+</ul>
+<p></p>
+<blockquote><p>A founder once asked us whether the stage 1 version could skip proper payment handling and add it at stage 3. The honest answer is that payment handling is not a feature you add. It is a foundation you either laid or you dig up, with live customers standing on it.</p></blockquote>
+<p></p>
+<h2>7. The Stage Build Sequencer: Spend Only When the Proof Arrives</h2>
+<p></p>
+<p>This is the tool we want you to keep. Each stage has a gate, a specific kind of proof that should exist before the next stage of spending starts. If the proof is not there, the answer is not to spend harder. It is to run the cheaper test that produces the proof.</p>
+<p></p>
+<p><strong>Gate 1, before stage 1 spending. Strangers have committed something.</strong></p>
+<p></p>
+<ul>
+<li><strong>Pass:</strong> waitlist signups with real qualifying answers, concierge users who came back for the manually delivered version, or paid pre-sales and deposits at the real price.</li>
+<li><strong>Not yet:</strong> compliments, survey enthusiasm, friends saying they would use it. That is politeness, and politeness does not unlock a build. Run the stronger validation tests first.</li>
+</ul>
+<p></p>
+<p><strong>Gate 2, before stage 2 spending. First users pay and return.</strong></p>
+<p></p>
+<ul>
+<li><strong>Pass:</strong> real customers paying at the real price, using the core job again without hand holding, and measurement showing where they drop off.</li>
+<li><strong>Not yet:</strong> downloads without repeat use, or revenue that only exists because you personally onboard every user. Harden the core job and its onboarding before widening spend.</li>
+</ul>
+<p></p>
+<p><strong>Gate 3, before stage 3 spending. Revenue repeats and the limits are measured.</strong></p>
+<p></p>
+<ul>
+<li><strong>Pass:</strong> repeat revenue, support and admin pain you can point to in numbers, performance problems tied to real load, and a parked feature list ranked by user evidence.</li>
+<li><strong>Not yet:</strong> a competitor launched a feature, or growth feels like it is about to arrive. Stage 3 money spent on imagined load is the most expensive money in this post.</li>
+</ul>
+<p></p>
+<p><strong>The first year maths for each stage, using only the published bands:</strong></p>
+<p></p>
+<p><strong>Stage 1, validation MVP:</strong></p>
+<p></p>
+<ul>
+<li><strong>Build: $10,000 to $20,000.</strong> One core job, tested with real users.</li>
+<li><strong>First year maintenance at 15 to 20 percent: $1,500 to $4,000.</strong></li>
+<li><strong>First year planning total: about $11,500 to $24,000.</strong></li>
+</ul>
+<p></p>
+<p><strong>Stage 2, reliable core:</strong></p>
+<p></p>
+<ul>
+<li><strong>Build: from $25,000</strong> at the simpler app starting point, rising with the hardening and reliability scope your stage 1 build actually needs.</li>
+<li><strong>First year maintenance at 15 to 20 percent of a $25,000 build: $3,750 to $5,000.</strong></li>
+<li><strong>First year planning total: about $28,750 to $30,000 at the starting build price,</strong> rising with the actual build figure.</li>
+</ul>
+<p></p>
+<p><strong>Stage 3, production product:</strong></p>
+<p></p>
+<ul>
+<li><strong>Build: $60,000 to $120,000 or more.</strong> Custom backend, payments, admin panel, integrations and testing across real devices.</li>
+<li><strong>First year maintenance at 15 to 20 percent: $9,000 to $24,000 or more.</strong></li>
+<li><strong>First year planning total: about $69,000 to $144,000 or more.</strong></li>
+</ul>
+<p></p>
+<p>Read the sequencer as protection, not delay. Every gate passed honestly makes the next stage cheaper to scope, because the team prices evidence instead of guesses. Every gate skipped makes the next quote a bet, and founders hold the losing side of that bet.</p>
+<p></p>
+<h2>8. The Mistakes That Burn Startup Budgets</h2>
+<p></p>
+<p>After more than 300 projects since 2019, the budget failures we meet are rarely about coding speed. They are sequencing failures, and they repeat in a small number of shapes.</p>
+<p></p>
+<ul>
+<li><strong>Building stage 3 at stage 1.</strong> The full vision, pre-revenue, on a first budget. The usual result is a broad, thin app that proves nothing and leaves nothing for stage 2.</li>
+<li><strong>Cutting standards to afford scope.</strong> Keeping every feature and removing testing, security and payment quality to fit the number. The features demo well and fail publicly.</li>
+<li><strong>Waiting for funding that may never come.</strong> Treating a raise as the starting gun when the stage 1 build was affordable from savings all along. Time is also a budget, and the market does not wait with you.</li>
+<li><strong>Adding features at stage 2 instead of fixing reliability.</strong> Paying customers churn over crashes and slow support, not over a missing referral programme.</li>
+<li><strong>Skipping maintenance between stages.</strong> The app that proved the idea quietly rots on old dependencies and store rule changes, and stage 2 starts with rescue work instead of hardening work.</li>
+<li><strong>Choosing a team that only sells the biggest build.</strong> When you compare options for a startup app development company, watch what each team tries to talk you out of. A team that argues for a smaller first build, in writing, with the parked list named, is protecting your stages. A team that quotes the whole vision on the first call is protecting its invoice.</li>
+</ul>
+<p></p>
+<h2>9. Which Stage Are You In? A Five Question Check</h2>
+<p></p>
+<p>Answer honestly, in order. The first question you cannot answer yes to is where your next dollar belongs.</p>
+<p></p>
+<ol>
+<li><strong>Have strangers committed time, access or money to this problem?</strong> If no, you are before stage 1. Validate first, build second.</li>
+<li><strong>Can a new user sign up, complete the core job and pay, without your help?</strong> If no, you are in stage 1, and the build is not finished yet, whatever the feature list says.</li>
+<li><strong>Do paying customers return and use the core job again?</strong> If no, stay at the stage 1 to stage 2 boundary. Repeat use is the proof that unlocks reliability spending at full weight.</li>
+<li><strong>Can you see crashes, drop off and failures without a user reporting them?</strong> If no, you are early stage 2. Visibility comes before new features.</li>
+<li><strong>Is repeat revenue being limited by measured product limits, thin admin, slow support or load?</strong> If yes, you are at gate 3, and stage 3 spending is justified. If the limit is that not enough people know the product exists, your next dollar belongs to distribution, not development.</li>
+</ol>
+<p></p>
+<p>That last answer matters. Consistent sales, marketing and distribution is one of the three legs of a successful product, and no stage of app development substitutes for it.</p>
+<p></p>
+<h2>Frequently Asked Questions</h2>
+<p></p>
+<p><strong>How much does mobile app development for startups cost?</strong> It depends on the stage, which is the point of this post. A validation MVP runs $10,000 to $20,000 pre-revenue, a reliable core starts from $25,000 once customers are paying, and a production grade product runs $60,000 to $120,000 or more as revenue grows. Maintenance adds 15 to 20 percent of the build cost per year at every stage.</p>
+<p></p>
+<p><strong>Do I need funding before building an app for my startup?</strong> No. The stages in this post are defined by revenue, not by raises, precisely so a self-funded founder can use them. Stage 1 exists so the first build can be afforded from money set aside, and each later stage is unlocked by customer proof, not by an investor decision.</p>
+<p></p>
+<p><strong>What should a pre-revenue startup build first?</strong> The smallest version that proves strangers will pay for one core job: the complete core flow, accounts and payments done properly, measurement from day one, and a backend that can grow. Everything else goes on a written park list with a revisit date.</p>
+<p></p>
+<p><strong>When should a startup move from an MVP to a production build?</strong> When the gates say so. First users paying and returning unlocks the reliability work of stage 2, and repeat revenue with measured limits unlocks the production build of stage 3. Our MVP to production checklist covers the hardening steps that sit between the two.</p>
+<p></p>
+<p><strong>What does app development for startups include after launch?</strong> Maintenance, at 15 to 20 percent of the build cost per year: operating system and store updates, dependency and security work, monitoring, and small fixes shipped in regular tested releases. New features and redesigns are not maintenance. They are scoped as build work, at whichever stage you have reached.</p>
+<p></p>
+<p><strong>Can one team handle all three stages?</strong> Yes, and continuity helps, because the team that built stage 1 knows exactly what stage 2 needs to harden. What matters is that each stage is scoped and priced in writing on its own, so you are never locked into stage 3 spending by a stage 1 decision.</p>
+<p></p>
+<h2>Not Sure Which Stage Your Startup Is In?</h2>
+<p></p>
+<p>Send us what you have: the idea or the app, who it is for, what proof you hold so far, and what you have set aside for it. We will give you a straight read on which stage you are in, what that stage should build, what it should park, and what it costs in writing. If the honest answer is that you are before stage 1 and should validate first, we will say that, even though it means a smaller engagement for us. If you already have an app, start with a free app check and we will tell you what state the foundations are in before anyone talks about the next stage.</p>
+<p></p>
+<p>Code Baiz is a mobile and web app development agency in Brooklyn, New York. Our team of around 20 engineers has shipped more than 300 projects since 2019, most of them in React Native. We build, rescue and maintain apps for founders and businesses who cannot afford to get it wrong twice.</p>
+<p></p>
+</body></html>
