@@ -1,0 +1,161 @@
+<!doctype html><html><head><meta charset='utf-8'><title>article</title></head><body>
+<p>Your app works. Users sign in, pay, and come back. Now every competitor announcement, every investor question, and half your user feedback seems to point the same way: add AI. The pressure is real, and so is the trap. Founders who try to add AI features to existing app products in a hurry usually do not fail because the model was weak. They fail because the feature was bolted onto data that was not ready, keys that were not protected, and a flow nobody reviewed when the AI got it wrong. Adding AI to a working app is a different job from building an AI demo. The demo needs one good answer. Your live app needs a safe answer, for every user, on a bad day too.</p>
+<p></p>
+<p><strong>TL;DR:</strong> <strong>Add one AI feature, not five, and check safety before you build.</strong> The honest cost of ai integration for mobile apps is not a per feature price tag. It is driven by how ready your data is, how much of your app the feature touches, how much usage it will get, and how much human review it needs. What breaks first is rarely the model. It is data access, exposed keys, and answers nobody checked. Section 6 gives you the readiness scorecard we run before any AI work starts, and section 7 orders what breaks first so you can protect against it in advance.</p>
+<p></p>
+<h2>1. Adding AI to a Working App Is Not the Same as Building an AI App</h2>
+<p></p>
+<p>A new AI product starts with the model and builds outward. Your situation is the reverse. You already have users, accounts, payments, and data that matters, and the AI feature has to fit inside all of that without putting any of it at risk.</p>
+<p></p>
+<p><strong>That changes the job in three ways:</strong></p>
+<p></p>
+<ul>
+<li><strong>Your data is live, not sample data.</strong> Real user records, real orders, real messages. Anything the feature can read, it can potentially show to the wrong person if permissions are handled loosely.</li>
+<li><strong>Your users trust the current app.</strong> A wrong AI answer inside a trusted product does more damage than a wrong answer in a new tool nobody relies on yet.</li>
+<li><strong>Your foundations decide the price.</strong> An app with clean accounts, server side permission checks, and tidy data can take an AI feature cleanly. An app with shortcuts in those places has to fix the foundations first, and that work is part of the real cost.</li>
+</ul>
+<p></p>
+<p>Our <a href="https://www.codebaiz.com/our-services/mobile-app-development">mobile app development service</a> page puts the standing rule plainly: written scope, cost and timeline before build work starts. That rule matters even more with AI, because AI features look smaller than they are. A chat box is one screen. The data access, safety checks, and review work behind it are the actual project.</p>
+<p></p>
+<blockquote><p>An AI feature is not a screen you add. It is a new reader of your data, a new writer of answers your users will trust, and a new bill that arrives every month it runs.</p></blockquote>
+<p></p>
+<h2>2. The Five AI Features Founders Ask For, and What Each One Really Involves</h2>
+<p></p>
+<p>Most requests fall into five groups. None of them has an honest fixed price, because the same feature name can mean a weekend of integration work on a ready app or a foundation repair on an unready one. What we can do honestly is show you what drives the cost of each one.</p>
+<p></p>
+<p><strong>The five groups, and their main cost drivers:</strong></p>
+<p></p>
+<ul>
+<li><strong>Support chatbot.</strong> A chat assistant that answers user questions from your help content and product data. Drivers: how clean and current your help content is, whether answers must stay inside your product facts, and how a user reaches a human when the bot should stop. This is the add chatbot to my app request we hear most, and it is usually the safest first feature when the content behind it is tidy.</li>
+<li><strong>Smart search.</strong> Search that understands meaning, not just exact words, across your products, content, or records. Drivers: how much content needs indexing, how messy the underlying data is, and whether results must respect per user permissions.</li>
+<li><strong>Personalisation.</strong> Recommendations, tailored feeds, or a home screen that adapts to each user. Drivers: how much real behaviour data you collect today, how you will judge whether the recommendations are actually better, and how you handle users with almost no history.</li>
+<li><strong>Voice and image features.</strong> Transcription, spoken input, photo recognition, or document scanning. Drivers: accuracy checking by a human at the start, handling of poor audio and poor photos, and the privacy questions that come with sending voice and images to a model.</li>
+<li><strong>Custom model work.</strong> Training or fine tuning a model on your own data for a specialised job. Drivers: the volume and quality of training examples you actually own, evaluation work, and ongoing retraining. This is the most expensive route and the one most apps do not need. Most founder apps get the value they want from a general model, well integrated, long before custom training earns its cost.</li>
+</ul>
+<p></p>
+<p>Notice what is missing from that list: a dollar figure per feature. We publish no AI add-on price, and any agency that quotes you a flat chatbot price before seeing your data, your permissions, and your help content is guessing with your money. Build figures for the surrounding app work still follow our published ranges, and section 5 covers how to think about both the build and the running bill.</p>
+<p></p>
+<h2>3. Check Your Data Before You Check Any Model</h2>
+<p></p>
+<p>Every AI feature is only as good, and only as safe, as the data it can reach. This is the step founders want to skip and the step that decides whether the feature works.</p>
+<p></p>
+<p><strong>Run these data checks first:</strong></p>
+<p></p>
+<ul>
+<li><strong>Is the source content current?</strong> A support chatbot trained on help articles from two versions ago will confidently explain features you removed. Outdated source material does not produce an error. It produces a confident wrong answer, which is worse.</li>
+<li><strong>Is the data structured or scattered?</strong> Product facts in a tidy database are usable. The same facts scattered across PDFs, emails, and one team member&#x27;s memory are a cleanup project before they are an AI project.</li>
+<li><strong>Does every record carry its owner?</strong> If your data does not clearly say which user each record belongs to, an AI feature that searches or summarises can cross accounts. That is not an AI bug. It is a data design gap the AI exposes.</li>
+<li><strong>What should the feature never see?</strong> Payment details, credentials, private messages between other users, internal notes. Name the excluded data in writing before the build, not after an incident.</li>
+</ul>
+<p></p>
+<p>If your app was itself built quickly, with AI tools doing much of the coding, read our guide on <a href="https://www.codebaiz.com/blogs/ai-generated-app-security-vulnerabilities">why AI generated app security vulnerabilities keep happening</a> before adding more AI on top. The flaws it names, exposed keys, weak session handling, and missing rate limits, are exactly the foundations an AI addition will lean on.</p>
+<p></p>
+<h2>4. The Safety Checks That Come Before the Build, Not After</h2>
+<p></p>
+<p>AI features create a specific set of risks inside an existing app. None of them are exotic, and all of them are cheaper to handle before launch than after.</p>
+<p></p>
+<p><strong>The pre-build safety list:</strong></p>
+<p></p>
+<ul>
+<li><strong>Keys live on the server, never in the app.</strong> Model API keys inside mobile app code can be extracted and used by anyone, on your bill. Every model call should pass through your own backend, where the key stays and where you control who can call it.</li>
+<li><strong>Permissions are checked on the server for every AI request.</strong> The AI should only ever receive data the signed in user is already allowed to see. If the model can read it, assume a clever prompt can surface it, so the protection belongs in what you send, not in what you ask the model to keep quiet.</li>
+<li><strong>Rate limits and usage caps exist from day one.</strong> Without them, one abusive user or one looping bug can run up your model bill quietly. Caps per user and alerts on unusual volume are launch requirements, not later polish.</li>
+<li><strong>A human review path exists for high stakes answers.</strong> Anything touching money, health, legal questions, account changes, or cancellations needs a route to a person, and the AI should hand off rather than improvise. Expert review is not a lack of ambition. It is how the feature stays trustworthy.</li>
+<li><strong>Outputs are logged so you can audit them.</strong> When a user says the app told them something wrong, you need to see what was asked, what data the model was given, and what it answered. Without logs, every complaint is an argument you cannot settle.</li>
+</ul>
+<p></p>
+<p>If reading that list makes you unsure about your current app, that is useful information, not a delay. Our <a href="https://www.codebaiz.com/our-services/app-rescue">app rescue and takeover service</a> starts with a free check and a written verdict, and the same check tells you whether your foundations can carry an AI feature or need hardening first. And if your app was AI built and is already breaking in production, our guide to a <a href="https://www.codebaiz.com/blogs/lovable-app-not-working-in-production">Lovable app not working in production</a> covers the fix order for that situation. This post is for the app that works today and wants to stay working.</p>
+<p></p>
+<h2>5. What It Costs: Build Drivers, Then a Running Bill That Never Stops</h2>
+<p></p>
+<p>AI features have two costs, and founders usually only budget for the first.</p>
+<p></p>
+<p><strong>The build cost is driven by:</strong></p>
+<p></p>
+<ul>
+<li><strong>Data readiness.</strong> Cleanup, structuring, and permission work from section 3. On a tidy app this is small. On a scattered one it can be most of the project.</li>
+<li><strong>Integration surface.</strong> One self contained feature, like search inside one catalogue, is a smaller job than a chatbot that must read orders, accounts, and support history across the whole product.</li>
+<li><strong>Review and safety work.</strong> The server side gateway, permission checks, caps, logging, and human handoff from section 4. Skipping this work does not remove the cost. It moves it to the incident.</li>
+<li><strong>Evaluation.</strong> Testing the feature against real questions from your real users, including the awkward ones, before launch and after every major change.</li>
+</ul>
+<p></p>
+<p>Where the AI work touches the wider app, the published build ranges still apply: a simpler app starts <strong>from $25,000</strong>, a production grade app runs <strong>$60,000 to $120,000 or more</strong>, a marketplace runs <strong>$80,000 and up</strong>, and maintenance after launch runs <strong>15 to 20 percent of the build cost per year</strong>. An AI addition scoped into an existing healthy app is quoted in writing against its actual integration surface, the same as any other build work.</p>
+<p></p>
+<p><strong>The running cost is driven by:</strong></p>
+<p></p>
+<ul>
+<li><strong>Usage volume.</strong> Every question, search, summary, and image check is a model call. Success makes this bill grow, which is a good problem, but only if you saw it coming.</li>
+<li><strong>Model choice per job.</strong> Not every task needs the strongest, most expensive model. Routing simple jobs to cheaper models and reserving the strongest model for hard jobs is normal cost engineering.</li>
+<li><strong>Caching and reuse.</strong> Many users ask near identical questions. Caching common answers and results can cut repeated calls, and it makes the feature faster at the same time.</li>
+<li><strong>Human review time.</strong> The handoff path from section 4 is staffed by people. Their time is a real running cost, and it falls as the feature proves itself on low stakes work first.</li>
+</ul>
+<p></p>
+<p>We are deliberately not quoting a monthly AI bill figure here. No honest one exists without your usage pattern, your model choices, and your review needs. Anyone who gives you a tidy monthly number before those are known is selling, not estimating.</p>
+<p></p>
+<blockquote><p>Budget an AI feature the way you budget an employee, not a plugin. There is a setup cost, a monthly cost that scales with how much work it does, and supervision that decreases only as it earns trust.</p></blockquote>
+<p></p>
+<h2>6. The AI Addition Readiness Scorecard</h2>
+<p></p>
+<p>This is the tool we want you to keep. Score each check honestly before any AI feature is built. Two points for yes, one for partly, zero for no.</p>
+<p></p>
+<ol>
+<li><strong>Data readiness.</strong> Is the content or data the feature will use current, structured, and owned record by record?</li>
+<li><strong>Integration surface.</strong> Can you name exactly which screens, data, and user actions the feature touches, and which it never touches?</li>
+<li><strong>Server side control.</strong> Will every model call pass through your backend, with keys on the server and permissions checked per user?</li>
+<li><strong>Human review path.</strong> For the highest stakes answer this feature can give, is there a named route to a person, and does the AI hand off instead of improvising?</li>
+<li><strong>Running cost grip.</strong> Can you name your expected usage volume, your per user caps, and who sees the alert when volume spikes?</li>
+</ol>
+<p></p>
+<p><strong>How to read your score:</strong></p>
+<p></p>
+<ul>
+<li><strong>8 to 10: build the first feature.</strong> Pick the smallest valuable one, usually a support chatbot on tidy content or smart search on one catalogue, and ship it behind the safety list in section 4.</li>
+<li><strong>5 to 7: fix the gaps first.</strong> Your lowest score is your first project. A zero on server side control or data ownership is not a small gap. It is the project, before the feature.</li>
+<li><strong>0 to 4: do not add AI yet.</strong> The foundations need work first. That is not a no forever. It is the honest order, and it is cheaper than adding AI to foundations that cannot protect it.</li>
+</ul>
+<p></p>
+<h2>7. What Breaks First When Founders Skip the Checks</h2>
+<p></p>
+<p>When an AI addition goes wrong, it tends to go wrong in this order. Knowing the order lets you watch the right things in the first weeks.</p>
+<p></p>
+<ul>
+<li><strong>First, data access.</strong> A user sees a summary, a search result, or a chat answer that includes something from another account, because permissions were enforced on screens but not on what was sent to the model.</li>
+<li><strong>Second, the bill.</strong> Usage caps were never set, a loop or an abusive account runs the feature hard, and the first warning is the invoice.</li>
+<li><strong>Third, trust.</strong> The feature gives a confident wrong answer on a question that matters, there is no log to check and no human path to correct it, and users stop trusting the whole app, not just the feature.</li>
+<li><strong>Fourth, the core app.</strong> The AI work was rushed into shared code, releases get slower and riskier, and a feature that was meant to be an addition starts breaking the product that was working.</li>
+</ul>
+<p></p>
+<p>Every one of those breaks is preventable, and the prevention is the scorecard and safety list above, applied before the build instead of after the incident.</p>
+<p></p>
+<h2>8. A Sane First AI Project, in Order</h2>
+<p></p>
+<ol>
+<li><strong>Pick one feature with one clear job.</strong> Support answers, search, or one personalisation surface. One job, one audience, one way to tell if it helped.</li>
+<li><strong>Run the scorecard and fix any zero.</strong> Data ownership and server side control are not negotiable gaps.</li>
+<li><strong>Build the gateway first.</strong> Backend model calls, per user permissions, caps, and logging, before the visible feature.</li>
+<li><strong>Test with real questions, including hostile ones.</strong> Your users&#x27; actual wording, plus deliberate attempts to get data that belongs to someone else.</li>
+<li><strong>Launch small, review daily at first.</strong> Read the logs, read the handoffs, and widen the rollout only when the answers hold up.</li>
+<li><strong>Review the running bill monthly.</strong> Volume, model routing, caching, and review time, against the value the feature is actually delivering.</li>
+</ol>
+<p></p>
+<h2>Frequently Asked Questions</h2>
+<p></p>
+<p><strong>How much does it cost to integrate AI into an existing app?</strong> There is no honest per feature price. The build cost is driven by data readiness, how much of your app the feature touches, the safety and review work behind it, and evaluation. The running cost is driven by usage volume, model choice, caching, and human review time. Surrounding app work follows our published ranges: simpler apps from $25,000, production grade $60,000 to $120,000 or more, and maintenance at 15 to 20 percent of build cost per year. A real quote needs a written scope against your actual app.</p>
+<p></p>
+<p><strong>What is the safest first AI feature to add?</strong> Usually the one with tidy data and low stakes answers: a support chatbot grounded in current help content, or smart search across one catalogue. Both can hand off to a human, both are easy to evaluate, and neither needs to touch payments or account changes while it earns trust.</p>
+<p></p>
+<p><strong>Can I just add a chatbot to my app with an API key?</strong> You can connect one quickly, but shipping the key inside your app means anyone can extract it and run up your bill, and a chatbot with no permission checks can surface data across accounts. The safe version routes every call through your backend, checks permissions per user, sets usage caps, and logs answers. That gateway work is the difference between a demo and a feature.</p>
+<p></p>
+<p><strong>Will adding AI slow down or break my existing app?</strong> It should not, if the AI work is kept behind a backend gateway and released like any other feature, tested on real devices in staged rollouts. It breaks apps when it is rushed into shared code without the checks in this post, which is why the readiness scorecard comes before the build.</p>
+<p></p>
+<p><strong>Do I need a custom trained model?</strong> Almost certainly not for your first feature. Most founder apps get the value they want from a general model, well integrated, with their own data supplied safely at request time. Custom training earns its cost only when you own a large volume of high quality examples and a general model has demonstrably failed your evaluation.</p>
+<p></p>
+<p><strong>What data should an AI feature never access?</strong> Anything the signed in user cannot already see, plus payment credentials, secrets, and other users&#x27; private content. Name the excluded data in writing before the build, enforce it on the server, and test it with deliberate attempts to cross accounts.</p>
+<p></p>
+<h2>Thinking About Adding AI to Your App? Get the Readiness Check First.</h2>
+<p></p>
+<p>Send us the feature you have in mind and the app it would live in. We will run the readiness scorecard against your real data, permissions, and foundations, and tell you in writing what is ready, what needs fixing first, and what the feature should cost to build and run. If the honest answer is that your foundations need hardening before any AI touches them, we will say that, and the free app check is the right place to start.</p>
+<p></p>
+<p>Code Baiz is a mobile and web app development agency in Brooklyn, New York. Our team of around 20 engineers has shipped more than 300 projects since 2019, most of them in React Native. We build, rescue and maintain apps for founders and businesses who cannot afford to get it wrong twice.</p>
+<p></p>
+</body></html>
