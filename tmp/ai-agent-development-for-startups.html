@@ -1,0 +1,161 @@
+<!doctype html><html><head><meta charset='utf-8'><title>article</title></head><body>
+<p>A chatbot answers a question. An AI agent goes further. It looks at a situation, picks a next step, and takes action inside your product: it rebooks, refunds, updates a record, messages a customer, or changes an account. That difference is the whole decision. Founders asking about ai agent development for startups are usually not asking whether the technology is impressive. They are asking whether they should hand part of their product&#x27;s judgment to software, and if so, how much, and with what safety net.</p>
+<p></p>
+<p><strong>TL;DR:</strong> <strong>Most apps need an AI feature before they need an AI agent.</strong> Build an agent only when the job is a multi step task with a clear right outcome, the actions are reversible or approved by a human first, and you can test the agent against real cases before launch. Section 3 gives you a six question test that separates a feature job from an agent job. Section 4 gives you the autonomy ladder we recommend, where an agent earns each level of freedom through testing, never by default.</p>
+<p></p>
+<h2>1. What an AI Agent Actually Is, in Plain Words</h2>
+<p></p>
+<p>Strip away the marketing and an agent is three things joined together.</p>
+<p></p>
+<ul>
+<li><strong>It can reason over a goal, not just a prompt.</strong> You give it an outcome, such as resolve this support case, and it works out the steps itself instead of following one fixed script.</li>
+<li><strong>It can use tools.</strong> It can read your database, call your payment system, send a message, or update a booking, because someone connected it to those systems and gave it permission.</li>
+<li><strong>It can act in a loop.</strong> It tries a step, sees the result, and decides the next step, without a person approving each move, unless you built approval in.</li>
+</ul>
+<p></p>
+<p>That third point is where the risk lives. A feature that writes a wrong answer gives you a wrong answer. An agent that takes a wrong action gives you a wrong refund, a wrong message sent to a real customer, or a record changed in a way nobody noticed until later. The build an ai agent for my app request is therefore not a bigger version of adding a chatbot. It is a different kind of trust decision.</p>
+<p></p>
+<blockquote><p>An AI feature speaks for your product. An AI agent acts for your product. Price, test, and supervise it like something that acts.</p></blockquote>
+<p></p>
+<h2>2. What an Agent Can Safely Do Today</h2>
+<p></p>
+<p>Safe agent work shares a pattern. The task is bounded, the right outcome is checkable, and a mistake is cheap to undo.</p>
+<p></p>
+<p><strong>Tasks that usually fit an agent, with review built in:</strong></p>
+<p></p>
+<ul>
+<li><strong>Triaging and drafting.</strong> Reading incoming support requests, sorting them, pulling the right account facts, and drafting a reply for a human to send. The agent does the legwork, the person keeps the final say.</li>
+<li><strong>Internal summaries and preparation.</strong> Pulling together an order history, a usage pattern, or a case file before a human makes the decision. Nothing leaves the building.</li>
+<li><strong>Guided multi step flows with approval gates.</strong> Walking a user through a return, a reschedule, or an onboarding sequence, and pausing for confirmation before anything that spends money or changes an account.</li>
+<li><strong>Monitoring and alerting.</strong> Watching for patterns you define, such as failed payments or stalled accounts, and raising a flag with the evidence attached, instead of acting on the pattern itself.</li>
+</ul>
+<p></p>
+<p><strong>Tasks that should make a founder pause:</strong></p>
+<p></p>
+<ul>
+<li><strong>Anything that spends money unsupervised.</strong> Refunds, credits, purchases, and payouts need a human approval step or a hard, small limit, in writing, before launch.</li>
+<li><strong>Anything that talks to customers unsupervised on sensitive topics.</strong> Account closures, disputes, health or legal questions, and complaints from angry users are not first jobs for an agent.</li>
+<li><strong>Anything that moves or deletes data.</strong> Bulk changes, migrations, and deletions are hard to reverse, and an agent that misreads an instruction can do them at a speed no human would.</li>
+<li><strong>Anything where you cannot define a right answer.</strong> If your own team cannot say what a good outcome looks like on a given case, you cannot test whether the agent reached one.</li>
+</ul>
+<p></p>
+<p>Notice the pattern. The safe list is not about which industry you are in. It is about reversibility, checkability, and whether a person stays in the path of anything that matters.</p>
+<p></p>
+<h2>3. The Agent or Feature Decision Test</h2>
+<p></p>
+<p>Run these six questions before you scope anything. They are the original tool in this post, and they settle most agent debates in one sitting.</p>
+<p></p>
+<ol>
+<li><strong>Is the job one answer or a sequence of actions?</strong> One answer, such as search, summarise, or recommend, is a feature. A sequence that changes state in your app is agent territory.</li>
+<li><strong>Can you write down what a correct outcome looks like?</strong> If yes, you can evaluate an agent. If no, you are not ready to build one, because you will never know if it is working.</li>
+<li><strong>What is the worst action it could take on a bad day?</strong> Name it concretely. If that action is unacceptable at any frequency, the agent needs approval gates or a smaller job.</li>
+<li><strong>Is every action reversible, or approved before it lands?</strong> Reversible and approved are both safe designs. Irreversible and unapproved is not a design, it is an incident waiting for a date.</li>
+<li><strong>Does the task happen often enough to justify supervision?</strong> An agent needs logging, review, and evaluation as permanent running work. A rare task is usually cheaper done by a feature plus a person.</li>
+<li><strong>Would a simple AI feature get most of the value?</strong> A chatbot that answers from your help content, or smart search that finds the right record for a human, often delivers the win founders actually wanted, at a fraction of the risk.</li>
+</ol>
+<p></p>
+<p><strong>How to read your answers:</strong></p>
+<p></p>
+<ul>
+<li><strong>Mostly feature answers: build the feature.</strong> Our guide on <a href="https://www.codebaiz.com/blogs/add-ai-features-to-existing-app">how to add AI features to an existing app</a> covers that route, including the data and safety checks that come first. Do not rebuild its scorecard here. Use it.</li>
+<li><strong>Agent answers with approval gates: a bounded agent may be right.</strong> Scope it to one task, one user group, and the guardrails in section 5.</li>
+<li><strong>Agent answers without checkable outcomes: stop.</strong> Fix the definition of the job first. No vendor, model, or framework fixes a task nobody can judge.</li>
+</ul>
+<p></p>
+<h2>4. The Autonomy Ladder: How Much Freedom an Agent Earns</h2>
+<p></p>
+<p>Founders often treat autonomy as a launch setting. It should be a promotion. We recommend four levels, and an agent moves up only when its measured work at the current level holds up.</p>
+<p></p>
+<ol>
+<li><strong>Level 1, suggest.</strong> The agent recommends an action and shows its reasoning and evidence. A human does the action. This is where every agent should start.</li>
+<li><strong>Level 2, draft.</strong> The agent prepares the full action, the message written, the refund calculated, the record ready to change, and a human approves it with one tap.</li>
+<li><strong>Level 3, act with approval on exceptions.</strong> The agent handles the routine cases inside tight limits and routes anything unusual, large, or sensitive to a person.</li>
+<li><strong>Level 4, act within limits.</strong> The agent acts alone inside written limits, with caps, logging, and a kill switch, and a human reviews a sample of its work every week.</li>
+</ol>
+<p></p>
+<p>Two rules govern the ladder. First, <strong>money, customer facing messages, and data changes start at level 1 or 2</strong>, whatever the demo showed. Second, <strong>promotion is earned with evaluation results</strong>, a record of real cases the agent handled correctly, not with confidence, a sales pitch, or a good first week. An agent in a mobile app that serves real customers should expect to live at level 2 or 3 for a long time. That is not a failure of ambition. That is the design that keeps trust intact.</p>
+<p></p>
+<p>This is the expert in the loop position we have held since we wrote about <a href="https://www.codebaiz.com/blogs/15-an-hour-expert-yc-request-for-startups">the $15 an hour expert and expert level checking</a>. Expert level output needs expert level checking. An agent does not remove the expert. It changes what the expert checks, from doing the task to judging the work.</p>
+<p></p>
+<h2>5. The Guardrails to Demand Before Any Agent Launches</h2>
+<p></p>
+<p>Whatever level you start at, these are not optional extras. They are the build.</p>
+<p></p>
+<ul>
+<li><strong>Permissions scoped to the job.</strong> The agent can read and write only what its task needs, checked on the server for every action, the same rule as any AI feature. If it can reach it, assume it can surface or change it.</li>
+<li><strong>Hard limits in code, not in prompts.</strong> Spending caps, action counts, and allowed action types belong in your backend, where the agent cannot talk its way past them. A polite instruction to behave is not a guardrail.</li>
+<li><strong>Approval gates on the actions that matter.</strong> Refunds, cancellations, account changes, outbound customer messages, and data deletions pause for a person, at least until the ladder says otherwise.</li>
+<li><strong>A full action log.</strong> Every decision, the data it used, the action it took, and the result, recorded so a complaint can be investigated and an error can be traced to its step.</li>
+<li><strong>A kill switch a non technical person can use.</strong> When an agent misbehaves, the founder or support lead must be able to stop it in one move, without calling a developer.</li>
+<li><strong>Keys and model access on the server only.</strong> The same foundation rule as every AI build. Keys inside app code can be extracted and abused, on your bill.</li>
+</ul>
+<p></p>
+<p>Why are we strict about foundations? Because unsupervised AI output has a track record. Our earlier breakdown of <a href="https://www.codebaiz.com/blogs/ai-generated-app-security-vulnerabilities">why AI generated app security vulnerabilities keep happening</a> names the pattern: exposed keys, weak session handling, and checks nobody wrote. An agent built on those foundations does not just answer badly. It acts badly, with permissions.</p>
+<p></p>
+<h2>6. Evaluation: How You Know the Agent Works Before Users Do</h2>
+<p></p>
+<p>Demo runs are designed to succeed. Evaluation is designed to find failure while it is still cheap.</p>
+<p></p>
+<p><strong>A founder level evaluation plan looks like this:</strong></p>
+<p></p>
+<ul>
+<li><strong>Build a case set from real work.</strong> Take real past cases, support threads, bookings, requests, with the outcome your team actually reached. That set is the exam.</li>
+<li><strong>Run the agent against the exam before launch.</strong> Score it on correct outcome, correct steps, and knowing when to stop and hand off. The hand off cases matter as much as the success cases.</li>
+<li><strong>Include hostile and awkward cases.</strong> Confused users, missing data, contradictory instructions, and deliberate attempts to get the agent to reveal or change things it should not.</li>
+<li><strong>Set a pass bar in writing before you see results.</strong> Decide what score earns level 1, what earns a promotion, and what sends the project back. Moving the bar after the results arrive is how bad agents launch.</li>
+<li><strong>Keep evaluating after launch.</strong> Sample real actions weekly, feed failures back into the case set, and retest after every model or prompt change. Evaluation is running work, not a launch event.</li>
+</ul>
+<p></p>
+<p>We publish no agent benchmark, and you should be suspicious of anyone who quotes you a tidy success rate for your app before seeing your cases. The only honest score is the one measured on your work, in your product, against outcomes your team defined.</p>
+<p></p>
+<h2>7. What It Costs, Honestly</h2>
+<p></p>
+<p>We publish no AI agent service, no per agent price, and no agent timeline, and neither does any honest team before scoping your task. Agentic ai for founders is priced the way any serious build is priced: a written scope and a written quote before work starts.</p>
+<p></p>
+<p><strong>What drives the build cost:</strong></p>
+<p></p>
+<ul>
+<li><strong>The integration surface.</strong> Each system the agent must read or act in, payments, messaging, your database, third party tools, is build and testing work.</li>
+<li><strong>The guardrails.</strong> Permission scoping, caps, approval flows, logging, and the kill switch from section 5 are a real share of the project, and cutting them cuts safety, not fat.</li>
+<li><strong>The evaluation set.</strong> Building real cases, scoring runs, and the retesting rhythm are engineering and product time, before launch and after.</li>
+<li><strong>The autonomy level.</strong> A level 2 drafting agent is a smaller, safer build than a level 4 agent acting alone. Founders often pay for autonomy they do not yet need.</li>
+</ul>
+<p></p>
+<p>Where agent work sits inside a wider app build, our published ranges still apply: a simpler app starts <strong>from $25,000</strong>, a production grade app runs <strong>$60,000 to $120,000 or more</strong>, a marketplace runs <strong>$80,000 and up</strong>, and maintenance after launch runs <strong>15 to 20 percent of the build cost per year</strong>. An MVP starts <strong>from $25,000</strong>. Those are app build ranges, not agent prices, and we state them so you can place an agent project in context, not as a quote.</p>
+<p></p>
+<p><strong>Running costs are drivers, not a tidy monthly figure.</strong> Usage volume, model choice per step, how many steps an average task takes, and human review time all move the bill. An agent that takes eight steps to do what a feature does in one will cost more to run, every day it runs. Anyone who gives you a flat monthly agent bill before those drivers are known is guessing with your money. Our <a href="https://www.codebaiz.com/our-services/mobile-app-development">mobile app development service</a> page sets out the standing rule: scope, cost, and timeline in writing first.</p>
+<p></p>
+<h2>8. When a Simple AI Feature Beats an Agent</h2>
+<p></p>
+<p>Choose the feature when any of these are true:</p>
+<p></p>
+<ul>
+<li><strong>The value is in the answer, not the action.</strong> Search, summaries, recommendations, and drafting help users and staff without giving software the keys to act.</li>
+<li><strong>Your data or permissions are not ready.</strong> An agent multiplies whatever foundation it finds. Fix the foundation with a feature sized project first.</li>
+<li><strong>The task is rare or high stakes.</strong> Low volume, high consequence work belongs with people, supported by AI preparation, not owned by an agent.</li>
+<li><strong>You cannot staff the supervision.</strong> If nobody will read the logs, sample the actions, and own the kill switch, you do not have an agent programme. You have an unsupervised liability.</li>
+</ul>
+<p></p>
+<p>Choosing a feature is not settling. For most founder apps we see, one well built feature, a support assistant on tidy content or search that respects permissions, delivers the visible win users asked for, and leaves the door open to a bounded agent later, once the data, guardrails, and evaluation habit already exist.</p>
+<p></p>
+<h2>9. Frequently Asked Questions</h2>
+<p></p>
+<p><strong>Should my app have an AI agent or just an AI feature?</strong> Start with the Decision Test in section 3. If the job is one good answer, build a feature. If it is a checkable sequence of actions, with approval on anything that matters, a bounded agent may be right.</p>
+<p></p>
+<p><strong>How much does it cost to build an AI agent for my app?</strong> There is no honest fixed price. Cost is driven by integration surface, guardrails, evaluation work, and autonomy level, and it is quoted in writing after scoping. App build context: simpler apps from $25,000, production grade $60,000 to $120,000 or more, maintenance 15 to 20 percent per year.</p>
+<p></p>
+<p><strong>What is the safest first agent task?</strong> Triage and drafting. The agent sorts, gathers facts, and prepares work a human approves. It saves real time while every outcome still passes a person.</p>
+<p></p>
+<p><strong>Can an agent talk to my customers directly?</strong> It can, and for sensitive topics it should not, at least not at the start. Begin with drafting and approval, promote only on measured results, and keep a human path visible to customers.</p>
+<p></p>
+<p><strong>What should I ask a developer before hiring them for agent work?</strong> Ask how they scope permissions, where the hard limits live, what the approval gates are, how they build the evaluation set, and who can stop the agent. Vague answers on any of those are your answer.</p>
+<p></p>
+<p><strong>Do I need an agent to compete?</strong> No. You need the outcome your users want. If a feature delivers it safely this quarter, that is the competitive move. An agent is a tool for a specific kind of task, not a badge.</p>
+<p></p>
+<h2>10. Not Sure Whether Your App Needs an Agent, a Feature, or Neither?</h2>
+<p></p>
+<p>Start with a free app check. Tell us the task you want AI to take over, and we will tell you honestly whether it is a feature job, a bounded agent job, or a foundation job first, and what a written scope would need to cover. No agent pitch, no invented price, just the decision made properly before budget moves.</p>
+<p></p>
+<p>I run Code Baiz, a Brooklyn, NYC app development team of about 20 engineers. We have launched more than 300 projects since 2019, across mobile and web, and we build with AI tools every day under the rule this post is built on: expert output needs expert checking. If you want that judgment applied to your app, start with the free check and bring us the task.</p>
+<p></p>
+</body></html>
