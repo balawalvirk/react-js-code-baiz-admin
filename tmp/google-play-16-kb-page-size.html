@@ -1,0 +1,147 @@
+<!doctype html><html><head><meta charset='utf-8'><title>article</title></head><body>
+<p>TITLE: Google Play 16 KB Page Size: Blocked Update and Target API Fixes for Founders SLUG: google-play-16-kb-page-size EXCERPT: Your update is ready but Google Play will not take it. Here is the founder guide to the google play 16 kb page size rule and the target API block: the two different deadlines, how to check if your app is affected in minutes, why old native libraries are usually the cause, and the fix order that gets updates moving again. META_DESCRIPTION: Google Play 16 KB page size and target API blocks explained: what broke, how to check your app, and the fix order. PRIMARY_KEYWORD: google play 16 kb page size SECONDARY_KEYWORDS: google play update rejected, target api requirement, android app compliance fix AUTHOR: Balawal Virk PRIMARY_TAG: Android App Development SECONDARY_TAGS: App Maintenance, Startup Apps ALT_TEXT: Real photo of a hand holding an Android smartphone showing a photo grid over an open laptop on a wooden desk, overlaid with a bold headline about Google Play blocked updates, a red target API 36 required now badge, and six callouts, 16 KB deadline 1 Feb 2027, check native libraries first, pure Kotlin or Java usually clear, update SDKs in order, test on a 16 KB device, fix once under maintenance ORIGINAL_VALUE: Custom Blocked Update Diagnostic (five checks a founder can ask for in order, separating a target API block from a 16 KB warning) plus a Fix Order framework (identify, update or replace, rebuild, test on 16 KB, resubmit) that sequences the work so the target API step and the 16 KB step are done once together, not as two separate emergencies</p>
+<p></p>
+<p>---</p>
+<p></p>
+<p>You finished the update. Your users are waiting for it. Then Google Play refuses it, or warns you that a future update will be refused, and the message talks about page sizes and API levels instead of anything in your product. If you searched for google play 16 kb page size, you are probably staring at exactly that message. This post translates it into founder language: what the two separate rules are, which one blocks you today, how to tell if your app is even affected, and the order a good team fixes it in.</p>
+<p></p>
+<p><strong>TL;DR:</strong> <strong>There are two different problems, with two different clocks.</strong> The target API rule is already blocking updates now: since 31 August 2026, new apps and updates must target Android 16, API level 36 or higher, and the extension window to 1 November 2026 has passed. The 16 KB rule is a dated deadline coming: apps targeting Android 15 or higher must support 16 KB memory page sizes on 64 bit devices, and starting 1 February 2027, Google says updates that do not support it will not be able to release. Most affected apps are blocked by old native libraries, not by their own code. Section 3 gives you a five step diagnostic you can ask any developer to run.</p>
+<p></p>
+<h2>1. Two Rules, Two Clocks, One Confusing Message</h2>
+<p></p>
+<p>Founders mix these up because Play Console often shows them close together. They are not the same fix.</p>
+<p></p>
+<p><strong>The target API requirement, already in force:</strong></p>
+<p></p>
+<ul>
+<li><strong>New apps and app updates must target Android 16, API level 36 or higher</strong> to be submitted to Google Play, starting 31 August 2026, per Google Play Console Help, rechecked on the morning this post was published.</li>
+<li><strong>Existing apps must target Android 15, API level 35 or higher</strong> to remain available to new users on devices running a newer Android version than the app targets.</li>
+<li><strong>An extension to 1 November 2026 could be requested.</strong> That date has now passed, so do not plan around an extension that no longer helps you.</li>
+<li><strong>This is the block that stops an update today.</strong> If your app still targets API 35 or lower and you try to ship an update, Play can refuse the submission on this ground alone.</li>
+</ul>
+<p></p>
+<p><strong>The google play 16 kb page size requirement, deadline dated:</strong></p>
+<p></p>
+<ul>
+<li><strong>All apps targeting Android 15, API level 35 and higher must support 16 KB memory page sizes on 64 bit devices</strong> on Google Play, per Google&#x27;s own 16 KB guide, also rechecked this morning.</li>
+<li><strong>Starting 1 February 2027, if your app updates do not support 16 KB memory page sizes, you will not be able to release those updates.</strong> That is Google&#x27;s wording on its own guide, with a Play Console warning image carrying the same date.</li>
+<li><strong>This is not yet the reason most updates are blocked today.</strong> It is the reason a warning is sitting in your console now, and it becomes a hard block on 1 February 2027.</li>
+</ul>
+<p></p>
+<blockquote><p>One rule is a door that is already closed. The other is a door Google has told you will close on 1 February 2027. A good fix opens both in the same piece of work.</p></blockquote>
+<p></p>
+<p>That distinction matters for money and for panic. If you are blocked today, chase the target API problem first. If you are only warned, you still have a dated window, but the sensible move is to fix both together, because the target API upgrade is usually what surfaces the 16 KB problem anyway. Doing them separately means paying for two rounds of testing and two resubmissions.</p>
+<p></p>
+<h2>2. What a Page Size Actually Is, in Plain Words</h2>
+<p></p>
+<p>A page is a fixed block of memory the phone works in. Android phones have historically used 4 KB pages. Newer devices are moving to 16 KB pages because, with more memory in modern phones, larger pages can improve performance. Google&#x27;s guide lists measured gains from its own early testing, including faster app launches under memory pressure and faster system boot on average. You do not need to care about the engineering detail. You need to care about one consequence.</p>
+<p></p>
+<p><strong>If parts of your app were built assuming 4 KB pages, the app may not run correctly on 16 KB devices, and from 1 February 2027 Play will not let you release updates until those parts are rebuilt.</strong></p>
+<p></p>
+<p>The parts at risk are almost never the screens your users see. They are native libraries: compiled code, often from a third party SDK for payments, maps, analytics, video, or ads, that was packaged years ago and quietly carried forward through every update since. Your app can look modern on the surface and still carry a library from several Android versions ago underneath.</p>
+<p></p>
+<p>Google states the clean case plainly in its guide: <strong>if your app only uses code written in Java or Kotlin, including all libraries and SDKs, then your app already supports 16 KB devices.</strong> The problem starts when any native code is present, directly through the Android NDK, through a third party native library or SDK, or through an app builder that uses native libraries. Most real commercial apps have at least one of those, which is why this warning is so common.</p>
+<p></p>
+<h2>3. The Blocked Update Diagnostic</h2>
+<p></p>
+<p>This is the original tool in this post. Ask whoever maintains your app to run these five checks in this order and show you the result of each one. It separates a block you must fix now from a warning you must fix by a date, and it stops teams from guessing.</p>
+<p></p>
+<ol>
+<li><strong>Read the exact Play Console message and name the ground.</strong> Is the update refused for target API level, warned for 16 KB page size, or both? A refusal and a warning need different urgency, and the console text tells you which you have.</li>
+<li><strong>Check the current target API level.</strong> If the app targets below API 36, an update submitted now fails the target api requirement. This check takes minutes and settles whether you are blocked today.</li>
+<li><strong>Check whether the app uses native code at all.</strong> Google recommends the APK Analyzer in Android Studio: open the app package, look in the lib folder for shared object files, and read the Alignment column. No shared object files usually means no native code, and the 16 KB problem likely does not apply.</li>
+<li><strong>If native files exist, name the ones that are not 16 KB aligned.</strong> The same Alignment column flags them. The output you want is a short list of named libraries, not a general statement that the app is not compliant.</li>
+<li><strong>For each flagged library, decide update, replace, or remove.</strong> A maintained SDK usually has a newer, aligned version. An abandoned SDK needs replacing. A library nobody can explain is a candidate for removal, after checking what feature depends on it.</li>
+</ol>
+<p></p>
+<p><strong>How to read the result:</strong></p>
+<p></p>
+<ul>
+<li><strong>Target API low, no native code.</strong> One fix: raise the target API, handle the behaviour changes it forces, test, resubmit.</li>
+<li><strong>Target API low, native libraries flagged.</strong> Two linked fixes, done together in Section 4. This is the most common case we would expect.</li>
+<li><strong>Target API fine, native libraries flagged.</strong> No block today on that ground, but the 1 February 2027 date is your deadline. Schedule it, do not ignore it.</li>
+<li><strong>Target API fine, no native code.</strong> You are likely already compliant. Test in a 16 KB environment anyway, as Google recommends, and keep the evidence.</li>
+</ul>
+<p></p>
+<blockquote><p>If a developer cannot show you the named list from step 4, they have not diagnosed the problem yet. They have only read you the warning.</p></blockquote>
+<p></p>
+<h2>4. What the Fix Actually Involves, in Order</h2>
+<p></p>
+<p>A compliance fix is not a rewrite. For most apps it is a contained upgrade job, done in a specific order so nothing is done twice. This is the Fix Order we recommend.</p>
+<p></p>
+<ol>
+<li><strong>Raise the target API and fix what it breaks.</strong> Targeting a newer Android version turns on behaviour changes in areas like permissions, notifications, and background work. Each one needs checking against your real flows, not just a version number change in a file.</li>
+<li><strong>Update or replace the flagged native libraries.</strong> Bring each SDK to a version that is 16 KB aligned, replace abandoned ones, and rebuild the app so the native code is packaged with the correct alignment.</li>
+<li><strong>Rebuild and recheck the package.</strong> Run the alignment check again on the new build. The list from the diagnostic should come back clean before anyone talks about resubmitting.</li>
+<li><strong>Test on a 16 KB environment.</strong> Google provides emulator images for this. An app that passes the alignment check can still have behaviour problems, and finding them in testing is cheaper than finding them in user reviews.</li>
+<li><strong>Test on real devices, then resubmit.</strong> Check the core flows on the Android phones your users actually own, then submit with the target API and alignment both clean, so one review cycle covers both rules.</li>
+</ol>
+<p></p>
+<p>Notice what is not on this list: new features, a redesign, or a platform change. Teams that bundle a compliance fix into a bigger project delay the one thing Play is asking for. Ship the compliance build on its own, get updates moving again, then return to product work. Our <a href="https://www.codebaiz.com/our-services/android-app-development">Android app development</a> page describes the same principle for Android generally: device testing is part of the job, and target API requirements and Play policy changes are handled under maintenance, not discovered at submission time.</p>
+<p></p>
+<h2>5. What This Fix Costs, and What It Does Not</h2>
+<p></p>
+<p>We will be direct about pricing, because founders ask us this first. <strong>Code Baiz publishes no standalone price for a 16 KB fix, a target API fix, or a compliance rescue, and we will not invent one here.</strong> Anyone quoting you a fixed price before running the diagnostic in Section 3 is quoting without knowing whether your app has zero flagged libraries or six, and whether the target API step breaks one flow or ten.</p>
+<p></p>
+<p>What is published, and what you can plan around, is this:</p>
+<p></p>
+<ul>
+<li><strong>Maintenance runs at 15 to 20 percent of the original build cost per year</strong> on both our Android page and our <a href="https://www.codebaiz.com/our-services/app-maintenance">app maintenance and support</a> page. That covers OS and SDK updates, store policy compliance, monitoring, and small fixes, which is exactly the category this work falls into.</li>
+<li><strong>A scoped fix is quoted in writing after a check.</strong> The diagnostic produces the named list, and the quote follows the list, not the other way round.</li>
+<li><strong>The build figures behind the maintenance maths are the standing published ranges:</strong> a simpler single platform app from <strong>$25,000</strong>, and a production grade app at <strong>$60,000 to $120,000 or more</strong>.</li>
+<li><strong>There is no published guaranteed Play approval time, and we will not promise one.</strong> A clean submission still goes through Google&#x27;s review, on Google&#x27;s timing.</li>
+</ul>
+<p></p>
+<p>For the wider cost picture, our <a href="https://www.codebaiz.com/blogs/android-app-development-cost">Android app development cost</a> guide breaks down where Android money goes, including the testing work this fix depends on. The honest summary is that a planned compliance fix under maintenance is routine work, while the same fix discovered at a blocked launch, in your busiest month, is an emergency. The work is similar. The stress and the timing are not.</p>
+<p></p>
+<h2>6. Why Old Libraries Are Usually the Cause</h2>
+<p></p>
+<p>Founders often ask how an app they have not fundamentally changed can suddenly fail a new rule. The answer is that the app did not change, but everything around it did, in three ways.</p>
+<p></p>
+<ul>
+<li><strong>Devices changed.</strong> Manufacturers are shipping phones configured for 16 KB pages, so code packaged for 4 KB only is now a real compatibility problem, not a theoretical one.</li>
+<li><strong>Android changed.</strong> Each target API step turns on newer security, privacy, and performance behaviour. An app that skips several steps at once inherits several years of changes in a single upgrade, which is why annual small steps beat rare big jumps.</li>
+<li><strong>Libraries aged quietly.</strong> An SDK added for one feature in an early version can still be in the build years later, unmaintained by its maker and unnoticed by everyone else, until an alignment check names it.</li>
+</ul>
+<p></p>
+<p>This is also why the fix list is usually short. In our experience taking over and maintaining Android apps, the flagged item is typically a small number of third party libraries, not the app&#x27;s own code. That is a pattern from the work, not a promise about your app. Your diagnostic list is the only version that counts.</p>
+<p></p>
+<h2>7. How This Differs From a General App Store Rejection</h2>
+<p></p>
+<p>A general rejection and a compliance block feel similar in the console, but they are different problems. Our <a href="https://www.codebaiz.com/blogs/app-store-rejection">app store rejection</a> guide covers the wider picture: incomplete builds, privacy and metadata problems, and the triage we run before resubmitting. Read that if your message is about your listing, your declarations, or your app&#x27;s content.</p>
+<p></p>
+<p>This post is narrower. A target API or 16 KB block is not a judgment on your product. It is a technical compatibility gate, and it is fixed in the build, not in the listing. Founders waste weeks editing store text for a problem that lives in a library. Check the ground first, using step 1 of the diagnostic, before you change anything.</p>
+<p></p>
+<p>The prevention side is maintenance. Our guide to <a href="https://www.codebaiz.com/blogs/app-maintenance-services">what app maintenance actually includes</a> walks through the work itself: OS and SDK updates, store policy changes, dependency upgrades, and monitoring, scheduled before they become store problems. A team doing that work on a calendar would have raised your target API in a planned release and flagged your libraries while the February 2027 date was still distant.</p>
+<p></p>
+<h2>8. What Founders Get Wrong About Blocked Updates</h2>
+<p></p>
+<ul>
+<li><strong>Treating a warning as a block, or a block as a warning.</strong> The target API refusal needs action now. The 16 KB warning needs action by 1 February 2027. Confusing them either creates panic or creates delay, and both cost money.</li>
+<li><strong>Paying for a fix before seeing the diagnostic list.</strong> Without named libraries and a confirmed target API level, there is nothing concrete to price. Ask for the list first.</li>
+<li><strong>Bundling the fix into a feature release.</strong> Every extra change in the resubmission is another thing review can question and another thing testing must cover. Compliance first, features after.</li>
+<li><strong>Assuming a cross platform app is automatically exempt.</strong> Google&#x27;s test is whether native code is present, not which framework wrote your screens. If your app, or any SDK inside it, uses native libraries, the alignment check applies. Do not assume, run the check.</li>
+<li><strong>Letting the February date drift.</strong> 1 February 2027 sounds distant until an SDK replacement touches payments or maps and needs its own testing cycle. The founders who will struggle are the ones who start in January.</li>
+</ul>
+<p></p>
+<h2>9. Frequently Asked Questions</h2>
+<p></p>
+<p><strong>Why did Google Play block my app update?</strong> <strong>The most likely reason today is the target api requirement: since 31 August 2026, updates must target Android 16, API level 36 or higher.</strong> Read the exact console message first, because a 16 KB warning, a policy issue, and a target API refusal are three different problems with three different fixes.</p>
+<p></p>
+<p><strong>What is the google play 16 kb page size deadline?</strong> <strong>Starting 1 February 2027, updates that do not support 16 KB memory page sizes will not be able to release, for apps targeting Android 15 or higher on 64 bit devices.</strong> That date is stated on Google&#x27;s own 16 KB guide, rechecked on the day this post was published. These dates have moved before, so check Google&#x27;s guide again before planning around any later date.</p>
+<p></p>
+<p><strong>Does the 16 KB rule affect every Android app?</strong> <strong>No. Google states that apps using only Java or Kotlin code, including all their libraries, already support 16 KB devices.</strong> The rule bites when native code is present, through your own NDK code, a third party native library or SDK, or an app builder that uses native libraries. The APK Analyzer check tells you which case you are in.</p>
+<p></p>
+<p><strong>Can I just request another extension for the target API rule?</strong> <strong>The extension Google offered ran to 1 November 2026, and that date has passed.</strong> Plan on doing the upgrade work. If Play Console shows a different option inside your own account, that console message is the one that governs your app.</p>
+<p></p>
+<p><strong>How much does a 16 KB or target API fix cost?</strong> <strong>There is no honest fixed price before a diagnostic, and Code Baiz publishes none.</strong> The published frame is maintenance at 15 to 20 percent of build cost per year, or a scoped fix quoted in writing after the check that names your target API level and any flagged libraries.</p>
+<p></p>
+<p><strong>Should I fix the target API and 16 KB problems together?</strong> <strong>Yes, in almost every case.</strong> The target API upgrade forces SDK and dependency updates anyway, and those updates are where the alignment problems surface. One diagnostic, one upgrade pass, one testing cycle, and one resubmission covers both rules.</p>
+<p></p>
+<h2>10. Blocked Now, or Warned for February?</h2>
+<p></p>
+<p>If your update is refused, start with the free check, not a guess. Send us the exact Play Console message and we will tell you which ground you are blocked on, what your current target API level means for the fix, and whether native libraries are involved, before any paid work is discussed. If you are only warned, use the window well: get the diagnostic done now, while the fix can be scheduled calmly instead of against the 1 February 2027 deadline.</p>
+<p></p>
+<p>Code Baiz is a Brooklyn, NYC app development team of about 20 engineers, with 300+ projects launched since 2019 across mobile and web. We take over, maintain, and rescue Android apps other teams built, and store compliance work like this is a routine part of that maintenance. If Play has your update stuck, we are happy to be the second pair of eyes that gets it moving again.</p>
+<p></p>
+</body></html>
